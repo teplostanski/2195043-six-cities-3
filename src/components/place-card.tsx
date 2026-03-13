@@ -1,14 +1,22 @@
-import { PlaceCardData } from '../shared/types';
+import { Offer } from '../shared/types';
 
-type PlaceCardProps = Omit<PlaceCardData, 'id'>;
+type PlaceCardProps = Omit<Offer, 'id'>;
+
+const ratingStarEnum = {
+  5: '100%',
+  4: '80%',
+  3: '60%',
+  2: '40%',
+  1: '20%'
+} as const;
 
 export function PlaceCard({
   imagePath,
   price,
-  //rating,
+  ratingCount,
   name,
   type,
-  isBookmark,
+  isFavorite,
   isPremium,
 }: PlaceCardProps) {
   return (
@@ -37,7 +45,7 @@ export function PlaceCard({
           </div>
           <button
             className={
-              isBookmark
+              isFavorite
                 ? 'place-card__bookmark-button place-card__bookmark-button--active button'
                 : 'place-card__bookmark-button button'
             }
@@ -51,7 +59,7 @@ export function PlaceCard({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            {/*<span style="width: 100%"></span>*/}
+            <span style={{width: ratingStarEnum[ratingCount]}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

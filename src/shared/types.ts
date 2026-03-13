@@ -1,10 +1,10 @@
-export type PlaceCardData = {
-  id: number;
+export type Offer = {
+  id: string;
   imagePath: string;
   price: number;
-  //rating: number;
+  ratingCount: 1 | 2 | 3 | 4 | 5;
   name: string;
   type: string;
-  isBookmark: boolean;
+  isFavorite: boolean;
   isPremium: boolean;
-}
+};
