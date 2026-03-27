@@ -1,0 +1,25 @@
+.wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.message {
+  margin: 0;
+}
+
+.link {
+  text-decoration: underline;
+}
+
+.link:hover {
+  font-weight: 500;
+}

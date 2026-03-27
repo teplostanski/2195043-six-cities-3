@@ -7,10 +7,10 @@ const ratingStarEnum = {
   4: '80%',
   3: '60%',
   2: '40%',
-  1: '20%'
+  1: '20%',
 } as const;
 
-export function PlaceCard({
+function PlaceCard({
   imagePath,
   price,
   ratingCount,
@@ -59,7 +59,7 @@ export function PlaceCard({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: ratingStarEnum[ratingCount]}}></span>
+            <span style={{ width: ratingStarEnum[ratingCount] }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -71,3 +71,5 @@ export function PlaceCard({
     </article>
   );
 }
+
+export default PlaceCard;
