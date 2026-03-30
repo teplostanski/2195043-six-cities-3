@@ -26,7 +26,7 @@ function App({ offers }: AppProps) {
             path="favorites"
             element={
               <PrivateRoute>
-                <FavoritesPage />
+                <FavoritesPage offers={offers} />
               </PrivateRoute>
             }
           />
