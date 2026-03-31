@@ -1,8 +1,8 @@
 import PlaceCardList from '../../components/place-card-list';
-import { type Offer } from '../../shared/types';
+import { type OfferPreview } from '../../shared/types';
 
 type MainPageProps = {
-  offers: Offer[];
+  offers: OfferPreview[];
 };
 
 function MainPage({ offers }: MainPageProps) {

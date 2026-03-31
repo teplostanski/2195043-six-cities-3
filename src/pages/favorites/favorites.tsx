@@ -1,8 +1,8 @@
 import FavoritesCardList from '../../components/favorites-card-list';
-import { type Offer } from '../../shared/types';
+import { type OfferPreview } from '../../shared/types';
 
 type FavoritesPageProps = {
-  offers: Offer[];
+  offers: OfferPreview[];
 };
 
 function FavoritesPage({ offers }: FavoritesPageProps) {

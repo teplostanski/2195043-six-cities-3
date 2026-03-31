@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { type Offer } from './shared/types';
+import { type OfferPreview } from './shared/types';
 import MainPage from './pages/main/main';
 import FavoritesPage from './pages/favorites/favorites';
 import LoginPage from './pages/login/login';
@@ -10,7 +10,7 @@ import ScrollToTop from './components/scroll-to-top';
 import PrivateRoute from './components/private-route';
 
 type AppProps = {
-  offers: Offer[];
+  offers: OfferPreview[];
 };
 
 function App({ offers }: AppProps) {

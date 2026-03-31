@@ -1,8 +1,19 @@
+import { Link } from 'react-router-dom';
 import { ratingStarEnum } from '../shared/constants';
-import { Offer } from '../shared/types';
+import { OfferPreview } from '../shared/types';
 import PremiumMark from './premium-mark';
 
-type PlaceCardProps = Omit<Offer, 'city'> & {
+type PlaceCardProps = Pick<
+  OfferPreview,
+  | 'id'
+  | 'previewImage'
+  | 'price'
+  | 'rating'
+  | 'title'
+  | 'type'
+  | 'isFavorite'
+  | 'isPremium'
+> & {
   onHover: (id: string) => void;
   onLeave: () => void;
 };
@@ -70,7 +81,12 @@ function PlaceCard({
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          {/*
+            ОСТАЛИСЬ ПУНКТЫ 9, 10, 11
+
+            Используя компонент Link и хуки из пакета react-router-dom свяжите страницы приложения. Например, клик по заголовку карточки предложения должен переводить пользователя на страницу «Offer» с подробным описанием предложения по аренде.
+          */}
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

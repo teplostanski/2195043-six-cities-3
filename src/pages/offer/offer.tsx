@@ -1,59 +1,38 @@
+import { useParams } from 'react-router-dom';
+import { offersFullMock } from '../../mocks/offers';
+import PremiumMark from '../../components/premium-mark';
+
+function OfferGallery({ imagesPath }: { imagesPath: string[] }) {
+  return (
+    <div className="offer__gallery">
+      {imagesPath &&
+        imagesPath.map((path: string, i: number) => (
+          <div className="offer__image-wrapper" key={i}>
+            <img className="offer__image" src={path} alt="Photo studio" />
+          </div>
+        ))}
+    </div>
+  );
+}
+
 function OfferPage() {
+  const params = useParams();
+  const offerInfo = offersFullMock.find((offer) => offer.id === params.id);
+
+  if (!offerInfo) {
+    return null;
+  }
+
   return (
     <div className="page">
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
-            <div className="offer__gallery">
-              <div className="offer__image-wrapper">
-                <img
-                  className="offer__image"
-                  src="img/room.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="offer__image-wrapper">
-                <img
-                  className="offer__image"
-                  src="img/apartment-01.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="offer__image-wrapper">
-                <img
-                  className="offer__image"
-                  src="img/apartment-02.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="offer__image-wrapper">
-                <img
-                  className="offer__image"
-                  src="img/apartment-03.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="offer__image-wrapper">
-                <img
-                  className="offer__image"
-                  src="img/studio-01.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="offer__image-wrapper">
-                <img
-                  className="offer__image"
-                  src="img/apartment-01.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-            </div>
+            <OfferGallery imagesPath={offerInfo?.images} />
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <div className="offer__mark">
-                <span>Premium</span>
-              </div>
+              <PremiumMark show={offerInfo?.isPremium} />
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
                   Beautiful &amp; luxurious studio at great location
@@ -264,8 +243,7 @@ function OfferPage() {
                     id="review"
                     name="review"
                     placeholder="Tell how was your stay, what you like and what can be improved"
-                  >
-                  </textarea>
+                  ></textarea>
                   <div className="reviews__button-wrapper">
                     <p className="reviews__help">
                       To submit review please make sure to set{' '}

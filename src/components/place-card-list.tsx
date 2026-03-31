@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import { Offer } from '../shared/types';
+import { OfferPreview } from '../shared/types';
 import PlaceCard from './place-card';
 
 type PlaceCardListProps = {
-  offers: Omit<Offer, 'city'>[];
+  offers: Omit<OfferPreview, 'city'>[];
 };
 
 function PlaceCardList({ offers }: PlaceCardListProps) {
