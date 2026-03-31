@@ -1,10 +1,6 @@
-import { Header } from '../../components/header';
-
-export function FavoritesPage() {
+function FavoritesPage() {
   return (
     <div className="page">
-      <Header />
-
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -193,3 +189,5 @@ export function FavoritesPage() {
     </div>
   );
 }
+
+export default FavoritesPage;

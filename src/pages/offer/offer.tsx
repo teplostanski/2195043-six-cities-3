@@ -1,10 +1,6 @@
-import { Header } from '../../components/header';
-
-export function OfferPage() {
+function OfferPage() {
   return (
     <div className="page">
-      <Header />
-
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -447,3 +443,5 @@ export function OfferPage() {
     </div>
   );
 }
+
+export default OfferPage;
