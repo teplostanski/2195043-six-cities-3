@@ -1,4 +1,4 @@
-type CityName =
+export type CityName =
   | 'Amsterdam'
   | 'Paris'
   | 'Cologne'

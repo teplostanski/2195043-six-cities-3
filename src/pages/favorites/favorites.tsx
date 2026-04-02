@@ -1,11 +1,13 @@
-import FavoritesCardList from '../../components/favorites-card-list';
-import { type OfferPreview } from '../../shared/types';
+import {FavoritesCardList} from '../../components/favorites-card-list';
+import type { OfferPreview } from '../../shared/types';
 
 type FavoritesPageProps = {
   offers: OfferPreview[];
 };
 
 function FavoritesPage({ offers }: FavoritesPageProps) {
+
+
   return (
     <div className="page">
       <main className="page__main page__main--favorites">

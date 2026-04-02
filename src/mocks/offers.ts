@@ -61,6 +61,21 @@ export const offersMock: OfferPreview[] = [
     },
     location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
   },
+  {
+    id: 'r2io89',
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'apartment',
+    price: 180,
+    previewImage: 'img/apartment-03.jpg',
+    rating: 5,
+    isFavorite: true,
+    isPremium: true,
+    city: {
+      name: 'Paris',
+      location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
+    },
+    location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
+  },
 ];
 
 export const offersFullMock: OfferFull[] = [
@@ -188,6 +203,48 @@ export const offersFullMock: OfferFull[] = [
     isPremium: true,
     city: {
       name: 'Amsterdam',
+      location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
+    },
+    location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
+    description:
+      'Experience ultimate comfort in this premium apartment featuring a king-size bed and high-end furnishings. Ideal for a romantic getaway or a relaxing business trip. The space includes a fully equipped kitchen, spacious living area, and a private balcony.',
+    bedrooms: 3,
+    goods: [
+      'Heating',
+      'Wi-Fi',
+      'Kitchen',
+      'Fridge',
+      'Washing machine',
+      'Dishwasher',
+      'Air conditioning',
+      'Coffee machine',
+    ],
+    host: {
+      name: 'Emily Davis',
+      avatarUrl: 'img/avatar-angelina.jpg',
+      isPro: false,
+    },
+    images: [
+      'img/room.jpg',
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg',
+      'img/studio-01.jpg',
+      'img/apartment-01.jpg',
+    ],
+    maxAdults: 6,
+  },
+  {
+    id: 'r2io89',
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'apartment',
+    price: 180,
+    previewImage: 'img/apartment-03.jpg',
+    rating: 5,
+    isFavorite: true,
+    isPremium: true,
+    city: {
+      name: 'Paris',
       location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
     },
     location: { latitude: 52.365, longitude: 4.91, zoom: 8 },

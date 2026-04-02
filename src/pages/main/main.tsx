@@ -1,4 +1,4 @@
-import PlaceCardList from '../../components/place-card-list';
+import {CitiesCardList} from '../../components/cities-card-list';
 import { type OfferPreview } from '../../shared/types';
 
 type MainPageProps = {
@@ -77,7 +77,7 @@ function MainPage({ offers }: MainPageProps) {
                   </li>
                 </ul>
               </form>
-              <PlaceCardList offers={offers} />
+              <CitiesCardList offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

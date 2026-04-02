@@ -1,4 +1,4 @@
-export const ratingStarEnum = {
+export const ratingStarMap = {
   5: '100%',
   4: '80%',
   3: '60%',
