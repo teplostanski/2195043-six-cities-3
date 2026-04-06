@@ -1,21 +1,20 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { offersFullMock } from '../../mocks/offers';
 import PremiumMark from '../../components/premium-mark';
+import { routesMap } from '../../shared/constants';
 
-function OfferGallery({ imagesPath }: { imagesPath: string[] }) {
-  return (
-    <div className="offer__gallery">
-      {imagesPath &&
-        imagesPath.map((path: string, i: number) => (
-          <div className="offer__image-wrapper" key={i}>
+const OfferGallery = ({ imagesPath }: { imagesPath: string[] }) => (
+  <div className="offer__gallery">
+    {imagesPath &&
+        imagesPath.map((path: string) => (
+          <div className="offer__image-wrapper" key={crypto.randomUUID()}>
             <img className="offer__image" src={path} alt="Photo studio" />
           </div>
         ))}
-    </div>
-  );
-}
+  </div>
+);
 
-function OfferPage() {
+const OfferPage = () => {
   const params = useParams();
   const offerInfo = offersFullMock.find((offer) => offer.id === params.id);
 
@@ -243,7 +242,8 @@ function OfferPage() {
                     id="review"
                     name="review"
                     placeholder="Tell how was your stay, what you like and what can be improved"
-                  ></textarea>
+                  >
+                  </textarea>
                   <div className="reviews__button-wrapper">
                     <p className="reviews__help">
                       To submit review please make sure to set{' '}
@@ -273,7 +273,7 @@ function OfferPage() {
             <div className="near-places__list places__list">
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
+                  <Link to={routesMap.empty}>
                     <img
                       className="place-card__image"
                       src="img/room.jpg"
@@ -281,7 +281,7 @@ function OfferPage() {
                       height="200"
                       alt="Place image"
                     />
-                  </a>
+                  </Link>
                 </div>
                 <div className="place-card__info">
                   <div className="place-card__price-wrapper">
@@ -312,7 +312,7 @@ function OfferPage() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Wood and stone place</a>
+                    <Link to={routesMap.empty}>Wood and stone place</Link>
                   </h2>
                   <p className="place-card__type">Room</p>
                 </div>
@@ -320,7 +320,7 @@ function OfferPage() {
 
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
+                  <Link to={routesMap.empty}>
                     <img
                       className="place-card__image"
                       src="img/apartment-02.jpg"
@@ -328,7 +328,7 @@ function OfferPage() {
                       height="200"
                       alt="Place image"
                     />
-                  </a>
+                  </Link>
                 </div>
                 <div className="place-card__info">
                   <div className="place-card__price-wrapper">
@@ -359,7 +359,7 @@ function OfferPage() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Canal View Prinsengracht</a>
+                    <Link to={routesMap.empty}>Canal View Prinsengracht</Link>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
@@ -370,7 +370,7 @@ function OfferPage() {
                   <span>Premium</span>
                 </div>
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
+                  <Link to={routesMap.empty}>
                     <img
                       className="place-card__image"
                       src="img/apartment-03.jpg"
@@ -378,7 +378,7 @@ function OfferPage() {
                       height="200"
                       alt="Place image"
                     />
-                  </a>
+                  </Link>
                 </div>
                 <div className="place-card__info">
                   <div className="place-card__price-wrapper">
@@ -409,7 +409,9 @@ function OfferPage() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Nice, cozy, warm big bed apartment</a>
+                    <Link to={routesMap.root}>
+                      Nice, cozy, warm big bed apartment
+                    </Link>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
@@ -420,6 +422,6 @@ function OfferPage() {
       </main>
     </div>
   );
-}
+};
 
-export default OfferPage;
+export { OfferPage };

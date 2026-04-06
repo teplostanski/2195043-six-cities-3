@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
-import { ratingStarMap } from '../shared/constants';
+import { cardImageSizesMap, ratingStarMap, routesMap } from '../shared/constants';
 import { OfferPreview } from '../shared/types';
 import PremiumMark from './premium-mark';
 
-type Variant = 'cities' | 'favorites';
+type Variant = keyof typeof cardImageSizesMap;
 
 type PlaceCardProps = {
   offer: OfferPreview;
@@ -15,12 +15,6 @@ type PlaceCardProps = {
 const PlaceCard = ({ offer, variant, onActive }: PlaceCardProps) => {
   const isCitiesCard = variant === 'cities';
   const isFavoritesCard = variant === 'favorites';
-
-  const cardImageSizesMap: Record<Variant, { width: string; height: string }> =
-    {
-      cities: { width: '260', height: '200' },
-      favorites: { width: '150', height: '110' },
-    } as const;
 
   return (
     <article
@@ -42,7 +36,7 @@ const PlaceCard = ({ offer, variant, onActive }: PlaceCardProps) => {
           'favorites__image-wrapper': isFavoritesCard,
         })}
       >
-        <Link to={`/offer/${offer.id}`}>
+        <Link to={routesMap.getOfferUrl(offer.id)}>
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -81,12 +75,7 @@ const PlaceCard = ({ offer, variant, onActive }: PlaceCardProps) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          {/*
-            ОСТАЛИСЬ ПУНКТЫ 9, 10, 11
-
-            Используя компонент Link и хуки из пакета react-router-dom свяжите страницы приложения. Например, клик по заголовку карточки предложения должен переводить пользователя на страницу «Offer» с подробным описанием предложения по аренде.
-          */}
-          <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
+          <Link to={routesMap.getOfferUrl(offer.id)}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

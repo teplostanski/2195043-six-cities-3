@@ -1,6 +1,8 @@
 import { useState, useCallback } from 'react';
 import type { CityName, OfferPreview } from '../shared/types';
 import { PlaceCard } from './place-card';
+import { Link } from 'react-router-dom';
+import { routesMap } from '../shared/constants';
 
 type FavoritesCardListProps = {
   offers: OfferPreview[];
@@ -18,9 +20,9 @@ const FavoritesCardList = ({ offers }: FavoritesCardListProps) => {
     setActiveCardId(id);
   }, []);
 
-  const favoriteOffers = offers.filter((item) => item.isFavorite === true);
+  const favoriteOffers = offers.filter((item) => item.isFavorite);
 
-  const groupedOffersByCity = favoriteOffers.reduce((acc, current) => {
+  const groupedFavoritesByCity = favoriteOffers.reduce((acc, current) => {
     const cityName = current.city.name;
     const existingGroup = acc.find((group) => group.city === cityName);
 
@@ -33,30 +35,33 @@ const FavoritesCardList = ({ offers }: FavoritesCardListProps) => {
     return acc;
   }, [] as OffersByCity[]);
 
+  /**
+   * groupedFavoritesByCity.length > 0 &&
+   */
+
   return (
     <ul className="favorites__list">
-      {groupedOffersByCity.length > 0 &&
-        groupedOffersByCity.map((group) => (
-          <li key={group.city} className="favorites__locations-items">
-            <div className="favorites__locations locations locations--current">
-              <div className="locations__item">
-                <a className="locations__item-link" href="#">
-                  <span>{group.city}</span>
-                </a>
-              </div>
+      {groupedFavoritesByCity.map((group) => (
+        <li key={group.city} className="favorites__locations-items">
+          <div className="favorites__locations locations locations--current">
+            <div className="locations__item">
+              <Link to={routesMap.empty} className="locations__item-link">
+                <span>{group.city}</span>
+              </Link>
             </div>
-            <div className="favorites__places">
-              {group.offers.map((offer) => (
-                <PlaceCard
-                  key={offer.id}
-                  offer={offer}
-                  variant="favorites"
-                  onActive={handleToggleActiveCard}
-                />
-              ))}
-            </div>
-          </li>
-        ))}
+          </div>
+          <div className="favorites__places">
+            {group.offers.map((offer) => (
+              <PlaceCard
+                key={offer.id}
+                offer={offer}
+                variant="favorites"
+                onActive={handleToggleActiveCard}
+              />
+            ))}
+          </div>
+        </li>
+      ))}
     </ul>
   );
 };
