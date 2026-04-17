@@ -7,7 +7,8 @@ type CitiesCardListProps = {
 };
 
 const CitiesCardList = ({ offers }: CitiesCardListProps) => {
-  const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_activeCardId, setActiveCardId] = useState<string | null>(null);
 
   const handleToggleActiveCard = useCallback((id: string | null) => {
     setActiveCardId(id);
@@ -25,6 +26,6 @@ const CitiesCardList = ({ offers }: CitiesCardListProps) => {
       ))}
     </div>
   );
-}
+};
 
-export {CitiesCardList};
+export { CitiesCardList };

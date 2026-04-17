@@ -14,7 +14,8 @@ type OffersByCity = {
 };
 
 const FavoritesCardList = ({ offers }: FavoritesCardListProps) => {
-  const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_activeCardId, setActiveCardId] = useState<string | null>(null);
 
   const handleToggleActiveCard = useCallback((id: string | null) => {
     setActiveCardId(id);
