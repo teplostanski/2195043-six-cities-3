@@ -1,18 +1,37 @@
 import { Link, useParams } from 'react-router-dom';
+import cn from 'classnames';
 import { offersFullMock } from '../../mocks/offers';
 import PremiumMark from '../../components/premium-mark';
-import { routesMap } from '../../shared/constants';
+import { ratingStarMap, routesMap } from '../../shared/constants';
 import { commentsMock } from '../../mocks/comments';
 import { OfferReview } from '../../components/offer-review';
 
+type GalleryImageItem = {
+  path: string;
+  key: string;
+};
+
+const buildGalleryImages = (imagesPath: string[]): GalleryImageItem[] => {
+  const imageKeyCounters = new Map<string, number>();
+
+  return imagesPath.map((path) => {
+    const occurrence = (imageKeyCounters.get(path) ?? 0) + 1;
+    imageKeyCounters.set(path, occurrence);
+
+    return {
+      path,
+      key: `${path}-${occurrence}`,
+    };
+  });
+};
+
 const OfferGallery = ({ imagesPath }: { imagesPath: string[] }) => (
   <div className="offer__gallery">
-    {imagesPath &&
-      imagesPath.map((path: string) => (
-        <div className="offer__image-wrapper" key={crypto.randomUUID()}>
-          <img className="offer__image" src={path} alt="Photo studio" />
-        </div>
-      ))}
+    {buildGalleryImages(imagesPath).map(({ path, key }) => (
+      <div className="offer__image-wrapper" key={key}>
+        <img className="offer__image" src={path} alt="Photo studio" />
+      </div>
+    ))}
   </div>
 );
 
@@ -35,9 +54,7 @@ const OfferPage = () => {
             <div className="offer__wrapper">
               <PremiumMark show={offerInfo?.isPremium} />
               <div className="offer__name-wrapper">
-                <h1 className="offer__name">
-                  Beautiful &amp; luxurious studio at great location
-                </h1>
+                <h1 className="offer__name">{offerInfo.title}</h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
@@ -47,67 +64,65 @@ const OfferPage = () => {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: '80%' }}></span>
+                  <span style={{ width: ratingStarMap[offerInfo.rating] }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">4.8</span>
+                <span className="offer__rating-value rating__value">
+                  {offerInfo.rating}
+                </span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  Apartment
+                  {offerInfo.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  3 Bedrooms
+                  {offerInfo.bedrooms} Bedrooms
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max 4 adults
+                  Max {offerInfo.maxAdults} adults
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;120</b>
+                <b className="offer__price-value">&euro;{offerInfo.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  <li className="offer__inside-item">Wi-Fi</li>
-                  <li className="offer__inside-item">Washing machine</li>
-                  <li className="offer__inside-item">Towels</li>
-                  <li className="offer__inside-item">Heating</li>
-                  <li className="offer__inside-item">Coffee machine</li>
-                  <li className="offer__inside-item">Baby seat</li>
-                  <li className="offer__inside-item">Kitchen</li>
-                  <li className="offer__inside-item">Dishwasher</li>
-                  <li className="offer__inside-item">Cabel TV</li>
-                  <li className="offer__inside-item">Fridge</li>
+                  {offerInfo.goods.map((good) => (
+                    <li className="offer__inside-item" key={good}>
+                      {good}
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                  <div
+                    className={cn(
+                      'offer__avatar-wrapper',
+                      'user__avatar-wrapper',
+                      {
+                        'offer__avatar-wrapper--pro': offerInfo.host.isPro,
+                      }
+                    )}
+                  >
                     <img
                       className="offer__avatar user__avatar"
-                      src="img/avatar-angelina.jpg"
+                      src={offerInfo.host.avatarUrl}
                       width="74"
                       height="74"
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="offer__user-name">Angelina</span>
-                  <span className="offer__user-status">Pro</span>
+                  <span className="offer__user-name">{offerInfo.host.name}</span>
+                  {offerInfo.host.isPro && (
+                    <span className="offer__user-status">Pro</span>
+                  )}
                 </div>
                 <div className="offer__description">
-                  <p className="offer__text">
-                    A quiet cozy and picturesque that hides behind a a river by
-                    the unique lightness of Amsterdam. The building is green and
-                    from 18th century.
-                  </p>
-                  <p className="offer__text">
-                    An independent House, strategically located between Rembrand
-                    Square and National Opera, but where the bustle of the city
-                    comes to rest in this alley flowery and colorful.
-                  </p>
+                  <p className="offer__text">{offerInfo.description}</p>
                 </div>
               </div>
               {commentsMock && commentsMock.length > 0 && (
