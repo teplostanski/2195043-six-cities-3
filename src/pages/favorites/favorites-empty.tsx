@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { routesMap } from '../../shared/constants';
+
 function FavoritesEmptyPage() {
   return (
     <div className="page page--favorites-empty">
@@ -15,7 +18,7 @@ function FavoritesEmptyPage() {
         </div>
       </main>
       <footer className="footer">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to={routesMap.root}>
           <img
             className="footer__logo"
             src="img/logo.svg"
@@ -23,7 +26,7 @@ function FavoritesEmptyPage() {
             width="64"
             height="33"
           />
-        </a>
+        </Link>
       </footer>
     </div>
   );

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './not-found.module.css';
+import { routesMap } from '../../shared/constants';
 
 function NotFoundPage() {
   return (
@@ -9,7 +10,7 @@ function NotFoundPage() {
           <p className={styles.message}>
             Error 404. Page Not Found.
           </p>
-          <Link to={'/'} className={styles.link}>
+          <Link to={routesMap.root} className={styles.link}>
             Go Home
           </Link>
         </div>
