@@ -12,9 +12,9 @@ export const offersMock: OfferPreview[] = [
     isPremium: true,
     city: {
       name: 'Amsterdam',
-      location: { latitude: 52.37454, longitude: 4.897976, zoom: 8 },
+      location: { latitude: 52.3909553943508, longitude: 4.85309666406198, zoom: 12 },
     },
-    location: { latitude: 52.37454, longitude: 4.897976, zoom: 8 },
+    location: { latitude: 52.3909553943508, longitude: 4.85309666406198, zoom: 12 },
   },
   {
     id: 'k9m4x1',
@@ -27,9 +27,9 @@ export const offersMock: OfferPreview[] = [
     isPremium: false,
     city: {
       name: 'Amsterdam',
-      location: { latitude: 52.369, longitude: 4.902, zoom: 8 },
+      location: { latitude: 52.3909553943508, longitude: 4.85309666406198, zoom: 12 },
     },
-    location: { latitude: 52.369, longitude: 4.902, zoom: 8 },
+    location: { latitude: 52.3609553943508, longitude: 4.85309666406198, zoom: 12 },
   },
   {
     id: 'p2q8z5',
@@ -42,9 +42,9 @@ export const offersMock: OfferPreview[] = [
     isPremium: false,
     city: {
       name: 'Amsterdam',
-      location: { latitude: 52.378, longitude: 4.885, zoom: 8 },
+      location: { latitude: 52.3909553943508, longitude: 4.85309666406198, zoom: 12 },
     },
-    location: { latitude: 52.378, longitude: 4.885, zoom: 8 },
+    location: { latitude: 52.3909553943508, longitude: 4.929309666406198, zoom: 12 },
   },
   {
     id: 'r6t0w3',
@@ -57,24 +57,9 @@ export const offersMock: OfferPreview[] = [
     isPremium: true,
     city: {
       name: 'Amsterdam',
-      location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
+      location: { latitude: 52.3909553943508, longitude: 4.85309666406198, zoom: 12 },
     },
-    location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
-  },
-  {
-    id: 'r2io89',
-    title: 'Nice, cozy, warm big bed apartment',
-    type: 'apartment',
-    price: 180,
-    previewImage: 'img/apartment-03.jpg',
-    rating: 5,
-    isFavorite: true,
-    isPremium: true,
-    city: {
-      name: 'Paris',
-      location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
-    },
-    location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
+    location: { latitude: 52.3809553943508, longitude: 4.939309666406198, zoom: 12 },
   },
 ];
 
@@ -90,9 +75,9 @@ export const offersFullMock: OfferFull[] = [
     isPremium: true,
     city: {
       name: 'Amsterdam',
-      location: { latitude: 52.37454, longitude: 4.897976, zoom: 8 },
+      location: { latitude: 52.3909553943508, longitude: 4.85309666406198, zoom: 12 },
     },
-    location: { latitude: 52.37454, longitude: 4.897976, zoom: 8 },
+    location: { latitude: 52.3909553943508, longitude: 4.85309666406198, zoom: 12 },
     description:
       'A spacious and luxurious apartment located in the heart of Amsterdam. Perfect for couples or small families looking to experience the city in style. Features modern amenities, high ceilings, and large windows with a stunning view of the canal.',
     bedrooms: 2,
@@ -130,9 +115,9 @@ export const offersFullMock: OfferFull[] = [
     isPremium: false,
     city: {
       name: 'Amsterdam',
-      location: { latitude: 52.369, longitude: 4.902, zoom: 8 },
+      location: { latitude: 52.3909553943508, longitude: 4.85309666406198, zoom: 12 },
     },
-    location: { latitude: 52.369, longitude: 4.902, zoom: 8 },
+    location: { latitude: 52.3609553943508, longitude: 4.85309666406198, zoom: 12 },
     description:
       'Cozy room in a historic building with wooden interiors and stone accents. Great for solo travelers who want to feel the local atmosphere. Shared kitchen and bathroom facilities. Located in a quiet neighborhood, yet close to public transport.',
     bedrooms: 1,
@@ -163,9 +148,9 @@ export const offersFullMock: OfferFull[] = [
     isPremium: false,
     city: {
       name: 'Amsterdam',
-      location: { latitude: 52.378, longitude: 4.885, zoom: 8 },
+      location: { latitude: 52.3909553943508, longitude: 4.85309666406198, zoom: 12 },
     },
-    location: { latitude: 52.378, longitude: 4.885, zoom: 8 },
+    location: { latitude: 52.3909553943508, longitude: 4.929309666406198, zoom: 12 },
     description:
       'Enjoy breathtaking views of the famous Prinsengracht canal from this charming apartment. Located near the Anne Frank House and local cafes, it offers the perfect base for your Amsterdam adventure. The apartment features original wooden beams and modern comforts.',
     bedrooms: 1,
@@ -203,51 +188,9 @@ export const offersFullMock: OfferFull[] = [
     isPremium: true,
     city: {
       name: 'Amsterdam',
-      location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
+      location: { latitude: 52.3909553943508, longitude: 4.85309666406198, zoom: 12 },
     },
-    location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
-    description:
-      'Experience ultimate comfort in this premium apartment featuring a king-size bed and high-end furnishings. Ideal for a romantic getaway or a relaxing business trip. The space includes a fully equipped kitchen, spacious living area, and a private balcony.',
-    bedrooms: 3,
-    goods: [
-      'Heating',
-      'Wi-Fi',
-      'Kitchen',
-      'Fridge',
-      'Washing machine',
-      'Dishwasher',
-      'Air conditioning',
-      'Coffee machine',
-    ],
-    host: {
-      name: 'Emily Davis',
-      avatarUrl: 'img/avatar-angelina.jpg',
-      isPro: false,
-    },
-    images: [
-      'img/room.jpg',
-      'img/apartment-01.jpg',
-      'img/apartment-02.jpg',
-      'img/apartment-03.jpg',
-      'img/studio-01.jpg',
-      'img/apartment-01.jpg',
-    ],
-    maxAdults: 6,
-  },
-  {
-    id: 'r2io89',
-    title: 'Nice, cozy, warm big bed apartment',
-    type: 'apartment',
-    price: 180,
-    previewImage: 'img/apartment-03.jpg',
-    rating: 5,
-    isFavorite: true,
-    isPremium: true,
-    city: {
-      name: 'Paris',
-      location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
-    },
-    location: { latitude: 52.365, longitude: 4.91, zoom: 8 },
+    location: { latitude: 52.3809553943508, longitude: 4.939309666406198, zoom: 12 },
     description:
       'Experience ultimate comfort in this premium apartment featuring a king-size bed and high-end furnishings. Ideal for a romantic getaway or a relaxing business trip. The space includes a fully equipped kitchen, spacious living area, and a private balcony.',
     bedrooms: 3,

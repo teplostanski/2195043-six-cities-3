@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { CitiesCardList } from '../../components/cities-card-list';
+import Map from '../../components/map';
 import { type OfferPreview } from '../../shared/types';
 import { routesMap } from '../../shared/constants';
 
@@ -104,7 +105,9 @@ function MainPage({ offers }: MainPageProps) {
               )}
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              {offers.length > 0 && (
+                <Map city={offers[0].city} offers={offers} />
+              )}
             </div>
           </div>
         </div>
