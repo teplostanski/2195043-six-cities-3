@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CitiesCardList } from '../../components/cities-card-list';
 import Map from '../../components/map';
@@ -9,6 +10,8 @@ type MainPageProps = {
 };
 
 function MainPage({ offers }: MainPageProps) {
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
@@ -101,12 +104,19 @@ function MainPage({ offers }: MainPageProps) {
                 </ul>
               </form>
               {offers && offers.length > 0 && (
-                <CitiesCardList offers={offers} />
+                <CitiesCardList
+                  offers={offers}
+                  onActiveCardChange={setActiveOfferId}
+                />
               )}
             </section>
             <div className="cities__right-section">
-              {offers.length > 0 && (
-                <Map city={offers[0].city} offers={offers} />
+              {offers && offers.length > 0 && (
+                <Map
+                  city={offers[0].city}
+                  offers={offers}
+                  activeOfferId={activeOfferId}
+                />
               )}
             </div>
           </div>

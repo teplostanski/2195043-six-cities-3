@@ -9,13 +9,13 @@ type MapProps = {
   className?: string;
 };
 
-const defaultCustomIcon = new Icon({
+const DEFAULT_CUSTOM_ICON = new Icon({
   iconUrl: '/img/pin.svg',
   iconSize: [27, 39],
   iconAnchor: [13.5, 39],
 });
 
-const activeCustomIcon = new Icon({
+const ACTIVE_CUSTOM_ICON = new Icon({
   iconUrl: '/img/pin-active.svg',
   iconSize: [27, 39],
   iconAnchor: [13.5, 39],
@@ -84,8 +84,8 @@ function Map({
         {
           icon:
             activeOfferId !== null && offer.id === activeOfferId
-              ? activeCustomIcon
-              : defaultCustomIcon,
+              ? ACTIVE_CUSTOM_ICON
+              : DEFAULT_CUSTOM_ICON,
         }
       );
 
