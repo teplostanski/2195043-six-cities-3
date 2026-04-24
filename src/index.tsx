@@ -3,13 +3,19 @@ import ReactDOM from 'react-dom/client';
 import 'leaflet/dist/leaflet.css';
 import App from './app';
 import { offersMock } from './mocks/offers';
+import { Provider } from 'react-redux';
+import { setupStore } from './store/store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
+const store = setupStore();
+
 root.render(
   <React.StrictMode>
-    <App offers={offersMock} />
+    <Provider store={store}>
+      <App offers={offersMock} />
+    </Provider>
   </React.StrictMode>,
 );
