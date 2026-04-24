@@ -1,25 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { offersMock } from '../../mocks/offers';
 import { OfferPreview } from '../../shared/types';
 
-type Offer = {
+type Offers = {
   city: string;
   offers: OfferPreview[];
-  count: number;
 };
 
-const initialState: Offer = {
+const initialState: Offers = {
   city: 'Paris',
-  offers: [...offersMock],
-  count: 0,
+  offers: [],
 };
 
 export const offerSlice = createSlice({
   name: 'offer',
   initialState,
   reducers: {
-    inc(state, action: PayloadAction<number>) {
-      state.count += action.payload;
+    setOffers(state, action: PayloadAction<OfferPreview[]>) {
+      state.offers = action.payload;
     },
   },
 });
