@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'leaflet/dist/leaflet.css';
 import App from './app';
-import { offersMock } from './mocks/offers';
 import { Provider } from 'react-redux';
 import { setupStore } from './store/store';
 
@@ -15,7 +14,7 @@ const store = setupStore();
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App offers={offersMock} />
+      <App />
     </Provider>
   </React.StrictMode>,
 );

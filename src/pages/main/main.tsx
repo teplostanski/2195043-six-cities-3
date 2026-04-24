@@ -2,14 +2,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CitiesCardList } from '../../components/cities-card-list';
 import Map from '../../components/map';
-import { type OfferPreview } from '../../shared/types';
 import { routesMap } from '../../shared/constants';
+import { useAppSelector } from '../../shared/hooks/redux';
 
-type MainPageProps = {
-  offers: OfferPreview[];
-};
-
-function MainPage({ offers }: MainPageProps) {
+function MainPage() {
+  const { offers } = useAppSelector((state) => state.offerReducer);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   return (
