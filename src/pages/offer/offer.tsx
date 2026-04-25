@@ -113,30 +113,34 @@ const OfferPage = () => {
               )}
             </div>
           </div>
-          <OffersMap
-            className="offer__map map"
-            city={offerInfo.city}
-            offers={nearbyOffers}
-            activeOfferId={activeNearbyOfferId}
-          />
+          {nearbyOffers.length > 1 && (
+            <OffersMap
+              className="offer__map map"
+              city={offerInfo.city}
+              offers={nearbyOffers}
+              activeOfferId={activeNearbyOfferId}
+            />
+          )}
         </section>
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">
-              Other places in the neighbourhood
-            </h2>
-            <div className="near-places__list places__list">
-              {nearbyOffers.map((offer) => (
-                <PlaceCard
-                  key={offer.id}
-                  offer={offer}
-                  variant="near"
-                  onActive={setActiveNearbyOfferId}
-                />
-              ))}
-            </div>
-          </section>
-        </div>
+        {nearbyOffers.length > 1 && (
+          <div className="container">
+            <section className="near-places places">
+              <h2 className="near-places__title">
+                Other places in the neighbourhood
+              </h2>
+              <div className="near-places__list places__list">
+                {nearbyOffers.map((offer) => (
+                  <PlaceCard
+                    key={offer.id}
+                    offer={offer}
+                    variant="near"
+                    onActive={setActiveNearbyOfferId}
+                  />
+                ))}
+              </div>
+            </section>
+          </div>
+        )}
       </main>
     </div>
   );

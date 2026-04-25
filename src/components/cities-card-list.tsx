@@ -1,26 +1,19 @@
-import { useCallback, useState } from 'react';
 import { OfferPreview } from '../shared/types';
 import { PlaceCard } from './place-card';
 
 type CitiesCardListProps = {
   offers: OfferPreview[];
+  onActiveCardChange: (id: string | null) => void;
 };
 
-const CitiesCardList = ({ offers }: CitiesCardListProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_activeCardId, setActiveCardId] = useState<string | null>(null);
-
-  const handleToggleActiveCard = useCallback((id: string | null) => {
-    setActiveCardId(id);
-  }, []);
-
+const CitiesCardList = ({ offers, onActiveCardChange }: CitiesCardListProps) => {
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((card) => (
         <PlaceCard
           key={card.id}
           offer={card}
-          onActive={handleToggleActiveCard}
+          onActive={onActiveCardChange}
           variant={'cities'}
         />
       ))}
