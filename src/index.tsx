@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'leaflet/dist/leaflet.css';
-import App from './app';
+import { App } from './app';
 import { Provider } from 'react-redux';
 import { setupStore } from './store/store';
 

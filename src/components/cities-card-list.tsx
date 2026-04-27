@@ -1,4 +1,4 @@
-import { OfferPreview } from '../shared/types';
+import type { OfferPreview } from '../shared/types';
 import { PlaceCard } from './place-card';
 
 type CitiesCardListProps = {

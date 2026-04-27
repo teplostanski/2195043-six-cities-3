@@ -1,13 +1,29 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { CitiesCardList } from '../../components/cities-card-list';
 import Map from '../../components/map';
 import { routesMap } from '../../shared/constants';
-import { useAppSelector } from '../../shared/hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
+import { offerSlice } from '../../store/reducers/offerSlice';
+import { selectOffersByCity } from '../../store/selectors/offerSelectors';
 
-function MainPage() {
+
+
+const MainPage = () => {
   const { offers } = useAppSelector((state) => state.offerReducer);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+
+  //const { setCurrentCity } = offerSlice.actions;
+  //const dispatch = useAppDispatch();
+
+  //useEffect(() => {
+  //  if (!activeCity) {
+  //    return;
+  //  }
+  //  dispatch(setCurrentCity(activeCity));
+  //}, [dispatch, activeCity, setCurrentCity]);
+  
+  const filteredOffers = selectOffersByCity(offers, 'Amsterdam');
 
   return (
     <div className="page page--gray page--main">
@@ -123,4 +139,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
+export {MainPage};

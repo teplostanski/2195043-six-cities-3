@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { routesMap } from '../../shared/constants';
 
-function LoginPage() {
+const LoginPage = () => {
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -68,4 +68,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export {LoginPage};

@@ -3,7 +3,7 @@ import { FavoritesCardList } from '../../components/favorites-card-list';
 import { routesMap } from '../../shared/constants';
 import { useAppSelector } from '../../shared/hooks/redux';
 
-function FavoritesPage() {
+const FavoritesPage = () => {
   const { offers } = useAppSelector((state) => state.offerReducer);
 
   return (
@@ -31,4 +31,4 @@ function FavoritesPage() {
   );
 }
 
-export default FavoritesPage;
+export {FavoritesPage};

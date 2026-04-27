@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styles from './not-found.module.css';
 import { routesMap } from '../../shared/constants';
 
-function NotFoundPage() {
+const NotFoundPage = () => {
   return (
     <div className="page page--gray">
       <main className={styles.wrapper}>
@@ -19,4 +19,4 @@ function NotFoundPage() {
   );
 }
 
-export default NotFoundPage;
+export {NotFoundPage};

@@ -1,22 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { OfferPreview } from '../../shared/types';
+import { type CityName, OfferPreview } from '../../shared/types';
 
 type Offers = {
-  city: string;
+  currentCity: CityName;
   offers: OfferPreview[];
 };
 
 const initialState: Offers = {
-  city: 'Paris',
+  currentCity: 'Paris',
   offers: [],
 };
 
 export const offerSlice = createSlice({
-  name: 'offer',
+  name: 'offers',
   initialState,
   reducers: {
     setOffers(state, action: PayloadAction<OfferPreview[]>) {
       state.offers = action.payload;
+    },
+    setCurrentCity(state, action: PayloadAction<CityName>) {
+      state.currentCity = action.payload;
     },
   },
 });

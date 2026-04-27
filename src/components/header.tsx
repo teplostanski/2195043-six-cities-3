@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { routesMap } from '../shared/constants';
 
-function Header() {
+const Header = () => {
   return (
     <header className="header">
       <div className="container">
@@ -47,4 +47,4 @@ function Header() {
   );
 }
 
-export default Header;
+export {Header};
