@@ -4,7 +4,7 @@ import { routesMap } from '../../shared/constants';
 import { useAppSelector } from '../../shared/hooks/redux';
 
 const FavoritesPage = () => {
-  const { offers } = useAppSelector((state) => state.offersReducer);
+  const { offers } = useAppSelector((state) => state.offersListReducer);
 
   return (
     <div className="page">

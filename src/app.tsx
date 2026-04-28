@@ -10,13 +10,13 @@ import { NotFoundPage } from './pages/not-found/not-found';
 import { OfferPage } from './pages/offer/offer';
 import { routesMap } from './shared/constants';
 import { useAppDispatch } from './shared/hooks/redux';
-import { fetchOffersAction } from './store/api-actions';
+import { fetchOffersListAction } from './store/api/actions';
 
 const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchOffersAction());
+    dispatch(fetchOffersListAction());
   }, [dispatch]);
 
   return (

@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { createApi } from '../shared/api';
-import { offersReducer } from './reducers/offersSlice';
+import { createApi } from './api/config';
+import { offersListReducer } from './reducers/offersListSlice';
+import { offerReducer } from './reducers/offerSlice';
 
 export const api = createApi();
 
-const rootReducer = { offersReducer };
+const rootReducer = { offersListReducer, offerReducer };
 
 export const setupStore = () =>
   configureStore({

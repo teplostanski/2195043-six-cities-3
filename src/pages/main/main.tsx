@@ -4,11 +4,11 @@ import { CitiesTabs } from '../../components/cities-tabs';
 import Map from '../../components/map';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import type { CityName } from '../../shared/types';
-import { setCurrentCity } from '../../store/reducers/offersSlice';
-import { selectOffersByCity } from '../../store/selectors/offerSelectors';
+import { setCurrentCity } from '../../store/reducers/offersListSlice';
+import { selectOffersByCity } from '../../store/selectors/offersListSelectors';
 
 const MainPage = () => {
-  const { offers, currentCity } = useAppSelector((state) => state.offersReducer);
+  const { offers, currentCity } = useAppSelector((state) => state.offersListReducer);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const dispatch = useAppDispatch();
 

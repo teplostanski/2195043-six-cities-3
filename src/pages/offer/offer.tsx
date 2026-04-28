@@ -1,28 +1,47 @@
 import cn from 'classnames';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import OffersMap from '../../components/map';
 import OfferGallery from '../../components/offer-gallery';
 import { OfferReview } from '../../components/offer-review';
 import { PlaceCard } from '../../components/place-card';
 import PremiumMark from '../../components/premium-mark';
-import { commentsMock } from '../../mocks/comments';
-import { offersFullMock } from '../../mocks/offers';
 import { ratingStarMap } from '../../shared/constants';
+import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
+import { fetchOfferAction } from '../../store/api/actions';
 
 const OfferPage = () => {
   const params = useParams();
-  const offerInfo = offersFullMock.find((offer) => offer.id === params.id);
+  const { offer, isLoading, error } = useAppSelector(
+    (state) => state.offerReducer,
+  );
   const [activeNearbyOfferId, setActiveNearbyOfferId] = useState<string | null>(
     null,
   );
 
-  const nearbyOffers = useMemo(
-    () => offersFullMock.filter((offer) => offer.id !== params.id).slice(0, 3),
-    [params.id],
-  );
+  const dispatch = useAppDispatch();
 
-  if (!offerInfo) {
+  useEffect(() => {
+    if (!params.id) {
+      return;
+    }
+    dispatch(fetchOfferAction(params.id));
+  }, [dispatch, params.id]);
+
+  //const nearbyOffers = useMemo(
+  //  () => offersFullMock.filter((offer) => offer.id !== params.id).slice(0, 3),
+  //  [params.id],
+  //);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  if (!offer) {
     return null;
   }
 
@@ -31,13 +50,13 @@ const OfferPage = () => {
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
-            <OfferGallery imagesPath={offerInfo.images} />
+            <OfferGallery imagesPath={offer.images} />
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <PremiumMark show={offerInfo.isPremium} />
+              <PremiumMark show={offer.isPremium} />
               <div className="offer__name-wrapper">
-                <h1 className="offer__name">{offerInfo.title}</h1>
+                <h1 className="offer__name">{offer.title}</h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
@@ -47,35 +66,32 @@ const OfferPage = () => {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span
-                    style={{ width: ratingStarMap[offerInfo.rating] }}
-                  >
-                  </span>
+                  <span style={{ width: ratingStarMap[offer.rating] }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">
-                  {offerInfo.rating}
+                  {offer.rating}
                 </span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {offerInfo.type}
+                  {offer.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {offerInfo.bedrooms} Bedrooms
+                  {offer.bedrooms} Bedrooms
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {offerInfo.maxAdults} adults
+                  Max {offer.maxAdults} adults
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;{offerInfo.price}</b>
+                <b className="offer__price-value">&euro;{offer.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {offerInfo.goods.map((good) => (
+                  {offer.goods.map((good) => (
                     <li className="offer__inside-item" key={good}>
                       {good}
                     </li>
@@ -90,44 +106,42 @@ const OfferPage = () => {
                       'offer__avatar-wrapper',
                       'user__avatar-wrapper',
                       {
-                        'offer__avatar-wrapper--pro': offerInfo.host.isPro,
+                        'offer__avatar-wrapper--pro': offer.host.isPro,
                       },
                     )}
                   >
                     <img
                       className="offer__avatar user__avatar"
-                      src={offerInfo.host.avatarUrl}
+                      src={offer.host.avatarUrl}
                       width="74"
                       height="74"
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="offer__user-name">
-                    {offerInfo.host.name}
-                  </span>
-                  {offerInfo.host.isPro && (
+                  <span className="offer__user-name">{offer.host.name}</span>
+                  {offer.host.isPro && (
                     <span className="offer__user-status">Pro</span>
                   )}
                 </div>
                 <div className="offer__description">
-                  <p className="offer__text">{offerInfo.description}</p>
+                  <p className="offer__text">{offer.description}</p>
                 </div>
               </div>
-              {commentsMock && commentsMock.length > 0 && (
+              {/*{commentsMock && commentsMock.length > 0 && (
                 <OfferReview comments={commentsMock} />
-              )}
+              )}*/}
             </div>
           </div>
-          {nearbyOffers.length > 1 && (
+          {/*{nearbyOffers.length > 1 && (
             <OffersMap
               className="offer__map map"
-              city={offerInfo.city}
+              city={offer.city}
               offers={nearbyOffers}
               activeOfferId={activeNearbyOfferId}
             />
-          )}
+          )}*/}
         </section>
-        {nearbyOffers.length > 1 && (
+        {/*{nearbyOffers.length > 1 && (
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">
@@ -145,7 +159,7 @@ const OfferPage = () => {
               </div>
             </section>
           </div>
-        )}
+        )}*/}
       </main>
     </div>
   );
