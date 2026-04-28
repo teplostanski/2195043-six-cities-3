@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { type CityName, OfferPreview } from '../../shared/types';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { CityName, OfferPreview } from '../../shared/types';
 
 type Offers = {
   currentCity: CityName;
@@ -11,7 +11,7 @@ const initialState: Offers = {
   offers: [],
 };
 
-export const offerSlice = createSlice({
+const offersSlice = createSlice({
   name: 'offers',
   initialState,
   reducers: {
@@ -24,4 +24,5 @@ export const offerSlice = createSlice({
   },
 });
 
-export default offerSlice.reducer;
+export const { setOffers, setCurrentCity } = offersSlice.actions;
+export const offersReducer = offersSlice.reducer;

@@ -8,13 +8,12 @@ import { Layout } from './components/layout';
 import { ScrollToTop } from './components/scroll-to-top';
 import { PrivateRoute } from './components/private-route';
 import { routesMap } from './shared/constants';
-import { offerSlice } from './store/reducers/offerSlice';
+import { setOffers } from './store/reducers/offersSlice';
 import { useAppDispatch } from './shared/hooks/redux';
 import { useEffect } from 'react';
 import { offersMock } from './mocks/offers';
 
 const App = () => {
-  const { setOffers } = offerSlice.actions;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
