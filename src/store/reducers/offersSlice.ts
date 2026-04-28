@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { CityName, OfferPreview } from '../../shared/types';
+import { fetchOffersAction } from '../api-actions';
 
 type Offers = {
   currentCity: CityName;
@@ -21,6 +22,11 @@ const offersSlice = createSlice({
     setCurrentCity(state, action: PayloadAction<CityName>) {
       state.currentCity = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchOffersAction.fulfilled, (state, action) => {
+      state.offers = action.payload;
+    });
   },
 });
 

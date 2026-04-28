@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/layout';
 import { PrivateRoute } from './components/private-route';
 import { ScrollToTop } from './components/scroll-to-top';
-import { offersMock } from './mocks/offers';
 import { FavoritesPage } from './pages/favorites/favorites';
 import { LoginPage } from './pages/login/login';
 import { MainPage } from './pages/main/main';
@@ -11,13 +10,13 @@ import { NotFoundPage } from './pages/not-found/not-found';
 import { OfferPage } from './pages/offer/offer';
 import { routesMap } from './shared/constants';
 import { useAppDispatch } from './shared/hooks/redux';
-import { setOffers } from './store/reducers/offersSlice';
+import { fetchOffersAction } from './store/api-actions';
 
 const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setOffers(offersMock));
+    dispatch(fetchOffersAction());
   }, [dispatch]);
 
   return (
