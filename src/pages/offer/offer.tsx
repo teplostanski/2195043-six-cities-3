@@ -10,6 +10,8 @@ import { ratingStarMap } from '../../shared/constants';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import { fetchOfferAction } from '../../store/api/actions';
 
+import styles from './offer.module.css';
+
 const OfferPage = () => {
   const params = useParams();
   const { offer, isLoading, error } = useAppSelector(
@@ -34,11 +36,19 @@ const OfferPage = () => {
   //);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <main className={styles.message}>
+        <p>Loading...</p>
+      </main>
+    );
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return (
+      <main className={styles.message}>
+        <p>{error}</p>
+      </main>
+    );
   }
 
   if (!offer) {

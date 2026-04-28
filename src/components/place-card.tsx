@@ -39,7 +39,7 @@ const PlaceCard = ({ offer, variant, onActive }: PlaceCardProps) => {
           'near-places__image-wrapper': isNearCard,
         })}
       >
-        <Link to={routesMap.getOfferUrl(offer.id)}>
+        <Link to={routesMap.offerById(offer.id)}>
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -78,7 +78,7 @@ const PlaceCard = ({ offer, variant, onActive }: PlaceCardProps) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={routesMap.getOfferUrl(offer.id)}>{offer.title}</Link>
+          <Link to={routesMap.offerById(offer.id)}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

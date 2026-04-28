@@ -1,20 +1,19 @@
+import { apiPathsMap } from '../../shared/constants';
 import type { OfferFull, OfferPreview } from '../../shared/types';
 import { createAppAsyncThunk } from '../create-app-async-thunk';
-
-const OFFERS_PATH = '/offers';
 
 export const fetchOffersListAction = createAppAsyncThunk<OfferPreview[], undefined>(
   'offers/fetchOffers',
   async (_arg, { extra: api }) => {
-    const { data } = await api.get<OfferPreview[]>(OFFERS_PATH);
+    const { data } = await api.get<OfferPreview[]>(apiPathsMap.offers);
     return data;
   }
 );
 
 export const fetchOfferAction = createAppAsyncThunk<OfferFull, string>(
-  'offers/fetchOffer',
+  'offer/fetchOffer',
   async (id, { extra: api }) => {
-    const { data } = await api.get<OfferFull>(`${OFFERS_PATH}/${id}`);
+    const { data } = await api.get<OfferFull>(apiPathsMap.offer(id));
     return data;
   }
 );

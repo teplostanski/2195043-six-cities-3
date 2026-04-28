@@ -1,17 +1,15 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { CityName, OfferFull, OfferPreview } from '../../shared/types';
-import { fetchOfferAction, fetchOffersListAction } from '../api/actions';
+import type { CityName, OfferPreview } from '../../shared/types';
+import { fetchOffersListAction } from '../api/actions';
 
 type OffersState = {
   currentCity: CityName;
   offers: OfferPreview[];
-  offer: OfferFull | null;
 };
 
 const initialState: OffersState = {
   currentCity: 'Paris',
   offers: [],
-  offer: null
 };
 
 const offersListSlice = createSlice({
@@ -25,9 +23,6 @@ const offersListSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchOffersListAction.fulfilled, (state, action) => {
       state.offers = action.payload;
-    });
-    builder.addCase(fetchOfferAction.fulfilled, (state, action) => {
-      state.offer = action.payload;
     });
   },
 });
