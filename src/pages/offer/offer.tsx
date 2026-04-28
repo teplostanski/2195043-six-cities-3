@@ -1,14 +1,14 @@
+import cn from 'classnames';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import cn from 'classnames';
-import { offersFullMock } from '../../mocks/offers';
-import { PlaceCard } from '../../components/place-card';
 import OffersMap from '../../components/map';
 import OfferGallery from '../../components/offer-gallery';
-import PremiumMark from '../../components/premium-mark';
-import { ratingStarMap } from '../../shared/constants';
-import { commentsMock } from '../../mocks/comments';
 import { OfferReview } from '../../components/offer-review';
+import { PlaceCard } from '../../components/place-card';
+import PremiumMark from '../../components/premium-mark';
+import { commentsMock } from '../../mocks/comments';
+import { offersFullMock } from '../../mocks/offers';
+import { ratingStarMap } from '../../shared/constants';
 
 const OfferPage = () => {
   const params = useParams();

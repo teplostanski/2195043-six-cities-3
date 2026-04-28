@@ -1,8 +1,8 @@
+import 'leaflet/dist/leaflet.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'leaflet/dist/leaflet.css';
-import { App } from './app';
 import { Provider } from 'react-redux';
+import { App } from './app';
 import { setupStore } from './store/store';
 
 const root = ReactDOM.createRoot(

@@ -45,4 +45,4 @@ const Header = () => (
   </header>
 );
 
-export {Header};
+export { Header };

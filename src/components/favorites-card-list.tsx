@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
-import type { CityName, OfferPreview } from '../shared/types';
-import { PlaceCard } from './place-card';
+import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { routesMap } from '../shared/constants';
+import type { CityName, OfferPreview } from '../shared/types';
+import { PlaceCard } from './place-card';
 
 type FavoritesCardListProps = {
   offers: OfferPreview[];

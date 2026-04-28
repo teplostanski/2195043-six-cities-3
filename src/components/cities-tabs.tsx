@@ -1,6 +1,6 @@
-import { CityName } from '../shared/types';
-import { cities } from '../shared/constants';
 import cn from 'classnames';
+import { cities } from '../shared/constants';
+import { CityName } from '../shared/types';
 
 type CitiesTabProps = {
   currentCity: CityName;

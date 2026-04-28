@@ -1,5 +1,11 @@
+import {
+  Icon,
+  layerGroup,
+  Map as LeafletMap,
+  Marker,
+  TileLayer,
+} from 'leaflet';
 import { useEffect, useRef } from 'react';
-import { Icon, layerGroup, Map as LeafletMap, Marker, TileLayer } from 'leaflet';
 import type { OfferPreview } from '../shared/types';
 
 type MapProps = {
@@ -45,7 +51,7 @@ function Map({
         {
           attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }
+        },
       );
 
       map.addLayer(tileLayer);
@@ -64,7 +70,7 @@ function Map({
     if (map) {
       map.setView(
         [city.location.latitude, city.location.longitude],
-        city.location.zoom
+        city.location.zoom,
       );
     }
   }, [city.location.latitude, city.location.longitude, city.location.zoom]);
@@ -86,7 +92,7 @@ function Map({
             activeOfferId !== null && offer.id === activeOfferId
               ? ACTIVE_CUSTOM_ICON
               : DEFAULT_CUSTOM_ICON,
-        }
+        },
       );
 
       marker.addTo(markersLayer);

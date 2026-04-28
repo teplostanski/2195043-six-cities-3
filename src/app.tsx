@@ -1,24 +1,24 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { MainPage } from './pages/main/main';
+import { Layout } from './components/layout';
+import { PrivateRoute } from './components/private-route';
+import { ScrollToTop } from './components/scroll-to-top';
+import { offersMock } from './mocks/offers';
 import { FavoritesPage } from './pages/favorites/favorites';
 import { LoginPage } from './pages/login/login';
-import { OfferPage } from './pages/offer/offer';
+import { MainPage } from './pages/main/main';
 import { NotFoundPage } from './pages/not-found/not-found';
-import { Layout } from './components/layout';
-import { ScrollToTop } from './components/scroll-to-top';
-import { PrivateRoute } from './components/private-route';
+import { OfferPage } from './pages/offer/offer';
 import { routesMap } from './shared/constants';
-import { setOffers } from './store/reducers/offersSlice';
 import { useAppDispatch } from './shared/hooks/redux';
-import { useEffect } from 'react';
-import { offersMock } from './mocks/offers';
+import { setOffers } from './store/reducers/offersSlice';
 
 const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(setOffers(offersMock));
-  }, [dispatch, setOffers]);
+  }, [dispatch]);
 
   return (
     <BrowserRouter>

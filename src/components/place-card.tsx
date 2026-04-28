@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import { Link } from 'react-router-dom';
 import { cardImageSizesMap, ratingStarMap, routesMap } from '../shared/constants';
 import { OfferPreview } from '../shared/types';
 import PremiumMark from './premium-mark';

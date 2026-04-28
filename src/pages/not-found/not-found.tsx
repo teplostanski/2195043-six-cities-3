@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import styles from './not-found.module.css';
 import { routesMap } from '../../shared/constants';
+import styles from './not-found.module.css';
 
 const NotFoundPage = () => (
   <div className="page page--gray">
