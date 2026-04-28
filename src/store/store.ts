@@ -2,10 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import { createApi } from './api/config';
 import { offersListReducer } from './reducers/offersListSlice';
 import { offerReducer } from './reducers/offerSlice';
+import { commentsReducer } from './reducers/commentsSlice';
 
 export const api = createApi();
 
-const rootReducer = { offersListReducer, offerReducer };
+const rootReducer = { offersListReducer, offerReducer, commentsReducer };
 
 export const setupStore = () =>
   configureStore({

@@ -25,6 +25,11 @@ export const routesMap = {
 export const apiPathsMap = {
   offers: '/offers',
   offer: (id: string) => `/offers/${id}`,
+  comments: (id: string) => `/comments/${id}`,
+  favorite: '/favorite',
+  setFavoriteStatus: (id: string, status: 0 | 1) => `/favorite/${id}/${status}`,
+  login: '/login',
+  logout: '/logout',
 } as const;
 
 export const cities = [

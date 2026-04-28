@@ -1,6 +1,3 @@
-.message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.loadingContainer {
   height: 90vh;
 }

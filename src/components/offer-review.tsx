@@ -1,22 +1,42 @@
-import type { Comment } from '../shared/types';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../shared/hooks/redux';
+import { Spinner } from './spinner';
 import { OfferReviewForm } from './offer-review-form';
 import { OfferReviewList } from './offer-review-list';
+import { fetchCommentsAction } from '../store/api/actions';
 
 type OfferReviewProps = {
-  comments: Comment[];
+  offerId: string;
 };
 
-const OfferReview = ({ comments }: OfferReviewProps) => (
-  <section className="offer__reviews reviews">
-    <h2 className="reviews__title">
-      Reviews &middot;{' '}
-      <span className="reviews__amount">{comments.length}</span>
-    </h2>
+const OfferReview = ({ offerId }: OfferReviewProps) => {
+  const { comments, isLoading, error } = useAppSelector((state) => state.commentsReducer);
 
-    {comments && comments.length > 0 && <OfferReviewList comments={comments} />}
+  const dispatch = useAppDispatch();
 
-    <OfferReviewForm />
-  </section>
-);
+  useEffect(() => {
+    if (!offerId) {
+      return;
+    }
+    dispatch(fetchCommentsAction(offerId));
+  }, [dispatch, offerId]);
+
+  return (
+    <section className="offer__reviews reviews">
+      {isLoading && <Spinner />}
+      {!isLoading && error && <p>{error}</p>}
+      {!isLoading && !error && comments.length > 0 && (
+        <>
+          <h2 className="reviews__title">
+            Reviews &middot;{' '}
+            <span className="reviews__amount">{comments.length}</span>
+          </h2>
+          <OfferReviewList comments={comments} />
+        </>
+      )}
+      {!isLoading && !error && <OfferReviewForm />}
+    </section>
+  );
+};
 
 export { OfferReview };

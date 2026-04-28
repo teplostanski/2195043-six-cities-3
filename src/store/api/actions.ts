@@ -1,5 +1,5 @@
 import { apiPathsMap } from '../../shared/constants';
-import type { OfferFull, OfferPreview } from '../../shared/types';
+import type { Comment, OfferFull, OfferPreview } from '../../shared/types';
 import { createAppAsyncThunk } from '../create-app-async-thunk';
 
 export const fetchOffersListAction = createAppAsyncThunk<OfferPreview[], undefined>(
@@ -17,3 +17,12 @@ export const fetchOfferAction = createAppAsyncThunk<OfferFull, string>(
     return data;
   }
 );
+
+export const fetchCommentsAction = createAppAsyncThunk<Comment[], string>(
+  'comments/fetchComments',
+  async (id, { extra: api }) => {
+    const { data } = await api.get<Comment[]>(apiPathsMap.comments(id));
+    return data;
+  }
+);
+
