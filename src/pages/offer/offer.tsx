@@ -1,22 +1,30 @@
 import cn from 'classnames';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import OffersMap from '../../components/map';
 import OfferGallery from '../../components/offer-gallery';
+import { OfferNearbyList } from '../../components/offer-nearby-list';
+import { OfferNearbyMap } from '../../components/offer-nearby-map';
 import { OfferReview } from '../../components/offer-review';
-import { PlaceCard } from '../../components/place-card';
 import PremiumMark from '../../components/premium-mark';
 import { Spinner } from '../../components/spinner';
 import { ratingStarMap } from '../../shared/constants';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
-import { fetchOfferAction } from '../../store/api/actions';
+import {
+  fetchNearbyOfferAction,
+  fetchOfferAction,
+} from '../../store/api/actions';
 import styles from './offer.module.css';
 
 const OfferPage = () => {
   const params = useParams();
-  const { offer, isLoading, error } = useAppSelector(
-    (state) => state.offerReducer,
-  );
+  const {
+    offer,
+    isOfferLoading,
+    offerError,
+    nearby,
+    isNearbyLoading,
+    nearbyError,
+  } = useAppSelector((state) => state.offerReducer);
   const [activeNearbyOfferId, setActiveNearbyOfferId] = useState<string | null>(
     null,
   );
@@ -28,20 +36,19 @@ const OfferPage = () => {
       return;
     }
     dispatch(fetchOfferAction(params.id));
+    dispatch(fetchNearbyOfferAction(params.id));
   }, [dispatch, params.id]);
-
-  //const nearbyOffers = useMemo(
-  //  () => offersFullMock.filter((offer) => offer.id !== params.id).slice(0, 3),
-  //  [params.id],
-  //);
 
   return (
     <div
-      className={cn({ page: !isLoading, [styles.loadingContainer]: isLoading })}
+      className={cn({
+        page: !isOfferLoading,
+        [styles.loadingContainer]: isOfferLoading,
+      })}
     >
-      {isLoading && <Spinner />}
-      {!isLoading && error && <p>{error}</p>}
-      {!isLoading && !error && offer && (
+      {isOfferLoading && <Spinner />}
+      {!isOfferLoading && offerError && <p>{offerError}</p>}
+      {!isOfferLoading && !offerError && offer && (
         <main className="page__main page__main--offer">
           <section className="offer">
             <div className="offer__gallery-container container">
@@ -132,34 +139,20 @@ const OfferPage = () => {
                 {params.id && <OfferReview offerId={params.id} />}
               </div>
             </div>
-            {/*{nearbyOffers.length > 1 && (
-            <OffersMap
-              className="offer__map map"
+            <OfferNearbyMap
               city={offer.city}
-              offers={nearbyOffers}
+              nearby={nearby}
+              isLoading={isNearbyLoading}
+              error={nearbyError}
               activeOfferId={activeNearbyOfferId}
             />
-          )}*/}
           </section>
-          {/*{nearbyOffers.length > 1 && (
-          <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">
-                Other places in the neighbourhood
-              </h2>
-              <div className="near-places__list places__list">
-                {nearbyOffers.map((offer) => (
-                  <PlaceCard
-                    key={offer.id}
-                    offer={offer}
-                    variant="near"
-                    onActive={setActiveNearbyOfferId}
-                  />
-                ))}
-              </div>
-            </section>
-          </div>
-        )}*/}
+          <OfferNearbyList
+            nearby={nearby}
+            isLoading={isNearbyLoading}
+            error={nearbyError}
+            onActive={setActiveNearbyOfferId}
+          />
         </main>
       )}
     </div>

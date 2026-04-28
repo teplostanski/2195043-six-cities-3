@@ -1,17 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { OfferFull } from '../../shared/types';
-import { fetchOfferAction } from '../api/actions';
+import { fetchNearbyOfferAction, fetchOfferAction } from '../api/actions';
 
 type OfferState = {
   offer: OfferFull | null;
-  isLoading: boolean;
-  error: string | null;
+  nearby: OfferFull[] | null;
+  isOfferLoading: boolean;
+  offerError: string | null;
+  isNearbyLoading: boolean;
+  nearbyError: string | null;
 };
 
 const initialState: OfferState = {
   offer: null,
-  isLoading: false,
-  error: null,
+  nearby: null,
+  isOfferLoading: false,
+  offerError: null,
+  isNearbyLoading: false,
+  nearbyError: null,
 };
 
 const offerSlice = createSlice({
@@ -20,17 +26,31 @@ const offerSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchOfferAction.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
+        state.isOfferLoading = true;
+        state.offerError = null;
         state.offer = null;
       })
       .addCase(fetchOfferAction.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isOfferLoading = false;
         state.offer = action.payload;
       })
       .addCase(fetchOfferAction.rejected, (state) => {
-        state.isLoading = false;
-        state.error = 'Не удалось загрузить оффер';
+        state.isOfferLoading = false;
+        state.offerError = 'Не удалось загрузить оффер';
+      });
+    builder
+      .addCase(fetchNearbyOfferAction.pending, (state) => {
+        state.isNearbyLoading = true;
+        state.nearbyError = null;
+        state.nearby = null;
+      })
+      .addCase(fetchNearbyOfferAction.fulfilled, (state, action) => {
+        state.isNearbyLoading = false;
+        state.nearby = action.payload;
+      })
+      .addCase(fetchNearbyOfferAction.rejected, (state) => {
+        state.isNearbyLoading = false;
+        state.nearbyError = 'Не удалось загрузить офферы по близости';
       });
   },
   reducers: {},

@@ -18,6 +18,14 @@ export const fetchOfferAction = createAppAsyncThunk<OfferFull, string>(
   }
 );
 
+export const fetchNearbyOfferAction = createAppAsyncThunk<OfferFull[], string>(
+  'offer/fetchNearbyOffer',
+  async (id, { extra: api }) => {
+    const { data } = await api.get<OfferFull[]>(apiPathsMap.nearby(id));
+    return data;
+  }
+);
+
 export const fetchCommentsAction = createAppAsyncThunk<Comment[], string>(
   'comments/fetchComments',
   async (id, { extra: api }) => {

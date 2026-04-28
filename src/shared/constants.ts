@@ -25,6 +25,7 @@ export const routesMap = {
 export const apiPathsMap = {
   offers: '/offers',
   offer: (id: string) => `/offers/${id}`,
+  nearby: (id: string) => `/offers/${id}/nearby`,
   comments: (id: string) => `/comments/${id}`,
   favorite: '/favorite',
   setFavoriteStatus: (id: string, status: 0 | 1) => `/favorite/${id}/${status}`,
