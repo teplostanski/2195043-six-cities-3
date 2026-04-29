@@ -5,11 +5,15 @@ import { fetchOffersListAction } from '../api/actions';
 type OffersState = {
   currentCity: CityName;
   offers: OfferPreview[];
+  isLoading: boolean;
+  error: string | null;
 };
 
 const initialState: OffersState = {
   currentCity: 'Paris',
   offers: [],
+  isLoading: false,
+  error: null,
 };
 
 const offersListSlice = createSlice({
@@ -21,9 +25,20 @@ const offersListSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchOffersListAction.fulfilled, (state, action) => {
-      state.offers = action.payload;
-    });
+    builder
+      .addCase(fetchOffersListAction.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.offers = [];
+      })
+      .addCase(fetchOffersListAction.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.offers = action.payload;
+      })
+      .addCase(fetchOffersListAction.rejected, (state) => {
+        state.isLoading = false;
+        state.error = 'Не удалось список офферов';
+      });
   },
 });
 
