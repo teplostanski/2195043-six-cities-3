@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { createApi } from './api/config';
+import { createApi, setupInterceptors } from '../shared/api';
+import { createOnUnauthorized } from './on-unauthorized';
 import { authReducer } from './reducers/authSlice';
 import { commentsReducer } from './reducers/commentsSlice';
 import { offerReducer } from './reducers/offerSlice';
@@ -14,14 +15,19 @@ const rootReducer = {
   authReducer,
 };
 
-export const setupStore = () =>
-  configureStore({
+export const setupStore = () => {
+  const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         thunk: { extraArgument: api },
       }),
   });
+
+  setupInterceptors(api, createOnUnauthorized(store.dispatch));
+
+  return store;
+};
 
 export type AppStore = ReturnType<typeof setupStore>;
 export type RootState = ReturnType<AppStore['getState']>;

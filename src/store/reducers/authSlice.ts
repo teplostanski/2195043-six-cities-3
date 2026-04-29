@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { UserInfo } from '../../shared/types';
-import { checkAuthAction, loginAction, logoutAction } from '../api/actions';
+import { checkAuthAction, loginAction, logoutAction } from '../async-actions';
 
 type AuthorizationStatus = 'UNKNOWN' | 'AUTH' | 'NO_AUTH';
 

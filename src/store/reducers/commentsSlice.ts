@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { Comment } from '../../shared/types';
-import { fetchCommentsAction } from '../api/actions';
+import { fetchCommentsAction } from '../async-actions';
 
 type commentsState = {
   comments: Comment[];

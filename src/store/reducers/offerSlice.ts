@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { OfferFull } from '../../shared/types';
-import { fetchNearbyOfferAction, fetchOfferAction } from '../api/actions';
+import { fetchNearbyOfferAction, fetchOfferAction } from '../async-actions';
 
 type OfferState = {
   offer: OfferFull | null;

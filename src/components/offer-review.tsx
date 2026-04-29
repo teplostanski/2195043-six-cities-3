@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../shared/hooks/redux';
 import { Spinner } from './spinner';
 import { OfferReviewForm } from './offer-review-form';
 import { OfferReviewList } from './offer-review-list';
-import { fetchCommentsAction } from '../store/api/actions';
+import { fetchCommentsAction } from '../store/async-actions';
 
 type OfferReviewProps = {
   offerId: string;

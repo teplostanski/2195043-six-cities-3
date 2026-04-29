@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { CityName, OfferPreview } from '../../shared/types';
-import { fetchOffersListAction } from '../api/actions';
+import { fetchOffersListAction } from '../async-actions';
 
 type OffersState = {
   currentCity: CityName;

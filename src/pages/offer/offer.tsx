@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import {
   fetchNearbyOfferAction,
   fetchOfferAction,
-} from '../../store/api/actions';
+} from '../../store/async-actions';
 import styles from './offer.module.css';
 
 const OfferPage = () => {

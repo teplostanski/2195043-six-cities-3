@@ -1,12 +1,12 @@
-import { apiPathsMap } from '../../shared/constants';
+import { apiPathsMap } from '../shared/constants';
 import type {
   Comment,
   LoginData,
   OfferFull,
   OfferPreview,
   UserInfo,
-} from '../../shared/types';
-import { createAppAsyncThunk } from '../create-app-async-thunk';
+} from '../shared/types';
+import { createAppAsyncThunk } from './create-app-async-thunk';
 
 export const fetchOffersListAction = createAppAsyncThunk<
   OfferPreview[],
