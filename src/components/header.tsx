@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { routesMap } from '../shared/constants';
+import { routes } from '../shared/constants';
 
 const Header = () => (
   <header className="header">
@@ -7,7 +7,7 @@ const Header = () => (
       <div className="header__wrapper">
         <div className="header__left">
           <Link
-            to={routesMap.root}
+            to={routes.root}
             className="header__logo-link header__logo-link--active"
           >
             <img
@@ -24,7 +24,7 @@ const Header = () => (
             <li className="header__nav-item user">
               <Link
                 className="header__nav-link header__nav-link--profile"
-                to={routesMap.empty}
+                to={routes.empty}
               >
                 <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                 <span className="header__user-name user__name">
@@ -34,7 +34,7 @@ const Header = () => (
               </Link>
             </li>
             <li className="header__nav-item">
-              <Link className="header__nav-link" to={routesMap.empty}>
+              <Link className="header__nav-link" to={routes.empty}>
                 <span className="header__signout">Sign out</span>
               </Link>
             </li>

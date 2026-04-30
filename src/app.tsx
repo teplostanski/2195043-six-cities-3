@@ -8,7 +8,7 @@ import { LoginPage } from './pages/login/login';
 import { MainPage } from './pages/main/main';
 import { NotFoundPage } from './pages/not-found/not-found';
 import { OfferPage } from './pages/offer/offer';
-import { routesMap } from './shared/constants';
+import { routes } from './shared/constants';
 import { useAppDispatch } from './shared/hooks/redux';
 import { checkAuthAction, fetchOffersListAction } from './store/async-actions';
 
@@ -24,19 +24,19 @@ const App = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path={routesMap.notFound} element={<NotFoundPage />} />
-        <Route path={routesMap.login} element={<LoginPage />} />
-        <Route path={routesMap.root} element={<Layout />}>
+        <Route path={routes.notFound} element={<NotFoundPage />} />
+        <Route path={routes.login} element={<LoginPage />} />
+        <Route path={routes.root} element={<Layout />}>
           <Route index element={<MainPage />} />
           <Route
-            path={routesMap.favorites}
+            path={routes.favorites}
             element={
               <PrivateRoute>
                 <FavoritesPage />
               </PrivateRoute>
             }
           />
-          <Route path={routesMap.offer} element={<OfferPage />} />
+          <Route path={routes.offer} element={<OfferPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

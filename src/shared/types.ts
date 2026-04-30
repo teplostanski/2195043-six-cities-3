@@ -1,4 +1,6 @@
-import { cities } from './constants';
+import { authStatus, cities } from './constants';
+
+export type AuthorizationStatus = typeof authStatus[keyof typeof authStatus];
 
 export type Rating = 1 | 2 | 3 | 4 | 5;
 

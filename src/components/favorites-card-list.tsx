@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { routesMap } from '../shared/constants';
+import { routes } from '../shared/constants';
 import type { CityName, OfferPreview } from '../shared/types';
 import { PlaceCard } from './place-card';
 
@@ -46,7 +46,7 @@ const FavoritesCardList = ({ offers }: FavoritesCardListProps) => {
         <li key={group.city} className="favorites__locations-items">
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
-              <Link to={routesMap.empty} className="locations__item-link">
+              <Link to={routes.empty} className="locations__item-link">
                 <span>{group.city}</span>
               </Link>
             </div>

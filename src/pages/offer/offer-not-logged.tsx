@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { routesMap } from '../../shared/constants';
+import { routes } from '../../shared/constants';
 
 function OfferPage() {
   return (
@@ -182,7 +182,7 @@ function OfferPage() {
             <div className="near-places__list places__list">
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <Link to={routesMap.empty}>
+                  <Link to={routes.empty}>
                     <img
                       className="place-card__image"
                       src="img/room.jpg"
@@ -221,7 +221,7 @@ function OfferPage() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <Link to={routesMap.empty}>Wood and stone place</Link>
+                    <Link to={routes.empty}>Wood and stone place</Link>
                   </h2>
                   <p className="place-card__type">Room</p>
                 </div>
@@ -229,7 +229,7 @@ function OfferPage() {
 
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <Link to={routesMap.empty}>
+                  <Link to={routes.empty}>
                     <img
                       className="place-card__image"
                       src="img/apartment-02.jpg"
@@ -268,7 +268,7 @@ function OfferPage() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <Link to={routesMap.empty}>Canal View Prinsengracht</Link>
+                    <Link to={routes.empty}>Canal View Prinsengracht</Link>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
@@ -279,7 +279,7 @@ function OfferPage() {
                   <span>Premium</span>
                 </div>
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <Link to={routesMap.empty}>
+                  <Link to={routes.empty}>
                     <img
                       className="place-card__image"
                       src="img/apartment-03.jpg"
@@ -318,7 +318,7 @@ function OfferPage() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <Link to={routesMap.empty}>Nice, cozy, warm big bed apartment</Link>
+                    <Link to={routes.empty}>Nice, cozy, warm big bed apartment</Link>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { routesMap } from '../../shared/constants';
+import { routes } from '../../shared/constants';
 
 const LoginPage = () => (
   <div className="page page--gray page--login">
@@ -7,7 +7,7 @@ const LoginPage = () => (
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link className="header__logo-link" to={routesMap.root}>
+            <Link className="header__logo-link" to={routes.root}>
               <img
                 className="header__logo"
                 src="img/logo.svg"
@@ -53,7 +53,7 @@ const LoginPage = () => (
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <Link className="locations__item-link" to={routesMap.empty}>
+            <Link className="locations__item-link" to={routes.empty}>
               <span>Amsterdam</span>
             </Link>
           </div>

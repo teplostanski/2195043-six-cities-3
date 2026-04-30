@@ -1,8 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { UserInfo } from '../../shared/types';
+import type { AuthorizationStatus, UserInfo } from '../../shared/types';
 import { checkAuthAction, loginAction, logoutAction } from '../async-actions';
-
-type AuthorizationStatus = 'UNKNOWN' | 'AUTH' | 'NO_AUTH';
+import { authStatus } from '../../shared/constants';
 
 type AuthState = {
   authorizationStatus: AuthorizationStatus;
@@ -12,7 +11,7 @@ type AuthState = {
 };
 
 const initialState: AuthState = {
-  authorizationStatus: 'UNKNOWN',
+  authorizationStatus: authStatus.unknown,
   userInfo: null,
   isLoading: false,
   error: null,
@@ -34,12 +33,12 @@ const authSlice = createSlice({
       })
       .addCase(checkAuthAction.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.authorizationStatus = 'AUTH';
+        state.authorizationStatus = authStatus.auth;
         state.userInfo = action.payload;
       })
       .addCase(checkAuthAction.rejected, (state) => {
         state.isLoading = false;
-        state.authorizationStatus = 'NO_AUTH';
+        state.authorizationStatus = authStatus.noAuth;
         state.error = 'Не удалось загрузить информацию о пользователе';
       });
     builder
@@ -49,12 +48,12 @@ const authSlice = createSlice({
       })
       .addCase(loginAction.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.authorizationStatus = 'AUTH';
+        state.authorizationStatus = authStatus.auth;
         state.userInfo = action.payload;
       })
       .addCase(loginAction.rejected, (state) => {
         state.isLoading = false;
-        state.authorizationStatus = 'NO_AUTH';
+        state.authorizationStatus = authStatus.noAuth;
         state.error = 'Не удалось авторизоваться';
       });
     builder
@@ -64,7 +63,7 @@ const authSlice = createSlice({
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.isLoading = false;
-        state.authorizationStatus = 'NO_AUTH';
+        state.authorizationStatus = authStatus.noAuth;
         state.userInfo = null;
       })
       .addCase(logoutAction.rejected, (state) => {
