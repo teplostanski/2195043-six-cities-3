@@ -31,6 +31,9 @@ const OfferPage = () => {
 
   const dispatch = useAppDispatch();
 
+  const nearbyOffers = nearby ? nearby.slice(0, 3) : null;
+
+
   useEffect(() => {
     if (!params.id) {
       return;
@@ -141,14 +144,14 @@ const OfferPage = () => {
             </div>
             <OfferNearbyMap
               city={offer.city}
-              nearby={nearby}
+              nearby={nearbyOffers}
               isLoading={isNearbyLoading}
               error={nearbyError}
               activeOfferId={activeNearbyOfferId}
             />
           </section>
           <OfferNearbyList
-            nearby={nearby}
+            nearby={nearbyOffers}
             isLoading={isNearbyLoading}
             error={nearbyError}
             onActive={setActiveNearbyOfferId}
