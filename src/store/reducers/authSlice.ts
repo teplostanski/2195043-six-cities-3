@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { authStatus } from '../../shared/constants';
 import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
 import type { AuthorizationStatus, UserInfo } from '../../shared/types';
@@ -22,8 +22,10 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setAuthorizationStatus(state, action: PayloadAction<AuthorizationStatus>) {
-      state.authorizationStatus = action.payload;
+    clearAuthData(state) {
+      state.authorizationStatus = authStatus.noAuth;
+      state.userInfo = null;
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -74,5 +76,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setAuthorizationStatus } = authSlice.actions;
+export const { clearAuthData } = authSlice.actions;
 export const authReducer = authSlice.reducer;
