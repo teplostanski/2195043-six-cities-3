@@ -6,7 +6,7 @@ type OfferNearbyMapProps = {
   city: OfferFull['city'];
   nearby: OfferFull[] | null;
   isLoading: boolean;
-  error: string | null;
+  error?: string;
   activeOfferId: string | null;
 };
 

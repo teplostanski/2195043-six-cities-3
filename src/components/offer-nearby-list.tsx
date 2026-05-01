@@ -5,7 +5,7 @@ import type { OfferFull } from '../shared/types';
 type OfferNearbyListProps = {
   nearby: OfferFull[] | null;
   isLoading: boolean;
-  error: string | null;
+  error?: string;
   onActive: (offerId: string | null) => void;
 };
 

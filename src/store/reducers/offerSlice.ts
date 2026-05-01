@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { StatusCodes } from 'http-status-codes';
+import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
 import type { OfferFull } from '../../shared/types';
 import { fetchNearbyOfferAction, fetchOfferAction } from '../async-actions';
 
@@ -6,15 +8,17 @@ type OfferState = {
   offer: OfferFull | null;
   nearby: OfferFull[] | null;
   isOfferLoading: boolean;
-  offerError: string | null;
+  isOfferNotFound: boolean;
+  offerError: HttpError | null;
   isNearbyLoading: boolean;
-  nearbyError: string | null;
+  nearbyError: HttpError | null;
 };
 
 const initialState: OfferState = {
   offer: null,
   nearby: null,
   isOfferLoading: false,
+  isOfferNotFound: false,
   offerError: null,
   isNearbyLoading: false,
   nearbyError: null,
@@ -27,6 +31,7 @@ const offerSlice = createSlice({
     builder
       .addCase(fetchOfferAction.pending, (state) => {
         state.isOfferLoading = true;
+        state.isOfferNotFound = false;
         state.offerError = null;
         state.offer = null;
       })
@@ -34,9 +39,10 @@ const offerSlice = createSlice({
         state.isOfferLoading = false;
         state.offer = action.payload;
       })
-      .addCase(fetchOfferAction.rejected, (state) => {
+      .addCase(fetchOfferAction.rejected, (state, action) => {
         state.isOfferLoading = false;
-        state.offerError = 'Не удалось загрузить оффер';
+        state.isOfferNotFound = action.payload?.status === StatusCodes.NOT_FOUND;
+        state.offerError = action.payload ?? UNKNOWN_HTTP_ERROR;
       });
     builder
       .addCase(fetchNearbyOfferAction.pending, (state) => {
@@ -50,7 +56,7 @@ const offerSlice = createSlice({
       })
       .addCase(fetchNearbyOfferAction.rejected, (state) => {
         state.isNearbyLoading = false;
-        state.nearbyError = 'Не удалось загрузить офферы по близости';
+        state.nearbyError = UNKNOWN_HTTP_ERROR;
       });
   },
   reducers: {},

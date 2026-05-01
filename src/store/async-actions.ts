@@ -1,4 +1,10 @@
 import { apiPaths } from '../shared/constants';
+import axios from 'axios';
+import {
+  createHttpError,
+  type HttpError,
+  UNKNOWN_HTTP_ERROR,
+} from '../shared/http-error';
 import type {
   Comment,
   LoginData,
@@ -16,11 +22,23 @@ export const fetchOffersListAction = createAppAsyncThunk<
   return data;
 });
 
-export const fetchOfferAction = createAppAsyncThunk<OfferFull, string>(
+export const fetchOfferAction = createAppAsyncThunk<
+  OfferFull,
+  string,
+  { rejectValue: HttpError }
+>(
   'offer/fetchOffer',
-  async (id, { extra: api }) => {
-    const { data } = await api.get<OfferFull>(apiPaths.offer(id));
-    return data;
+  async (id, { extra: api, rejectWithValue }) => {
+    try {
+      const { data } = await api.get<OfferFull>(apiPaths.offer(id));
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(createHttpError(error));
+      }
+
+      return rejectWithValue(UNKNOWN_HTTP_ERROR);
+    }
   },
 );
 
@@ -40,19 +58,43 @@ export const fetchCommentsAction = createAppAsyncThunk<Comment[], string>(
   },
 );
 
-export const checkAuthAction = createAppAsyncThunk<UserInfo, undefined>(
+export const checkAuthAction = createAppAsyncThunk<
+  UserInfo,
+  undefined,
+  { rejectValue: HttpError }
+>(
   'auth/checkAuth',
-  async (_arg, { extra: api }) => {
-    const { data } = await api.get<UserInfo>(apiPaths.login);
-    return data;
+  async (_arg, { extra: api, rejectWithValue }) => {
+    try {
+      const { data } = await api.get<UserInfo>(apiPaths.login);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(createHttpError(error));
+      }
+
+      return rejectWithValue(UNKNOWN_HTTP_ERROR);
+    }
   },
 );
 
-export const loginAction = createAppAsyncThunk<UserInfo, LoginData>(
+export const loginAction = createAppAsyncThunk<
+  UserInfo,
+  LoginData,
+  { rejectValue: HttpError }
+>(
   'auth/login',
-  async (loginData, { extra: api }) => {
-    const { data } = await api.post<UserInfo>(apiPaths.login, loginData);
-    return data;
+  async (loginData, { extra: api, rejectWithValue }) => {
+    try {
+      const { data } = await api.post<UserInfo>(apiPaths.login, loginData);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(createHttpError(error));
+      }
+
+      return rejectWithValue(UNKNOWN_HTTP_ERROR);
+    }
   },
 );
 

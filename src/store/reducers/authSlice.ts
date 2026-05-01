@@ -1,13 +1,14 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { authStatus } from '../../shared/constants';
+import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
 import type { AuthorizationStatus, UserInfo } from '../../shared/types';
 import { checkAuthAction, loginAction, logoutAction } from '../async-actions';
-import { authStatus } from '../../shared/constants';
 
 type AuthState = {
   authorizationStatus: AuthorizationStatus;
   userInfo: UserInfo | null;
   isLoading: boolean;
-  error: string | null;
+  error: HttpError | null;
 };
 
 const initialState: AuthState = {
@@ -36,10 +37,10 @@ const authSlice = createSlice({
         state.authorizationStatus = authStatus.auth;
         state.userInfo = action.payload;
       })
-      .addCase(checkAuthAction.rejected, (state) => {
+      .addCase(checkAuthAction.rejected, (state, action) => {
         state.isLoading = false;
         state.authorizationStatus = authStatus.noAuth;
-        state.error = 'Не удалось загрузить информацию о пользователе';
+        state.error = action.payload ?? UNKNOWN_HTTP_ERROR;
       });
     builder
       .addCase(loginAction.pending, (state) => {
@@ -51,10 +52,10 @@ const authSlice = createSlice({
         state.authorizationStatus = authStatus.auth;
         state.userInfo = action.payload;
       })
-      .addCase(loginAction.rejected, (state) => {
+      .addCase(loginAction.rejected, (state, action) => {
         state.isLoading = false;
         state.authorizationStatus = authStatus.noAuth;
-        state.error = 'Не удалось авторизоваться';
+        state.error = action.payload ?? UNKNOWN_HTTP_ERROR;
       });
     builder
       .addCase(logoutAction.pending, (state) => {
@@ -68,7 +69,7 @@ const authSlice = createSlice({
       })
       .addCase(logoutAction.rejected, (state) => {
         state.isLoading = false;
-        state.error = 'Не удалось разлогиньться';
+        state.error = UNKNOWN_HTTP_ERROR;
       });
   },
 });
