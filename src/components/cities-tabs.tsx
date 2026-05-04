@@ -10,9 +10,9 @@ type CitiesTabProps = {
 const CitiesTabs = ({ currentCity, onCityChange }: CitiesTabProps) => (
   <section className="locations container">
     <ul className="locations__list tabs__list">
-      {cities.map((city) => (
+      {Object.values(cities).map((city) => (
         <li
-          key={`${city}-city`}
+          key={city}
           className="locations__item"
           onClick={() => onCityChange(city)}
         >

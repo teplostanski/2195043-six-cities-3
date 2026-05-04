@@ -1,4 +1,4 @@
-import { ratingStarMap } from '../shared/constants';
+import { ratingStars } from '../shared/constants';
 import type { Comment } from '../shared/types';
 import { formatDate } from '../shared/utils';
 
@@ -25,7 +25,7 @@ const OfferReviewList = ({ comments }: OfferReviewListProps) => (
         <div className="reviews__info">
           <div className="reviews__rating rating">
             <div className="reviews__stars rating__stars">
-              <span style={{ width: ratingStarMap[comment.rating] }}></span>
+              <span style={{ width: ratingStars[comment.rating] }}></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

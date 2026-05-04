@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
-import { cardImageSizesMap, ratingStarMap, routesMap } from '../shared/constants';
+import { cardImageSizes, ratingStars, routes } from '../shared/constants';
 import { OfferPreview } from '../shared/types';
 import PremiumMark from './premium-mark';
 
-type Variant = keyof typeof cardImageSizesMap;
+type Variant = keyof typeof cardImageSizes;
 
 type PlaceCardProps = {
   offer: OfferPreview;
@@ -39,12 +39,12 @@ const PlaceCard = ({ offer, variant, onActive }: PlaceCardProps) => {
           'near-places__image-wrapper': isNearCard,
         })}
       >
-        <Link to={routesMap.offerById(offer.id)}>
+        <Link to={routes.offerById(offer.id)}>
           <img
             className="place-card__image"
             src={offer.previewImage}
-            width={cardImageSizesMap[variant]?.width}
-            height={cardImageSizesMap[variant]?.height}
+            width={cardImageSizes[variant]?.width}
+            height={cardImageSizes[variant]?.height}
             alt="Place image"
           />
         </Link>
@@ -73,12 +73,12 @@ const PlaceCard = ({ offer, variant, onActive }: PlaceCardProps) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: ratingStarMap[offer.rating] }}></span>
+            <span style={{ width: ratingStars[offer.rating] }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={routesMap.offerById(offer.id)}>{offer.title}</Link>
+          <Link to={routes.offerById(offer.id)}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

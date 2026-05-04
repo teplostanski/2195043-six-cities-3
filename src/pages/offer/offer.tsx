@@ -7,12 +7,13 @@ import { OfferNearbyMap } from '../../components/offer-nearby-map';
 import { OfferReview } from '../../components/offer-review';
 import PremiumMark from '../../components/premium-mark';
 import { Spinner } from '../../components/spinner';
-import { ratingStarMap } from '../../shared/constants';
+import { NotFoundPage } from '../not-found/not-found';
+import { ratingStars } from '../../shared/constants';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import {
   fetchNearbyOfferAction,
   fetchOfferAction,
-} from '../../store/api/actions';
+} from '../../store/async-actions';
 import styles from './offer.module.css';
 
 const OfferPage = () => {
@@ -20,6 +21,7 @@ const OfferPage = () => {
   const {
     offer,
     isOfferLoading,
+    isOfferNotFound,
     offerError,
     nearby,
     isNearbyLoading,
@@ -31,6 +33,8 @@ const OfferPage = () => {
 
   const dispatch = useAppDispatch();
 
+  const nearbyOffers = nearby ? nearby.slice(0, 3) : null;
+
   useEffect(() => {
     if (!params.id) {
       return;
@@ -39,15 +43,18 @@ const OfferPage = () => {
     dispatch(fetchNearbyOfferAction(params.id));
   }, [dispatch, params.id]);
 
+  if (!isOfferLoading && isOfferNotFound) {
+    return <NotFoundPage message={offerError?.message} />;
+  }
+
   return (
     <div
-      className={cn({
-        page: !isOfferLoading,
+      className={cn('page', {
         [styles.loadingContainer]: isOfferLoading,
       })}
     >
       {isOfferLoading && <Spinner />}
-      {!isOfferLoading && offerError && <p>{offerError}</p>}
+      {!isOfferLoading && offerError && <p>{offerError.message}</p>}
       {!isOfferLoading && !offerError && offer && (
         <main className="page__main page__main--offer">
           <section className="offer">
@@ -75,7 +82,7 @@ const OfferPage = () => {
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
-                    <span style={{ width: ratingStarMap[offer.rating] }}></span>
+                    <span style={{ width: ratingStars[offer.rating] }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="offer__rating-value rating__value">
@@ -141,16 +148,16 @@ const OfferPage = () => {
             </div>
             <OfferNearbyMap
               city={offer.city}
-              nearby={nearby}
+              nearby={nearbyOffers}
               isLoading={isNearbyLoading}
-              error={nearbyError}
+              error={nearbyError?.message}
               activeOfferId={activeNearbyOfferId}
             />
           </section>
           <OfferNearbyList
-            nearby={nearby}
+            nearby={nearbyOffers}
             isLoading={isNearbyLoading}
-            error={nearbyError}
+            error={nearbyError?.message}
             onActive={setActiveNearbyOfferId}
           />
         </main>

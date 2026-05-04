@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
-import { routesMap } from '../../shared/constants';
+import { routes } from '../../shared/constants';
 import styles from './not-found.module.css';
 
-const NotFoundPage = () => (
+const NotFoundPage = ({ message }: { message?: string }) => (
   <div className="page page--gray">
     <main className={styles.wrapper}>
       <div className={styles.container}>
-        <p className={styles.message}>Error 404. Page Not Found.</p>
-        <Link to={routesMap.root} className={styles.link}>
+        <p className={styles.message}>
+          {message ? message : 'Error 404. Page Not Found.'}
+        </p>
+        <Link to={routes.root} className={styles.link}>
           Go Home
         </Link>
       </div>

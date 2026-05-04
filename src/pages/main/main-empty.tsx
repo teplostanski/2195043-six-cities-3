@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { routesMap } from '../../shared/constants';
+import { routes } from '../../shared/constants';
 
 function MainPage() {
   return (
@@ -10,34 +10,34 @@ function MainPage() {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={routesMap.empty}>
+                <Link className="locations__item-link tabs__item" to={routes.empty}>
                   <span>Paris</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={routesMap.empty}>
+                <Link className="locations__item-link tabs__item" to={routes.empty}>
                   <span>Cologne</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={routesMap.empty}>
+                <Link className="locations__item-link tabs__item" to={routes.empty}>
                   <span>Brussels</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={routesMap.empty}>
+                <Link className="locations__item-link tabs__item" to={routes.empty}>
                   <span>Amsterdam</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={routesMap.empty}>
+                <Link className="locations__item-link tabs__item" to={routes.empty}>
                   <span>Hamburg</span>
                 </Link>
               </li>
               <li className="locations__item">
                 <Link
                   className="locations__item-link tabs__item tabs__item--active"
-                  to={routesMap.empty}
+                  to={routes.empty}
                 >
                   <span>Dusseldorf</span>
                 </Link>

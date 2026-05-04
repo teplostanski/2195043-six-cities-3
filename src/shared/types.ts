@@ -1,8 +1,10 @@
-import { cities } from './constants';
+import { authStatus, cities, ratingStars } from './constants';
 
-export type Rating = 1 | 2 | 3 | 4 | 5;
+export type AuthorizationStatus = typeof authStatus[keyof typeof authStatus];
 
-export type CityName = typeof cities[number];
+export type Rating = keyof typeof ratingStars;
+
+export type CityName = typeof cities[keyof typeof cities];
 
 type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 
@@ -53,4 +55,17 @@ export type Comment = {
   };
   comment: string;
   rating: Rating;
+};
+
+export type UserInfo = {
+  name: string
+  avatarUrl: string
+  isPro: boolean
+  email: string
+  token: string
+};
+
+export type LoginData = {
+  email: string;
+  password: string;
 };

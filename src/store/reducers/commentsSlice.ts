@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { Comment } from '../../shared/types';
-import { fetchCommentsAction } from '../api/actions';
+import { fetchCommentsAction } from '../async-actions';
+import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
 
 type commentsState = {
   comments: Comment[];
   isLoading: boolean;
-  error: string | null;
+  error: HttpError | null;
 };
 
 const initialState: commentsState = {
@@ -28,9 +29,9 @@ const commentsSlice = createSlice({
         state.isLoading = false;
         state.comments = action.payload;
       })
-      .addCase(fetchCommentsAction.rejected, (state) => {
+      .addCase(fetchCommentsAction.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = 'Не удалось загрузить комментарии';
+        state.error = action.payload ?? UNKNOWN_HTTP_ERROR;
       });
   },
   reducers: {},

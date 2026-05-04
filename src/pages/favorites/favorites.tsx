@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FavoritesCardList } from '../../components/favorites-card-list';
-import { routesMap } from '../../shared/constants';
+import { routes } from '../../shared/constants';
 import { useAppSelector } from '../../shared/hooks/redux';
 
 const FavoritesPage = () => {
@@ -17,7 +17,7 @@ const FavoritesPage = () => {
         </div>
       </main>
       <footer className="footer container">
-        <Link className="footer__logo-link" to={routesMap.root}>
+        <Link className="footer__logo-link" to={routes.root}>
           <img
             className="footer__logo"
             src="img/logo.svg"
