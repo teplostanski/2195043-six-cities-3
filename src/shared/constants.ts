@@ -48,5 +48,5 @@ export const cities = {
   dusseldorf: 'Dusseldorf',
 } as const;
 
-export const passwordRegex = /^(?=.*[a-z])(?=.*\d).{8,}$/;
-export const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+export const loginPasswordPattern =
+  '^(?=.*[A-Za-z])(?=.*\\d).+$' as const;

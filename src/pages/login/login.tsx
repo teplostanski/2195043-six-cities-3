@@ -1,13 +1,7 @@
 import { type ChangeEvent, type FormEvent, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { Header } from '../../components/header';
-import {
-  authStatus,
-  emailRegex,
-  passwordRegex,
-  routes,
-} from '../../shared/constants';
-import { failure, success } from '../../shared/result';
+import { authStatus, loginPasswordPattern, routes } from '../../shared/constants';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import { loginAction } from '../../store/async-actions';
 import { LoginData } from '../../shared/types';
@@ -17,13 +11,6 @@ type FormData = {
   password: string;
 };
 
-type FormErrors = {
-  email: string | null;
-  password: string | null;
-};
-
-type Field = keyof FormData;
-
 type LoginFormProps = { onSubmit: (formData: LoginData) => void };
 
 const LoginForm = ({ onSubmit }: LoginFormProps) => {
@@ -31,71 +18,33 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
     email: '',
     password: '',
   });
-  const [formErrors, setFormErrors] = useState<FormErrors>({
-    email: null,
-    password: null,
-  });
 
-  const hasErrors = Object.values(formErrors).some(Boolean);
   const isFormIncomplete = !formData.email || !formData.password;
-  const isSubmitDisabled = hasErrors || isFormIncomplete;
+  const isSubmitDisabled = isFormIncomplete;
 
   const resetForm = () => {
     setFormData({
       email: '',
       password: '',
     });
-    setFormErrors({
-      email: null,
-      password: null,
-    });
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const form = event.currentTarget;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
     onSubmit(formData);
     resetForm();
   };
 
-  const validatePassword = (password: string) => {
-    if (!passwordRegex.test(password)) {
-      return failure(
-        'Password must be at least 8 characters long and contain numbers, uppercase and lowercase letters',
-      );
-    }
-
-    return success(password);
-  };
-
-  const validateEmail = (email: string) => {
-    if (!emailRegex.test(email)) {
-      return failure('Email must be a valid email address');
-    }
-
-    return success(email);
-  };
-
-  const validationField = {
-    password: validatePassword,
-    email: validateEmail,
-  } as const;
-
-  const handleInputChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    field: Field,
-  ) => {
-    const v = validationField[field];
-    const result = v(event.target.value);
-    if (!result.ok) {
-      setFormErrors((prev) => ({ ...prev, [field]: result.error }));
-      setFormData((prev) => ({ ...prev, [field]: event.target.value }));
-    }
-
-    if (result.ok) {
-      setFormErrors((prev) => ({ ...prev, [field]: null }));
-      setFormData((prev) => ({ ...prev, [field]: result.value }));
-    }
-  };
+  const handleFieldChange =
+    (field: keyof FormData) => (event: ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value;
+      setFormData((prev) => ({ ...prev, [field]: value }));
+    };
 
   return (
     <form
@@ -113,7 +62,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
           placeholder="Email"
           required
           value={formData.email}
-          onChange={(event) => handleInputChange(event, 'email')}
+          onChange={handleFieldChange('email')}
         />
       </div>
       <div className="login__input-wrapper form__input-wrapper">
@@ -124,8 +73,9 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
           name="password"
           placeholder="Password"
           required
+          pattern={loginPasswordPattern}
           value={formData.password}
-          onChange={(event) => handleInputChange(event, 'password')}
+          onChange={handleFieldChange('password')}
         />
       </div>
       <button
