@@ -1,20 +1,20 @@
 import { Link, Navigate } from 'react-router-dom';
 import { Header } from '../../components/header';
-import { authStatus, routes } from '../../shared/constants';
+import { routes } from '../../shared/constants';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import { loginAction } from '../../store/async-actions';
 import { LoginData } from '../../shared/types';
 import { LoginForm } from '../../components/login-form';
 
 const LoginPage = () => {
-  const { authorizationStatus } = useAppSelector((state) => state.authReducer);
+  const { isAuthenticated } = useAppSelector((state) => state.authReducer);
   const dispatch = useAppDispatch();
 
   const handleSubmit = (formData: LoginData) => {
     dispatch(loginAction(formData));
   };
 
-  if (authorizationStatus === authStatus.auth) {
+  if (isAuthenticated) {
     return <Navigate to={routes.root} />;
   }
 

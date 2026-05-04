@@ -24,8 +24,8 @@ const App = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path={routes.notFound} element={<NotFoundPage />} />
         <Route path={routes.login} element={<LoginPage />} />
+        <Route path={routes.notFound} element={<NotFoundPage />} />
         <Route path={routes.root} element={<Layout />}>
           <Route index element={<MainPage />} />
           <Route
@@ -38,6 +38,7 @@ const App = () => {
           />
           <Route path={routes.offer} element={<OfferPage />} />
         </Route>
+        <Route path={routes.catchAll} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
