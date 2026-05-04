@@ -50,3 +50,5 @@ export const cities = {
 
 export const loginPasswordPattern =
   '^(?=.*[A-Za-z])(?=.*\\d).+$' as const;
+
+export const AUTH_TOKEN_STORAGE_KEY = 'six-cities-token';

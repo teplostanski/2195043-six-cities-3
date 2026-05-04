@@ -1,3 +1,4 @@
+import { removeAuthToken, saveAuthToken } from '../shared/auth-token';
 import { apiPaths } from '../shared/constants';
 import type { HttpError } from '../shared/http-error';
 import type {
@@ -68,6 +69,7 @@ export const checkAuthAction = createAppAsyncThunk<
   'auth/checkAuth',
   createSafeThunkPayload(async (_arg, api) => {
     const { data } = await api.get<UserInfo>(apiPaths.login);
+    saveAuthToken(data.token);
     return data;
   }),
 );
@@ -80,6 +82,7 @@ export const loginAction = createAppAsyncThunk<
   'auth/login',
   createSafeThunkPayload(async (loginData, api) => {
     const { data } = await api.post<UserInfo>(apiPaths.login, loginData);
+    saveAuthToken(data.token);
     return data;
   }),
 );
@@ -92,5 +95,6 @@ export const logoutAction = createAppAsyncThunk<
   'auth/logout',
   createSafeThunkPayload(async (_, api) => {
     await api.delete(apiPaths.logout);
+    removeAuthToken();
   }),
 );
