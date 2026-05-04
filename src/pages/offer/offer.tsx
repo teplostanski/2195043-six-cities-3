@@ -7,8 +7,9 @@ import { OfferNearbyMap } from '../../components/offer-nearby-map';
 import { OfferReview } from '../../components/offer-review';
 import PremiumMark from '../../components/premium-mark';
 import { Spinner } from '../../components/spinner';
-import { ratingStars, routes } from '../../shared/constants';
+import { routes } from '../../shared/constants';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
+import { getRatingStarsWidth } from '../../shared/utils';
 import {
   fetchNearbyOfferAction,
   fetchOfferAction,
@@ -84,7 +85,11 @@ const OfferPage = () => {
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
-                    <span style={{ width: ratingStars[offer.rating] }}></span>
+                    <span
+                      style={{
+                        width: getRatingStarsWidth(offer.rating),
+                      }}
+                    />
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="offer__rating-value rating__value">

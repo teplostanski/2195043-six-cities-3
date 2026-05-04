@@ -24,7 +24,7 @@ const OfferReview = ({ offerId }: OfferReviewProps) => {
       .unwrap()
       .then(() => {
         dispatch(fetchCommentsAction(offerId));
-      })
+      });
   };
 
   useEffect(() => {

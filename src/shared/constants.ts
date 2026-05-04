@@ -49,7 +49,13 @@ export const cities = {
   dusseldorf: 'Dusseldorf',
 } as const;
 
-export const loginPasswordPattern =
-  '^(?=.*[A-Za-z])(?=.*\\d).+$' as const;
+export const loginPasswordPattern = '^(?=.*[A-Za-z])(?=.*\\d).+$' as const;
 
 export const AUTH_TOKEN_STORAGE_KEY = 'six-cities-token';
+
+export const offerSortOptions = [
+  { name: 'Popular', value: 'popular' },
+  { name: 'Price: low to high', value: 'price-low-to-high' },
+  { name: 'Price: high to low', value: 'price-high-to-low' },
+  { name: 'Top rated first', value: 'top-rated-first' },
+] as const;

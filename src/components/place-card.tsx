@@ -1,7 +1,8 @@
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
-import { cardImageSizes, ratingStars, routes } from '../shared/constants';
-import { OfferPreview } from '../shared/types';
+import { cardImageSizes, routes } from '../shared/constants';
+import type { OfferPreview } from '../shared/types';
+import { getRatingStarsWidth } from '../shared/utils';
 import PremiumMark from './premium-mark';
 
 type Variant = keyof typeof cardImageSizes;
@@ -73,7 +74,7 @@ const PlaceCard = ({ offer, variant, onActive }: PlaceCardProps) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: ratingStars[offer.rating] }}></span>
+            <span style={{ width: getRatingStarsWidth(offer.rating) }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
