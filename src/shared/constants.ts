@@ -13,7 +13,8 @@ export const cardImageSizes = {
 } as const;
 
 export const routes = {
-  notFound: '*',
+  notFound: '/404',
+  catchAll: '*',
   empty: '#',
   root: '/',
   login: '/login',

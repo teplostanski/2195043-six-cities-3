@@ -1,14 +1,13 @@
 import cn from 'classnames';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import OfferGallery from '../../components/offer-gallery';
 import { OfferNearbyList } from '../../components/offer-nearby-list';
 import { OfferNearbyMap } from '../../components/offer-nearby-map';
 import { OfferReview } from '../../components/offer-review';
 import PremiumMark from '../../components/premium-mark';
 import { Spinner } from '../../components/spinner';
-import { NotFoundPage } from '../not-found/not-found';
-import { ratingStars } from '../../shared/constants';
+import { ratingStars, routes } from '../../shared/constants';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import {
   fetchNearbyOfferAction,
@@ -30,8 +29,8 @@ const OfferPage = () => {
   const [activeNearbyOfferId, setActiveNearbyOfferId] = useState<string | null>(
     null,
   );
-
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const nearbyOffers = nearby ? nearby.slice(0, 3) : null;
 
@@ -44,7 +43,10 @@ const OfferPage = () => {
   }, [dispatch, params.id]);
 
   if (!isOfferLoading && isOfferNotFound) {
-    return <NotFoundPage message={offerError?.message} />;
+    navigate(routes.notFound, {
+      replace: true,
+      state: { message: offerError?.message },
+    });
   }
 
   return (
