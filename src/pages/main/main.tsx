@@ -6,7 +6,7 @@ import { Spinner } from '../../components/spinner';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import type { CityName } from '../../shared/types';
 import { setCurrentCity } from '../../store/reducers/offersListSlice';
-import { selectOffersByCity } from '../../store/selectors/offersListSelectors';
+import { selectOffersByCity } from '../../store/utils';
 
 const MainPage = () => {
   const { offers, currentCity, isLoading, error } = useAppSelector(

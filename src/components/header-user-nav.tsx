@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
-import { authStatus, routes } from '../shared/constants';
+import { routes } from '../shared/constants';
 import { useAppDispatch, useAppSelector } from '../shared/hooks/redux';
 import { logoutAction } from '../store/async-actions';
 
 const HeaderUserNav = () => {
-  const { authorizationStatus, userInfo } = useAppSelector((state) => state.authReducer);
+  const { userInfo, isAuthenticated } = useAppSelector(
+    (state) => state.authReducer,
+  );
 
   const dispatch = useAppDispatch();
 
@@ -12,25 +14,22 @@ const HeaderUserNav = () => {
     void dispatch(logoutAction());
   };
 
-  const isAuthenticated = authorizationStatus === authStatus.auth;
-  const isGuest = authorizationStatus === authStatus.noAuth;
-  const isCheckingAuth = authorizationStatus === authStatus.unknown;
+  const isGuest = !isAuthenticated;
 
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
-        {isCheckingAuth ||
-          (isGuest && (
-            <li className="header__nav-item user">
-              <Link
-                className="header__nav-link header__nav-link--profile"
-                to={routes.login}
-              >
-                <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                <span className="header__login">Sign in</span>
-              </Link>
-            </li>
-          ))}
+        {isGuest && (
+          <li className="header__nav-item user">
+            <Link
+              className="header__nav-link header__nav-link--profile"
+              to={routes.login}
+            >
+              <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+              <span className="header__login">Sign in</span>
+            </Link>
+          </li>
+        )}
         {isAuthenticated && (
           <>
             <li className="header__nav-item user">

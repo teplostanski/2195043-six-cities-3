@@ -6,6 +6,7 @@ import { checkAuthAction, loginAction, logoutAction } from '../async-actions';
 
 type AuthState = {
   authorizationStatus: AuthorizationStatus;
+  isAuthenticated: boolean;
   userInfo: UserInfo | null;
   isLoading: boolean;
   error: HttpError | null;
@@ -13,6 +14,7 @@ type AuthState = {
 
 const initialState: AuthState = {
   authorizationStatus: authStatus.unknown,
+  isAuthenticated: false,
   userInfo: null,
   isLoading: false,
   error: null,
@@ -37,11 +39,13 @@ const authSlice = createSlice({
       .addCase(checkAuthAction.fulfilled, (state, action) => {
         state.isLoading = false;
         state.authorizationStatus = authStatus.auth;
+        state.isAuthenticated = true;
         state.userInfo = action.payload;
       })
       .addCase(checkAuthAction.rejected, (state, action) => {
         state.isLoading = false;
         state.authorizationStatus = authStatus.noAuth;
+        state.isAuthenticated = false;
         state.error = action.payload ?? UNKNOWN_HTTP_ERROR;
       });
     builder
@@ -52,11 +56,13 @@ const authSlice = createSlice({
       .addCase(loginAction.fulfilled, (state, action) => {
         state.isLoading = false;
         state.authorizationStatus = authStatus.auth;
+        state.isAuthenticated = true;
         state.userInfo = action.payload;
       })
       .addCase(loginAction.rejected, (state, action) => {
         state.isLoading = false;
         state.authorizationStatus = authStatus.noAuth;
+        state.isAuthenticated = false;
         state.error = action.payload ?? UNKNOWN_HTTP_ERROR;
       });
     builder
@@ -67,6 +73,7 @@ const authSlice = createSlice({
       .addCase(logoutAction.fulfilled, (state) => {
         state.isLoading = false;
         state.authorizationStatus = authStatus.noAuth;
+        state.isAuthenticated = false;
         state.userInfo = null;
       })
       .addCase(logoutAction.rejected, (state, action) => {
