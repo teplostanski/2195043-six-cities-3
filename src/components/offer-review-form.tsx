@@ -1,12 +1,16 @@
 import { type ChangeEvent, type FormEvent, Fragment, useState } from 'react';
 import type { CommentData, Rating } from '../shared/types';
+import { Spinner } from './spinner';
 
 type FormData = {
   rating: Rating | null;
   comment: string;
 };
 
-type OfferReviewFormProps = { onSubmit: (commentData: CommentData) => void };
+type OfferReviewFormProps = {
+  onSubmit: (commentData: CommentData) => void;
+  isSubmitting?: boolean;
+};
 
 const ratingOptionsMap = [
   { value: 5, title: 'perfect' },
@@ -18,7 +22,10 @@ const ratingOptionsMap = [
 
 const MIN_COMMENT_LENGTH = 50;
 
-const OfferReviewForm = ({ onSubmit }: OfferReviewFormProps) => {
+const OfferReviewForm = ({
+  onSubmit,
+  isSubmitting = false,
+}: OfferReviewFormProps) => {
   const [formData, setFormData] = useState<FormData>({
     rating: null,
     comment: '',
@@ -59,6 +66,7 @@ const OfferReviewForm = ({ onSubmit }: OfferReviewFormProps) => {
       action="#"
       method="post"
       onSubmit={handleSubmit}
+      aria-busy={isSubmitting}
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
@@ -106,9 +114,16 @@ const OfferReviewForm = ({ onSubmit }: OfferReviewFormProps) => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isSubmitDisabled}
+          disabled={isSubmitDisabled || isSubmitting}
         >
-          Submit
+          {isSubmitting ? (
+            <>
+              <span className="visually-hidden">Sending review</span>
+              <Spinner compact />
+            </>
+          ) : (
+            'Submit'
+          )}
         </button>
       </div>
     </form>

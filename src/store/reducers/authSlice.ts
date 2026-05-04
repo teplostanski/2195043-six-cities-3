@@ -26,6 +26,7 @@ const authSlice = createSlice({
   reducers: {
     clearAuthData(state) {
       state.authorizationStatus = authStatus.noAuth;
+      state.isAuthenticated = false;
       state.userInfo = null;
       state.error = null;
     },

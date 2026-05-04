@@ -13,15 +13,18 @@ type OfferReviewProps = {
 
 const OfferReview = ({ offerId }: OfferReviewProps) => {
   const { isAuthenticated } = useAppSelector((state) => state.authReducer);
-  const { comments, isLoading, error } = useAppSelector(
-    (state) => state.commentsReducer,
-  );
+  const { comments, isLoading, isSubmitting, fetchError, submitError } =
+    useAppSelector((state) => state.commentsReducer);
   const dispatch = useAppDispatch();
 
   const sortedComments = sortComments(comments).slice(0, 10);
 
   const handleSubmit = (commentData: CommentData) => {
-    dispatch(sendCommentAction({ ...commentData, id: offerId }));
+    void dispatch(sendCommentAction({ ...commentData, id: offerId }))
+      .unwrap()
+      .then(() => {
+        dispatch(fetchCommentsAction(offerId));
+      })
   };
 
   useEffect(() => {
@@ -34,8 +37,8 @@ const OfferReview = ({ offerId }: OfferReviewProps) => {
   return (
     <section className="offer__reviews reviews">
       {isLoading && <Spinner />}
-      {!isLoading && error && <p>{error.message}</p>}
-      {!isLoading && !error && comments.length > 0 && (
+      {!isLoading && fetchError && <p>{fetchError.message}</p>}
+      {!isLoading && !fetchError && comments.length > 0 && (
         <>
           <h2 className="reviews__title">
             Reviews &middot;{' '}
@@ -44,8 +47,14 @@ const OfferReview = ({ offerId }: OfferReviewProps) => {
           <OfferReviewList comments={sortedComments} />
         </>
       )}
-      {!isLoading && !error && isAuthenticated && (
-        <OfferReviewForm onSubmit={handleSubmit} />
+      {!isLoading && !fetchError && isAuthenticated && (
+        <>
+          {submitError && <p>{submitError.message}</p>}
+          <OfferReviewForm
+            onSubmit={handleSubmit}
+            isSubmitting={isSubmitting}
+          />
+        </>
       )}
     </section>
   );
