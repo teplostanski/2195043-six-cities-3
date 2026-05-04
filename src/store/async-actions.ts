@@ -3,6 +3,7 @@ import { apiPaths } from '../shared/constants';
 import type { HttpError } from '../shared/http-error';
 import type {
   Comment,
+  CommentSendData,
   LoginData,
   OfferFull,
   OfferPreview,
@@ -58,6 +59,18 @@ export const fetchCommentsAction = createAppAsyncThunk<
   createSafeThunkPayload(async (id, api) => {
     const { data } = await api.get<Comment[]>(apiPaths.comments(id));
     return data;
+  }),
+);
+
+export const sendCommentAction = createAppAsyncThunk<
+  void,
+  CommentSendData,
+  HttpErrorRejectConfig
+>(
+  'comments/sendComment',
+  createSafeThunkPayload(async (data, api) => {
+    const { id, comment, rating } = data;
+    await api.post<void>(apiPaths.comments(id), { comment, rating });
   }),
 );
 

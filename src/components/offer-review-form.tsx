@@ -1,10 +1,12 @@
-import { type ChangeEvent, Fragment, useState } from 'react';
-import type { Rating } from '../shared/types';
+import { type ChangeEvent, type FormEvent, Fragment, useState } from 'react';
+import type { CommentData, Rating } from '../shared/types';
 
 type FormData = {
   rating: Rating | null;
-  text: string;
+  comment: string;
 };
+
+type OfferReviewFormProps = { onSubmit: (commentData: CommentData) => void };
 
 const ratingOptionsMap = [
   { value: 5, title: 'perfect' },
@@ -16,22 +18,48 @@ const ratingOptionsMap = [
 
 const MIN_COMMENT_LENGTH = 50;
 
-const OfferReviewForm = () => {
+const OfferReviewForm = ({ onSubmit }: OfferReviewFormProps) => {
   const [formData, setFormData] = useState<FormData>({
     rating: null,
-    text: '',
+    comment: '',
   });
+
+  const isSubmitDisabled =
+    formData.comment.length < MIN_COMMENT_LENGTH || formData.rating === null;
 
   const handleRatingChange = (value: Rating) => {
     setFormData((prev) => ({ ...prev, rating: value }));
   };
 
   const handleCommentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setFormData((prev) => ({ ...prev, text: event.target.value }));
+    setFormData((prev) => ({ ...prev, comment: event.target.value }));
+  };
+
+  const resetForm = () => {
+    setFormData({
+      rating: null,
+      comment: '',
+    });
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const { rating, comment } = formData;
+    if (rating === null) {
+      return;
+    }
+
+    onSubmit({ comment, rating });
+    resetForm();
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={handleSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -66,7 +94,7 @@ const OfferReviewForm = () => {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={formData.text}
+        value={formData.comment}
         onChange={handleCommentChange}
       />
       <div className="reviews__button-wrapper">
@@ -78,7 +106,7 @@ const OfferReviewForm = () => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={formData.text.length < MIN_COMMENT_LENGTH}
+          disabled={isSubmitDisabled}
         >
           Submit
         </button>

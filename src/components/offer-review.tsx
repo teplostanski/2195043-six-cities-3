@@ -3,8 +3,9 @@ import { useAppDispatch, useAppSelector } from '../shared/hooks/redux';
 import { Spinner } from './spinner';
 import { OfferReviewForm } from './offer-review-form';
 import { OfferReviewList } from './offer-review-list';
-import { fetchCommentsAction } from '../store/async-actions';
+import { fetchCommentsAction, sendCommentAction } from '../store/async-actions';
 import { sortComments } from '../store/utils';
+import type { CommentData } from '../shared/types';
 
 type OfferReviewProps = {
   offerId: string;
@@ -18,6 +19,10 @@ const OfferReview = ({ offerId }: OfferReviewProps) => {
   const dispatch = useAppDispatch();
 
   const sortedComments = sortComments(comments).slice(0, 10);
+
+  const handleSubmit = (commentData: CommentData) => {
+    dispatch(sendCommentAction({ ...commentData, id: offerId }));
+  };
 
   useEffect(() => {
     if (!offerId) {
@@ -39,7 +44,9 @@ const OfferReview = ({ offerId }: OfferReviewProps) => {
           <OfferReviewList comments={sortedComments} />
         </>
       )}
-      {!isLoading && !error && isAuthenticated && <OfferReviewForm />}
+      {!isLoading && !error && isAuthenticated && (
+        <OfferReviewForm onSubmit={handleSubmit} />
+      )}
     </section>
   );
 };
