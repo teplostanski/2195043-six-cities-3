@@ -1,4 +1,4 @@
-import { authStatus, cities, ratingStars } from './constants';
+import { authStatus, cities, offerSortOptions, ratingStars } from './constants';
 
 export type AuthorizationStatus = (typeof authStatus)[keyof typeof authStatus];
 
@@ -78,3 +78,6 @@ export type CommentData = {
 export type CommentSendData = CommentData & {
   id: string;
 };
+
+export type OfferSortOption = (typeof offerSortOptions)[number];
+export type OfferSortType = OfferSortOption['value'];
