@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../shared/hooks/redux';
 import { Spinner } from './spinner';
 import { OfferReviewForm } from './offer-review-form';
@@ -17,15 +17,18 @@ const OfferReview = ({ offerId }: OfferReviewProps) => {
     useAppSelector((state) => state.commentsReducer);
   const dispatch = useAppDispatch();
 
-  const sortedComments = sortComments(comments).slice(0, 10);
+  const sortedComments = useMemo(() => sortComments(comments).slice(0, 10), [comments]);
 
-  const handleSubmit = (commentData: CommentData) => {
-    void dispatch(sendCommentAction({ ...commentData, id: offerId }))
-      .unwrap()
-      .then(() => {
-        dispatch(fetchCommentsAction(offerId));
-      });
-  };
+  const handleSubmit = useCallback(
+    (commentData: CommentData) => {
+      void dispatch(sendCommentAction({ ...commentData, id: offerId }))
+        .unwrap()
+        .then(() => {
+          dispatch(fetchCommentsAction(offerId));
+        });
+    },
+    [dispatch, offerId],
+  );
 
   useEffect(() => {
     if (!offerId) {

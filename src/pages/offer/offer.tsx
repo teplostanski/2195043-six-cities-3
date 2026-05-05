@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import OfferGallery from '../../components/offer-gallery';
 import { OfferNearbyList } from '../../components/offer-nearby-list';
 import { OfferNearbyMap } from '../../components/offer-nearby-map';
@@ -31,9 +31,8 @@ const OfferPage = () => {
     null,
   );
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
-  const nearbyOffers = nearby ? nearby.slice(0, 3) : null;
+  const nearbyOffers = nearby?.slice(0, 3) ?? null;
 
   useEffect(() => {
     if (!params.id) {
@@ -44,10 +43,13 @@ const OfferPage = () => {
   }, [dispatch, params.id]);
 
   if (!isOfferLoading && isOfferNotFound) {
-    navigate(routes.notFound, {
-      replace: true,
-      state: { message: offerError?.message },
-    });
+    return (
+      <Navigate
+        to={routes.notFound}
+        replace
+        state={{ message: offerError?.message }}
+      />
+    );
   }
 
   return (

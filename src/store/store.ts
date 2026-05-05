@@ -1,19 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createApi, setupInterceptors } from '../shared/api';
 import { createOnUnauthorized } from './on-unauthorized';
-import { authReducer } from './reducers/authSlice';
-import { commentsReducer } from './reducers/commentsSlice';
-import { offerReducer } from './reducers/offerSlice';
-import { offersListReducer } from './reducers/offersListSlice';
+import { rootReducer } from './root-reducer';
 
 export const api = createApi();
-
-const rootReducer = {
-  offersListReducer,
-  offerReducer,
-  commentsReducer,
-  authReducer,
-};
 
 export const setupStore = () => {
   const store = configureStore({

@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { cardImageSizes, routes } from '../shared/constants';
 import type { OfferPreview } from '../shared/types';
@@ -13,7 +14,7 @@ type PlaceCardProps = {
   onActive?: (id: string | null) => void;
 };
 
-const PlaceCard = ({ offer, variant, onActive }: PlaceCardProps) => {
+const PlaceCardComponent = ({ offer, variant, onActive }: PlaceCardProps) => {
   const isCitiesCard = variant === 'cities';
   const isFavoritesCard = variant === 'favorites';
   const isNearCard = variant === 'near';
@@ -86,5 +87,7 @@ const PlaceCard = ({ offer, variant, onActive }: PlaceCardProps) => {
     </article>
   );
 };
+
+const PlaceCard = memo(PlaceCardComponent);
 
 export { PlaceCard };

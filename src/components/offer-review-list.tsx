@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { ratingStars } from '../shared/constants';
 import type { Comment } from '../shared/types';
 import { formatDate } from '../shared/utils';
@@ -6,7 +7,7 @@ type OfferReviewListProps = {
   comments: Comment[];
 };
 
-const OfferReviewList = ({ comments }: OfferReviewListProps) => (
+const OfferReviewListComponent = ({ comments }: OfferReviewListProps) => (
   <ul className="reviews__list">
     {comments?.map((comment) => (
       <li key={comment.id} className="reviews__item">
@@ -38,5 +39,7 @@ const OfferReviewList = ({ comments }: OfferReviewListProps) => (
     ))}
   </ul>
 );
+
+const OfferReviewList = memo(OfferReviewListComponent);
 
 export { OfferReviewList };

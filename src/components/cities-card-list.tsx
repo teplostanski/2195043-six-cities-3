@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { OfferPreview } from '../shared/types';
 import { PlaceCard } from './place-card';
 
@@ -6,7 +7,10 @@ type CitiesCardListProps = {
   onActiveCardChange: (id: string | null) => void;
 };
 
-const CitiesCardList = ({ offers, onActiveCardChange }: CitiesCardListProps) => (
+const CitiesCardListComponent = ({
+  offers,
+  onActiveCardChange,
+}: CitiesCardListProps) => (
   <div className="cities__places-list places__list tabs__content">
     {offers.map((card) => (
       <PlaceCard
@@ -18,5 +22,7 @@ const CitiesCardList = ({ offers, onActiveCardChange }: CitiesCardListProps) => 
     ))}
   </div>
 );
+
+const CitiesCardList = memo(CitiesCardListComponent);
 
 export { CitiesCardList };

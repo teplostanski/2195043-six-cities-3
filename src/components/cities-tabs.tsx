@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { memo } from 'react';
 import { cities } from '../shared/constants';
 import { CityName } from '../shared/types';
 
@@ -7,7 +8,7 @@ type CitiesTabProps = {
   onCityChange: (city: CityName) => void;
 };
 
-const CitiesTabs = ({ currentCity, onCityChange }: CitiesTabProps) => (
+const CitiesTabsComponent = ({ currentCity, onCityChange }: CitiesTabProps) => (
   <section className="locations container">
     <ul className="locations__list tabs__list">
       {Object.values(cities).map((city) => (
@@ -29,5 +30,7 @@ const CitiesTabs = ({ currentCity, onCityChange }: CitiesTabProps) => (
     </ul>
   </section>
 );
+
+const CitiesTabs = memo(CitiesTabsComponent);
 
 export { CitiesTabs };

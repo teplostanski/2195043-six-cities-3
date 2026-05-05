@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { CitiesCardList } from '../../components/cities-card-list';
 import { CitiesTabs } from '../../components/cities-tabs';
 import Map from '../../components/map';
@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import type { CityName, OfferSortType } from '../../shared/types';
 import { setCurrentCity } from '../../store/reducers/offersListSlice';
 import { selectOffersByCity, sortOffers } from '../../store/utils';
+import { offerSortOptions } from '../../shared/constants';
 
 const MainPage = () => {
   const {
@@ -16,8 +17,9 @@ const MainPage = () => {
     isLoading,
     error,
   } = useAppSelector((state) => state.offersListReducer);
+  const defaultSortType = offerSortOptions[0].value;
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-  const [sortType, setSortType] = useState<OfferSortType>('popular');
+  const [sortType, setSortType] = useState<OfferSortType>(defaultSortType);
   const dispatch = useAppDispatch();
 
   const filteredOffers = useMemo(
@@ -31,17 +33,21 @@ const MainPage = () => {
   );
 
   useEffect(() => {
-    setSortType('popular');
-  }, [currentCity]);
+    setSortType(defaultSortType);
+  }, [currentCity, defaultSortType]);
 
   const hasOffers = offers.length > 0;
 
-  const handleCityChange = (city: CityName) => {
-    dispatch(setCurrentCity(city));
-  };
+  const handleCityChange = useCallback(
+    (city: CityName) => {
+      dispatch(setCurrentCity(city));
+    },
+    [dispatch],
+  );
 
- console.log(offers);
-
+  const handleActiveCardChange = useCallback((id: string | null) => {
+    setActiveOfferId(id);
+  }, []);
 
   return (
     <div className="page page--gray page--main">
@@ -72,8 +78,8 @@ const MainPage = () => {
                   />
                   {hasOffers && (
                     <CitiesCardList
-                      offers={offers}
-                      onActiveCardChange={setActiveOfferId}
+                      offers={filteredOffers}
+                      onActiveCardChange={handleActiveCardChange}
                     />
                   )}
                   {!hasOffers && <p>No places to stay available</p>}
