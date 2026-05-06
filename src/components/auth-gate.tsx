@@ -1,0 +1,31 @@
+import { Navigate } from 'react-router-dom';
+import { authStatus } from '../shared/constants';
+import { useAppSelector } from '../shared/hooks/redux';
+import {
+  selectAuthorizationStatus,
+  selectIsAuthenticated,
+} from '../store/reducers/authSlice';
+import { Spinner } from './spinner';
+
+type AuthGateProps = {
+  children: JSX.Element;
+  requireAuth: boolean;
+  redirectTo: string;
+};
+
+const AuthGate = ({ children, requireAuth, redirectTo }: AuthGateProps) => {
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+
+  if (authorizationStatus === authStatus.unknown) {
+    return <Spinner />;
+  }
+
+  if (requireAuth) {
+    return isAuthenticated ? children : <Navigate to={redirectTo} />;
+  }
+
+  return isAuthenticated ? <Navigate to={redirectTo} /> : children;
+};
+
+export { AuthGate };

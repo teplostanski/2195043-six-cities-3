@@ -35,7 +35,7 @@ const HeaderUserNav = () => {
             <li className="header__nav-item user">
               <Link
                 className="header__nav-link header__nav-link--profile"
-                to={routes.empty}
+                to={routes.favorites}
               >
                 <div className="header__avatar-wrapper user__avatar-wrapper">
                   {userInfo?.avatarUrl ? (
