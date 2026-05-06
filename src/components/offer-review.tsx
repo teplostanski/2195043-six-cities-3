@@ -4,6 +4,14 @@ import { Spinner } from './spinner';
 import { OfferReviewForm } from './offer-review-form';
 import { OfferReviewList } from './offer-review-list';
 import { fetchCommentsAction, sendCommentAction } from '../store/async-actions';
+import {
+  selectComments,
+  selectCommentsFetchError,
+  selectCommentsIsLoading,
+  selectCommentsIsSubmitting,
+  selectCommentsSubmitError,
+} from '../store/reducers/commentsSlice';
+import { selectIsAuthenticated } from '../store/reducers/authSlice';
 import { sortComments } from '../store/utils';
 import type { CommentData } from '../shared/types';
 
@@ -12,9 +20,12 @@ type OfferReviewProps = {
 };
 
 const OfferReview = ({ offerId }: OfferReviewProps) => {
-  const { isAuthenticated } = useAppSelector((state) => state.authReducer);
-  const { comments, isLoading, isSubmitting, fetchError, submitError } =
-    useAppSelector((state) => state.commentsReducer);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const comments = useAppSelector(selectComments);
+  const isLoading = useAppSelector(selectCommentsIsLoading);
+  const isSubmitting = useAppSelector(selectCommentsIsSubmitting);
+  const fetchError = useAppSelector(selectCommentsFetchError);
+  const submitError = useAppSelector(selectCommentsSubmitError);
   const dispatch = useAppDispatch();
 
   const sortedComments = useMemo(() => sortComments(comments).slice(0, 10), [comments]);

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { Comment } from '../../shared/types';
 import { fetchCommentsAction, sendCommentAction } from '../async-actions';
 import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
+import type { RootState } from '../store';
 
 type commentsState = {
   comments: Comment[];
@@ -56,3 +57,15 @@ const commentsSlice = createSlice({
 });
 
 export const commentsReducer = commentsSlice.reducer;
+export const selectCommentsState = (state: RootState) => state.commentsReducer;
+
+export const selectComments = (state: RootState) =>
+  selectCommentsState(state).comments;
+export const selectCommentsIsLoading = (state: RootState) =>
+  selectCommentsState(state).isLoading;
+export const selectCommentsIsSubmitting = (state: RootState) =>
+  selectCommentsState(state).isSubmitting;
+export const selectCommentsFetchError = (state: RootState) =>
+  selectCommentsState(state).fetchError;
+export const selectCommentsSubmitError = (state: RootState) =>
+  selectCommentsState(state).submitError;

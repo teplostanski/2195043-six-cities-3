@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { authStatus } from '../../shared/constants';
 import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
 import type { AuthorizationStatus, UserInfo } from '../../shared/types';
+import type { RootState } from '../store';
 import { checkAuthAction, loginAction, logoutAction } from '../async-actions';
 
 type AuthState = {
@@ -86,3 +87,15 @@ const authSlice = createSlice({
 
 export const { clearAuthData } = authSlice.actions;
 export const authReducer = authSlice.reducer;
+export const selectAuthState = (state: RootState) => state.authReducer;
+
+export const selectAuthorizationStatus = (state: RootState) =>
+  selectAuthState(state).authorizationStatus;
+export const selectIsAuthenticated = (state: RootState) =>
+  selectAuthState(state).isAuthenticated;
+export const selectUserInfo = (state: RootState) =>
+  selectAuthState(state).userInfo;
+export const selectAuthIsLoading = (state: RootState) =>
+  selectAuthState(state).isLoading;
+export const selectAuthError = (state: RootState) =>
+  selectAuthState(state).error;

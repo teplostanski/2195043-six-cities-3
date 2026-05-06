@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
 import type { OfferFull } from '../../shared/types';
 import { fetchNearbyOfferAction, fetchOfferAction } from '../async-actions';
+import type { RootState } from '../store';
 
 type OfferState = {
   offer: OfferFull | null;
@@ -41,7 +42,8 @@ const offerSlice = createSlice({
       })
       .addCase(fetchOfferAction.rejected, (state, action) => {
         state.isOfferLoading = false;
-        state.isOfferNotFound = action.payload?.status === StatusCodes.NOT_FOUND;
+        state.isOfferNotFound =
+          action.payload?.status === StatusCodes.NOT_FOUND;
         state.offerError = action.payload ?? UNKNOWN_HTTP_ERROR;
       });
     builder
@@ -63,3 +65,18 @@ const offerSlice = createSlice({
 });
 
 export const offerReducer = offerSlice.reducer;
+export const selectOfferState = (state: RootState) => state.offerReducer;
+
+export const selectOffer = (state: RootState) => selectOfferState(state).offer;
+export const selectNearbyOffers = (state: RootState) =>
+  selectOfferState(state).nearby;
+export const selectIsOfferLoading = (state: RootState) =>
+  selectOfferState(state).isOfferLoading;
+export const selectIsOfferNotFound = (state: RootState) =>
+  selectOfferState(state).isOfferNotFound;
+export const selectOfferError = (state: RootState) =>
+  selectOfferState(state).offerError;
+export const selectIsNearbyLoading = (state: RootState) =>
+  selectOfferState(state).isNearbyLoading;
+export const selectNearbyError = (state: RootState) =>
+  selectOfferState(state).nearbyError;

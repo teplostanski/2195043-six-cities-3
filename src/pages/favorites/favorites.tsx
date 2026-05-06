@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom';
 import { FavoritesCardList } from '../../components/favorites-card-list';
 import { routes } from '../../shared/constants';
 import { useAppSelector } from '../../shared/hooks/redux';
+import { selectOffers } from '../../store/reducers/offersListSlice';
 
 const FavoritesPage = () => {
-  const { offers } = useAppSelector((state) => state.offersListReducer);
+  const offers = useAppSelector(selectOffers);
 
   return (
     <div className="page">

@@ -5,9 +5,10 @@ import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import { loginAction } from '../../store/async-actions';
 import { LoginData } from '../../shared/types';
 import { LoginForm } from '../../components/login-form';
+import { selectIsAuthenticated } from '../../store/reducers/authSlice';
 
 const LoginPage = () => {
-  const { isAuthenticated } = useAppSelector((state) => state.authReducer);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const dispatch = useAppDispatch();
 
   const handleSubmit = (formData: LoginData) => {

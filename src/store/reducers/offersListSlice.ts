@@ -3,6 +3,7 @@ import type { CityName, OfferPreview } from '../../shared/types';
 import { fetchOffersListAction } from '../async-actions';
 import { cities } from '../../shared/constants';
 import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
+import type { RootState } from '../store';
 
 type OffersState = {
   currentCity: CityName;
@@ -46,3 +47,14 @@ const offersListSlice = createSlice({
 
 export const { setCurrentCity } = offersListSlice.actions;
 export const offersListReducer = offersListSlice.reducer;
+export const selectOffersListState = (state: RootState) =>
+  state.offersListReducer;
+
+export const selectCurrentCity = (state: RootState) =>
+  selectOffersListState(state).currentCity;
+export const selectOffers = (state: RootState) =>
+  selectOffersListState(state).offers;
+export const selectOffersListIsLoading = (state: RootState) =>
+  selectOffersListState(state).isLoading;
+export const selectOffersListError = (state: RootState) =>
+  selectOffersListState(state).error;

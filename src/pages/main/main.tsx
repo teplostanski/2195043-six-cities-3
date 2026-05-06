@@ -6,21 +6,26 @@ import { SortSection } from '../../components/sort-section';
 import { Spinner } from '../../components/spinner';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import type { CityName, OfferSortType } from '../../shared/types';
-import { setCurrentCity } from '../../store/reducers/offersListSlice';
+import {
+  selectCurrentCity,
+  selectOffers,
+  selectOffersListError,
+  selectOffersListIsLoading,
+  setCurrentCity,
+} from '../../store/reducers/offersListSlice';
 import { selectOffersByCity, sortOffers } from '../../store/utils';
 import { offerSortOptions } from '../../shared/constants';
 
 const MainPage = () => {
-  const {
-    offers: rawOffers,
-    currentCity,
-    isLoading,
-    error,
-  } = useAppSelector((state) => state.offersListReducer);
+  const rawOffers = useAppSelector(selectOffers);
+  const currentCity = useAppSelector(selectCurrentCity);
+  const isLoading = useAppSelector(selectOffersListIsLoading);
+  const error = useAppSelector(selectOffersListError);
+  const dispatch = useAppDispatch();
+
   const defaultSortType = offerSortOptions[0].value;
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const [sortType, setSortType] = useState<OfferSortType>(defaultSortType);
-  const dispatch = useAppDispatch();
 
   const filteredOffers = useMemo(
     () => selectOffersByCity(rawOffers, currentCity),
@@ -78,7 +83,7 @@ const MainPage = () => {
                   />
                   {hasOffers && (
                     <CitiesCardList
-                      offers={filteredOffers}
+                      offers={offers}
                       onActiveCardChange={handleActiveCardChange}
                     />
                   )}

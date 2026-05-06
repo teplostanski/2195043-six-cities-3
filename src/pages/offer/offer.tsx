@@ -14,23 +14,32 @@ import {
   fetchNearbyOfferAction,
   fetchOfferAction,
 } from '../../store/async-actions';
+import {
+  selectIsNearbyLoading,
+  selectIsOfferLoading,
+  selectIsOfferNotFound,
+  selectNearbyError,
+  selectNearbyOffers,
+  selectOffer,
+  selectOfferError,
+} from '../../store/reducers/offerSlice';
 import styles from './offer.module.css';
 
 const OfferPage = () => {
   const params = useParams();
-  const {
-    offer,
-    isOfferLoading,
-    isOfferNotFound,
-    offerError,
-    nearby,
-    isNearbyLoading,
-    nearbyError,
-  } = useAppSelector((state) => state.offerReducer);
+
+  const offer = useAppSelector(selectOffer);
+  const isOfferLoading = useAppSelector(selectIsOfferLoading);
+  const isOfferNotFound = useAppSelector(selectIsOfferNotFound);
+  const offerError = useAppSelector(selectOfferError);
+  const nearby = useAppSelector(selectNearbyOffers);
+  const isNearbyLoading = useAppSelector(selectIsNearbyLoading);
+  const nearbyError = useAppSelector(selectNearbyError);
+  const dispatch = useAppDispatch();
+
   const [activeNearbyOfferId, setActiveNearbyOfferId] = useState<string | null>(
     null,
   );
-  const dispatch = useAppDispatch();
 
   const nearbyOffers = nearby?.slice(0, 3) ?? null;
 
