@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { CitiesCardList } from '../../components/cities-card-list';
 import { CitiesTabs } from '../../components/cities-tabs';
 import Map from '../../components/map';
@@ -15,6 +15,7 @@ import {
 } from '../../store/reducers/offersListSlice';
 import { selectOffersByCity, sortOffers } from '../../store/utils';
 import { offerSortOptions } from '../../shared/constants';
+import { MainEmptyPage } from './main-empty';
 
 const MainPage = () => {
   const rawOffers = useAppSelector(selectOffers);
@@ -37,10 +38,6 @@ const MainPage = () => {
     [filteredOffers, sortType],
   );
 
-  useEffect(() => {
-    setSortType(defaultSortType);
-  }, [currentCity, defaultSortType]);
-
   const hasOffers = offers.length > 0;
 
   const handleCityChange = useCallback(
@@ -53,6 +50,15 @@ const MainPage = () => {
   const handleActiveCardChange = useCallback((id: string | null) => {
     setActiveOfferId(id);
   }, []);
+
+  if (!isLoading && !error && !hasOffers) {
+    return (
+      <MainEmptyPage
+        currentCity={currentCity}
+        onCityChange={handleCityChange}
+      />
+    );
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -81,22 +87,17 @@ const MainPage = () => {
                     activeSort={sortType}
                     onSortChange={setSortType}
                   />
-                  {hasOffers && (
-                    <CitiesCardList
-                      offers={offers}
-                      onActiveCardChange={handleActiveCardChange}
-                    />
-                  )}
-                  {!hasOffers && <p>No places to stay available</p>}
+                  <CitiesCardList
+                    offers={offers}
+                    onActiveCardChange={handleActiveCardChange}
+                  />
                 </section>
                 <div className="cities__right-section">
-                  {hasOffers && (
-                    <Map
-                      city={offers[0].city}
-                      offers={offers}
-                      activeOfferId={activeOfferId}
-                    />
-                  )}
+                  <Map
+                    city={offers[0].city}
+                    offers={offers}
+                    activeOfferId={activeOfferId}
+                  />
                 </div>
               </>
             )}

@@ -42,9 +42,6 @@ const OfferReview = ({ offerId }: OfferReviewProps) => {
   );
 
   useEffect(() => {
-    if (!offerId) {
-      return;
-    }
     dispatch(fetchCommentsAction(offerId));
   }, [dispatch, offerId]);
 

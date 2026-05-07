@@ -5,12 +5,10 @@ type PrivateRouteProps = {
   children: JSX.Element;
 };
 
-const PrivateRoute = ({ children }: PrivateRouteProps) => {
-  return (
-    <AuthGate requireAuth redirectTo={routes.login}>
-      {children}
-    </AuthGate>
-  );
-};
+const PrivateRoute = ({ children }: PrivateRouteProps) => (
+  <AuthGate requireAuth redirectTo={routes.login}>
+    {children}
+  </AuthGate>
+);
 
 export { PrivateRoute };
