@@ -11,3 +11,13 @@ export const formatDate = (isoString: string): string => {
 
 export const getRatingStarsWidth = (rating: Rating) =>
   ratingStars[Math.floor(rating) as Rating];
+
+export const patchArrayItemById = <T extends { id: string }>(
+  items: T[],
+  updatedItem: T,
+) => {
+  const index = items.findIndex((item) => item.id === updatedItem.id);
+  if (index !== -1) {
+    items[index] = updatedItem;
+  }
+};

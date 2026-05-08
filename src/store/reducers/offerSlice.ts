@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { StatusCodes } from 'http-status-codes';
 import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
 import type { OfferFull } from '../../shared/types';
+import { patchArrayItemById } from '../../shared/utils';
 import {
   changeFavoriteAction,
   fetchNearbyOfferAction,
@@ -11,7 +12,7 @@ import type { RootState } from '../store';
 
 type OfferState = {
   offer: OfferFull | null;
-  nearby: OfferFull[] | null;
+  nearby: OfferFull[];
   isOfferLoading: boolean;
   isOfferNotFound: boolean;
   offerError: HttpError | null;
@@ -21,7 +22,7 @@ type OfferState = {
 
 const initialState: OfferState = {
   offer: null,
-  nearby: null,
+  nearby: [],
   isOfferLoading: false,
   isOfferNotFound: false,
   offerError: null,
@@ -49,15 +50,12 @@ const offerSlice = createSlice({
         state.isOfferNotFound =
           action.payload?.status === StatusCodes.NOT_FOUND;
         state.offerError = action.payload ?? UNKNOWN_HTTP_ERROR;
-      })
-      .addCase(changeFavoriteAction.fulfilled, (state, action) => {
-        state.offer = action.payload;
       });
     builder
       .addCase(fetchNearbyOfferAction.pending, (state) => {
         state.isNearbyLoading = true;
         state.nearbyError = null;
-        state.nearby = null;
+        state.nearby = [];
       })
       .addCase(fetchNearbyOfferAction.fulfilled, (state, action) => {
         state.isNearbyLoading = false;
@@ -67,6 +65,12 @@ const offerSlice = createSlice({
         state.isNearbyLoading = false;
         state.nearbyError = action.payload ?? UNKNOWN_HTTP_ERROR;
       });
+    builder.addCase(changeFavoriteAction.fulfilled, (state, action) => {
+      if (state.offer?.id === action.payload.id) {
+        state.offer = action.payload;
+      }
+      patchArrayItemById(state.nearby, action.payload);
+    });
   },
   reducers: {},
 });

@@ -3,6 +3,7 @@ import type { CityName, OfferPreview } from '../../shared/types';
 import { changeFavoriteAction, fetchOffersListAction } from '../async-actions';
 import { cities } from '../../shared/constants';
 import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
+import { patchArrayItemById } from '../../shared/utils';
 import type { RootState } from '../store';
 
 type OffersState = {
@@ -43,10 +44,7 @@ const offersListSlice = createSlice({
         state.error = action.payload ?? UNKNOWN_HTTP_ERROR;
       })
       .addCase(changeFavoriteAction.fulfilled, (state, action) => {
-        const idx = state.offers.findIndex((o) => o.id === action.payload.id);
-        if (idx !== -1) {
-          state.offers[idx] = action.payload;
-        }
+        patchArrayItemById(state.offers, action.payload);
       });
   },
 });

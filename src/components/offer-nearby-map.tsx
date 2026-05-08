@@ -7,6 +7,7 @@ type OfferNearbyMapProps = {
   nearby: OfferFull[] | null;
   isLoading: boolean;
   error?: string;
+  activeOfferId?: string | null;
 };
 
 const OfferNearbyMap = ({
@@ -14,6 +15,7 @@ const OfferNearbyMap = ({
   nearby,
   isLoading,
   error,
+  activeOfferId,
 }: OfferNearbyMapProps) => {
   if (isLoading) {
     return (
@@ -36,6 +38,7 @@ const OfferNearbyMap = ({
       className="offer__map map"
       city={city}
       offers={nearby}
+      activeOfferId={activeOfferId}
     />
   );
 };

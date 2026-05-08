@@ -152,6 +152,7 @@ const OfferPage = () => {
               </div>
             </div>
             <OfferNearbyMap
+              activeOfferId={offer.id}
               city={offer.city}
               nearby={nearbyOffers ? [offer, ...nearbyOffers] : [offer]}
               isLoading={isNearbyLoading}
