@@ -1,4 +1,4 @@
-import { offerSortOptions } from '../../shared/constants';
+import { OfferSortOptions } from '../../shared/constants';
 import type { OfferSortOption, OfferSortType } from '../../shared/types';
 import { SortDropdown } from '../sort-dropdown/sort-dropdown';
 
@@ -9,8 +9,8 @@ type SortSectionProps = {
 
 const SortSection = ({ activeSort, onSortChange }: SortSectionProps) => {
   const activeOption =
-    offerSortOptions.find((option) => option.value === activeSort) ??
-    offerSortOptions[0];
+    OfferSortOptions.find((option) => option.value === activeSort) ??
+    OfferSortOptions[0];
 
   const handleChangeActiveOption = (option: OfferSortOption) => {
     onSortChange(option.value);
@@ -20,7 +20,7 @@ const SortSection = ({ activeSort, onSortChange }: SortSectionProps) => {
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>{' '}
       <SortDropdown
-        options={offerSortOptions}
+        options={OfferSortOptions}
         activeOption={activeOption}
         onActiveOption={handleChangeActiveOption}
       />

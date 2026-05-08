@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { memo } from 'react';
-import { cities } from '../../shared/constants';
-import { CityName } from '../../shared/types';
+import { Cities } from '../../shared/constants';
+import type { CityName } from '../../shared/types';
 
 type CitiesTabProps = {
   currentCity: CityName;
@@ -11,7 +11,7 @@ type CitiesTabProps = {
 const CitiesTabsComponent = ({ currentCity, onCityChange }: CitiesTabProps) => (
   <section className="locations container">
     <ul className="locations__list tabs__list">
-      {Object.values(cities).map((city) => (
+      {Object.values(Cities).map((city) => (
         <li
           key={city}
           className="locations__item"

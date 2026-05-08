@@ -1,4 +1,5 @@
 import { type ChangeEvent, type FormEvent, Fragment, useState } from 'react';
+import { MIN_COMMENT_LENGTH, RatingOptionsMap } from '../../shared/constants';
 import type { CommentData, Rating } from '../../shared/types';
 import { Spinner } from '../spinner/spinner';
 
@@ -11,16 +12,6 @@ type OfferReviewFormProps = {
   onSubmit: (commentData: CommentData) => void;
   isSubmitting?: boolean;
 };
-
-const ratingOptionsMap = [
-  { value: 5, title: 'perfect' },
-  { value: 4, title: 'good' },
-  { value: 3, title: 'not bad' },
-  { value: 2, title: 'badly' },
-  { value: 1, title: 'terribly' },
-] as const;
-
-const MIN_COMMENT_LENGTH = 50;
 
 const OfferReviewForm = ({
   onSubmit,
@@ -73,7 +64,7 @@ const OfferReviewForm = ({
       </label>
 
       <div className="reviews__rating-form form__rating">
-        {ratingOptionsMap.map(({ value, title }) => (
+        {RatingOptionsMap.map(({ value, title }) => (
           <Fragment key={value}>
             <input
               className="form__rating-input visually-hidden"

@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import { selectIsAuthenticated } from '../../store/reducers/authSlice';
 import { useNavigate } from 'react-router-dom';
-import { favoriteButtonConfig, routes } from '../../shared/constants';
+import { FavoriteButtonConfig, AppRoutes } from '../../shared/constants';
 import {
   changeFavoriteAction,
   fetchFavoritesAction,
@@ -12,7 +12,7 @@ import { useCallback } from 'react';
 type FavoriteButtonProps = {
   activeOfferId: string;
   isFavorite: boolean;
-  variant: keyof typeof favoriteButtonConfig;
+  variant: keyof typeof FavoriteButtonConfig;
 };
 
 const FavoriteButton = ({
@@ -24,12 +24,12 @@ const FavoriteButton = ({
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const dispatch = useAppDispatch();
   const { buttonClass, activeClass, iconClass, iconWidth, iconHeight } =
-    favoriteButtonConfig[variant];
+    FavoriteButtonConfig[variant];
   const nextStatus: 0 | 1 = isFavorite ? 0 : 1;
 
   const handleClick = useCallback(() => {
     if (!isAuthenticated) {
-      navigate(routes.login);
+      navigate(AppRoutes.Login);
       return;
     }
 

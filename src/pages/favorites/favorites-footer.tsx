@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { routes } from '../../shared/constants';
+import { AppRoutes } from '../../shared/constants';
 
 const FavoritesFooter = () => (
   <footer className="footer container">
-    <Link className="footer__logo-link" to={routes.root}>
+    <Link className="footer__logo-link" to={AppRoutes.Root}>
       <img
         className="footer__logo"
         src="img/logo.svg"

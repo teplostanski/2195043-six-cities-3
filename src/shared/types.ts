@@ -1,10 +1,10 @@
-import { authStatus, cities, offerSortOptions, ratingStars } from './constants';
+import { AuthStatus, Cities, OfferSortOptions, RatingStars } from './constants';
 
-export type AuthorizationStatus = (typeof authStatus)[keyof typeof authStatus];
+export type AuthorizationStatus = (typeof AuthStatus)[keyof typeof AuthStatus];
 
-export type Rating = keyof typeof ratingStars;
+export type Rating = keyof typeof RatingStars;
 
-export type CityName = (typeof cities)[keyof typeof cities];
+export type CityName = (typeof Cities)[keyof typeof Cities];
 
 type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 
@@ -86,5 +86,5 @@ export type CommentSendData = CommentData & {
   id: string;
 };
 
-export type OfferSortOption = (typeof offerSortOptions)[number];
+export type OfferSortOption = (typeof OfferSortOptions)[number];
 export type OfferSortType = OfferSortOption['value'];

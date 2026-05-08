@@ -15,7 +15,7 @@ import {
   setCurrentCity,
 } from '../../store/reducers/offersListSlice';
 import { selectOffersByCity, sortOffers } from '../../store/utils';
-import { offerSortOptions } from '../../shared/constants';
+import { OfferSortOptions } from '../../shared/constants';
 import { MainEmptyPage } from './main-empty';
 
 const MainPage = () => {
@@ -25,7 +25,7 @@ const MainPage = () => {
   const error = useAppSelector(selectOffersListError);
   const dispatch = useAppDispatch();
 
-  const defaultSortType = offerSortOptions[0].value;
+  const defaultSortType = OfferSortOptions[0].value;
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const [sortType, setSortType] = useState<OfferSortType>(defaultSortType);
 

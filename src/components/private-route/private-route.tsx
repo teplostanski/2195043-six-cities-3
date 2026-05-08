@@ -1,4 +1,4 @@
-import { routes } from '../../shared/constants';
+import { AppRoutes } from '../../shared/constants';
 import { AuthGate } from '../auth-gate/auth-gate';
 
 type PrivateRouteProps = {
@@ -6,7 +6,7 @@ type PrivateRouteProps = {
 };
 
 const PrivateRoute = ({ children }: PrivateRouteProps) => (
-  <AuthGate requireAuth redirectTo={routes.login}>
+  <AuthGate requireAuth redirectTo={AppRoutes.Login}>
     {children}
   </AuthGate>
 );

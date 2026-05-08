@@ -1,19 +1,16 @@
+import { PremiumMarkConfig } from '../../shared/constants';
+
 type PremiumMarkProps = {
   show: boolean;
-  variant: keyof typeof premiumMarkConfig;
+  variant: keyof typeof PremiumMarkConfig;
 };
-
-const premiumMarkConfig = {
-  placeCard: 'place-card__mark',
-  offer: 'offer__mark',
-} as const;
 
 const PremiumMark = ({ show, variant }: PremiumMarkProps) => {
   if (!show) {
     return null;
   }
 
-  const className = premiumMarkConfig[variant];
+  const className = PremiumMarkConfig[variant];
 
   return (
     <div className={className}>

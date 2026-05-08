@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { placeCardConfig, routes } from '../../shared/constants';
+import { PlaceCardConfig, AppRoutes } from '../../shared/constants';
 import type { OfferPreview } from '../../shared/types';
 import { getRatingStarsWidth } from '../../shared/utils';
 import { PremiumMark } from '../premium-mark/premium-mark';
@@ -9,7 +9,7 @@ import { FavoriteButton } from '../favorite-button/favorite-button';
 
 type PlaceCardProps = {
   offer: OfferPreview;
-  variant: keyof typeof placeCardConfig;
+  variant: keyof typeof PlaceCardConfig;
   onActive?: (id: string | null) => void;
 };
 
@@ -20,7 +20,7 @@ const PlaceCardComponent = ({ offer, variant, onActive }: PlaceCardProps) => {
     cardInfoClass,
     cardImageWidth,
     cardImageHeight,
-  } = placeCardConfig[variant];
+  } = PlaceCardConfig[variant];
 
   return (
     <article
@@ -34,13 +34,13 @@ const PlaceCardComponent = ({ offer, variant, onActive }: PlaceCardProps) => {
         onActive?.(null);
       }}
     >
-      <PremiumMark show={offer.isPremium} variant={'placeCard'} />
+      <PremiumMark show={offer.isPremium} variant={'PlaceCard'} />
       <div
         className={cn('place-card__image-wrapper', {
           [imageWrapperClass]: true,
         })}
       >
-        <Link to={routes.offerById(offer.id)}>
+        <Link to={AppRoutes.OfferById(offer.id)}>
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -63,7 +63,7 @@ const PlaceCardComponent = ({ offer, variant, onActive }: PlaceCardProps) => {
           <FavoriteButton
             isFavorite={offer.isFavorite}
             activeOfferId={offer.id}
-            variant={'placeCard'}
+            variant={'PlaceCard'}
           />
         </div>
         <div className="place-card__rating rating">
@@ -73,7 +73,7 @@ const PlaceCardComponent = ({ offer, variant, onActive }: PlaceCardProps) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={routes.offerById(offer.id)}>{offer.title}</Link>
+          <Link to={AppRoutes.OfferById(offer.id)}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AuthGate } from '../../components/auth-gate/auth-gate';
 import { Header } from '../../components/header/header';
-import { routes } from '../../shared/constants';
+import { AppRoutes } from '../../shared/constants';
 import { useAppDispatch } from '../../shared/hooks/redux';
 import { loginAction } from '../../store/async-actions';
 import { LoginData } from '../../shared/types';
@@ -15,7 +15,7 @@ const LoginPage = () => {
   };
 
   return (
-    <AuthGate requireAuth={false} redirectTo={routes.root}>
+    <AuthGate requireAuth={false} redirectTo={AppRoutes.Root}>
       <div className="page page--gray page--login">
         <Header />
         <main className="page__main page__main--login">
@@ -26,7 +26,7 @@ const LoginPage = () => {
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <Link className="locations__item-link" to={routes.empty}>
+                <Link className="locations__item-link" to={AppRoutes.Empty}>
                   <span>Amsterdam</span>
                 </Link>
               </div>

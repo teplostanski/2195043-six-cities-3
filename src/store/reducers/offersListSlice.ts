@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { CityName, OfferPreview } from '../../shared/types';
 import { changeFavoriteAction, fetchOffersListAction } from '../async-actions';
-import { cities } from '../../shared/constants';
+import { Cities } from '../../shared/constants';
 import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
 import { patchArrayItemById } from '../../shared/utils';
 import type { RootState } from '../store';
@@ -14,7 +14,7 @@ type OffersState = {
 };
 
 const initialState: OffersState = {
-  currentCity: cities.paris,
+  currentCity: Cities.Paris,
   offers: [],
   isLoading: false,
   error: null,

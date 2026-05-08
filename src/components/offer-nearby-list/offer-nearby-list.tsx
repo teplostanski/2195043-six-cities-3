@@ -46,7 +46,7 @@ const OfferNearbyList = ({
             <PlaceCard
               key={nearbyOffer.id}
               offer={nearbyOffer}
-              variant="near"
+              variant={'Near'}
             />
           ))}
         </div>

@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { authStatus } from '../../shared/constants';
+import { AuthStatus } from '../../shared/constants';
 import { useAppSelector } from '../../shared/hooks/redux';
 import {
   selectAuthorizationStatus,
@@ -17,7 +17,7 @@ const AuthGate = ({ children, requireAuth, redirectTo }: AuthGateProps) => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
-  if (authorizationStatus === authStatus.unknown) {
+  if (authorizationStatus === AuthStatus.Unknown) {
     return <Spinner />;
   }
 

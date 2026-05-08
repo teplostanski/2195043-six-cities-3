@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { ratingStars } from '../../shared/constants';
+import { RatingStars } from '../../shared/constants';
 import type { Comment } from '../../shared/types';
 import { formatDate } from '../../shared/utils';
 
@@ -26,7 +26,7 @@ const OfferReviewListComponent = ({ comments }: OfferReviewListProps) => (
         <div className="reviews__info">
           <div className="reviews__rating rating">
             <div className="reviews__stars rating__stars">
-              <span style={{ width: ratingStars[comment.rating] }}></span>
+              <span style={{ width: RatingStars[comment.rating] }}></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

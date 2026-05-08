@@ -1,5 +1,5 @@
 import { type ChangeEvent, type FormEvent, useState } from 'react';
-import { loginPasswordPattern } from '../../shared/constants';
+import { LOGIN_PASSWORD_PATTERN } from '../../shared/constants';
 import type { LoginData } from '../../shared/types';
 
 type FormData = {
@@ -69,7 +69,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
           name="password"
           placeholder="Password"
           required
-          pattern={loginPasswordPattern}
+          pattern={LOGIN_PASSWORD_PATTERN}
           value={formData.password}
           onChange={handleFieldChange('password')}
         />

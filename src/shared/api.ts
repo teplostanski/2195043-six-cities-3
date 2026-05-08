@@ -1,9 +1,7 @@
 import axios, { type AxiosInstance } from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import { readAuthToken } from './auth-token';
-
-const BASE_URL = 'https://15.design.htmlacademy.pro/six-cities';
-const REQUEST_TIMEOUT = 5000;
+import { BASE_URL, REQUEST_TIMEOUT } from './constants';
 
 type UnauthorizedHandler = () => void;
 

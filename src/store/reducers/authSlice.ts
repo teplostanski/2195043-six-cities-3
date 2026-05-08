@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { authStatus } from '../../shared/constants';
+import { AuthStatus } from '../../shared/constants';
 import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
 import type { AuthorizationStatus, UserInfo } from '../../shared/types';
 import type { RootState } from '../store';
@@ -14,7 +14,7 @@ type AuthState = {
 };
 
 const initialState: AuthState = {
-  authorizationStatus: authStatus.unknown,
+  authorizationStatus: AuthStatus.Unknown,
   isAuthenticated: false,
   userInfo: null,
   isLoading: false,
@@ -26,7 +26,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     clearAuthData(state) {
-      state.authorizationStatus = authStatus.noAuth;
+      state.authorizationStatus = AuthStatus.NoAuth;
       state.isAuthenticated = false;
       state.userInfo = null;
       state.error = null;
@@ -40,13 +40,13 @@ const authSlice = createSlice({
       })
       .addCase(checkAuthAction.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.authorizationStatus = authStatus.auth;
+        state.authorizationStatus = AuthStatus.Auth;
         state.isAuthenticated = true;
         state.userInfo = action.payload;
       })
       .addCase(checkAuthAction.rejected, (state, action) => {
         state.isLoading = false;
-        state.authorizationStatus = authStatus.noAuth;
+        state.authorizationStatus = AuthStatus.NoAuth;
         state.isAuthenticated = false;
         state.error = action.payload ?? UNKNOWN_HTTP_ERROR;
       });
@@ -57,13 +57,13 @@ const authSlice = createSlice({
       })
       .addCase(loginAction.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.authorizationStatus = authStatus.auth;
+        state.authorizationStatus = AuthStatus.Auth;
         state.isAuthenticated = true;
         state.userInfo = action.payload;
       })
       .addCase(loginAction.rejected, (state, action) => {
         state.isLoading = false;
-        state.authorizationStatus = authStatus.noAuth;
+        state.authorizationStatus = AuthStatus.NoAuth;
         state.isAuthenticated = false;
         state.error = action.payload ?? UNKNOWN_HTTP_ERROR;
       });
@@ -74,7 +74,7 @@ const authSlice = createSlice({
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.isLoading = false;
-        state.authorizationStatus = authStatus.noAuth;
+        state.authorizationStatus = AuthStatus.NoAuth;
         state.isAuthenticated = false;
         state.userInfo = null;
       })

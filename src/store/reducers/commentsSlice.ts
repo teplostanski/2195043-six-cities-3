@@ -4,7 +4,7 @@ import { fetchCommentsAction, sendCommentAction } from '../async-actions';
 import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
 import type { RootState } from '../store';
 
-type commentsState = {
+type CommentsState = {
   comments: Comment[];
   isLoading: boolean;
   isSubmitting: boolean;
@@ -12,7 +12,7 @@ type commentsState = {
   submitError: HttpError | null;
 };
 
-const initialState: commentsState = {
+const initialState: CommentsState = {
   comments: [],
   isLoading: false,
   isSubmitting: false,

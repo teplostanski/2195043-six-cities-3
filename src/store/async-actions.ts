@@ -1,5 +1,5 @@
 import { removeAuthToken, saveAuthToken } from '../shared/auth-token';
-import { apiPaths } from '../shared/constants';
+import { ApiPaths } from '../shared/constants';
 import type { HttpError } from '../shared/http-error';
 import type {
   Comment,
@@ -22,7 +22,7 @@ export const fetchOffersListAction = createAppAsyncThunk<
 >(
   'offers/fetchOffers',
   createSafeThunkPayload(async (_, api) => {
-    const { data } = await api.get<OfferPreview[]>(apiPaths.offers);
+    const { data } = await api.get<OfferPreview[]>(ApiPaths.Offers);
     return data;
   }),
 );
@@ -34,7 +34,7 @@ export const fetchOfferAction = createAppAsyncThunk<
 >(
   'offer/fetchOffer',
   createSafeThunkPayload(async (id, api) => {
-    const { data } = await api.get<OfferFull>(apiPaths.offer(id));
+    const { data } = await api.get<OfferFull>(ApiPaths.Offer(id));
     return data;
   }),
 );
@@ -46,7 +46,7 @@ export const fetchNearbyOfferAction = createAppAsyncThunk<
 >(
   'offer/fetchNearbyOffer',
   createSafeThunkPayload(async (id, api) => {
-    const { data } = await api.get<OfferFull[]>(apiPaths.nearby(id));
+    const { data } = await api.get<OfferFull[]>(ApiPaths.Nearby(id));
     return data;
   }),
 );
@@ -58,7 +58,7 @@ export const fetchCommentsAction = createAppAsyncThunk<
 >(
   'comments/fetchComments',
   createSafeThunkPayload(async (id, api) => {
-    const { data } = await api.get<Comment[]>(apiPaths.comments(id));
+    const { data } = await api.get<Comment[]>(ApiPaths.Comments(id));
     return data;
   }),
 );
@@ -71,7 +71,7 @@ export const sendCommentAction = createAppAsyncThunk<
   'comments/sendComment',
   createSafeThunkPayload(async (data, api) => {
     const { id, comment, rating } = data;
-    await api.post<void>(apiPaths.comments(id), { comment, rating });
+    await api.post<void>(ApiPaths.Comments(id), { comment, rating });
   }),
 );
 
@@ -82,7 +82,7 @@ export const fetchFavoritesAction = createAppAsyncThunk<
 >(
   'favorites/fetchFavorites',
   createSafeThunkPayload(async (_, api) => {
-    const { data } = await api.get<OfferPreview[]>(apiPaths.favorite);
+    const { data } = await api.get<OfferPreview[]>(ApiPaths.Favorite);
     return data;
   }),
 );
@@ -95,7 +95,7 @@ export const changeFavoriteAction = createAppAsyncThunk<
   'favorites/changeFavorite',
   createSafeThunkPayload(async ({ id, status }, api) => {
     const { data } = await api.post<OfferFull>(
-      apiPaths.setFavoriteStatus(id, status),
+      ApiPaths.SetFavoriteStatus(id, status),
     );
     return data;
   }),
@@ -108,7 +108,7 @@ export const checkAuthAction = createAppAsyncThunk<
 >(
   'auth/checkAuth',
   createSafeThunkPayload(async (_arg, api) => {
-    const { data } = await api.get<UserInfo>(apiPaths.login);
+    const { data } = await api.get<UserInfo>(ApiPaths.Login);
     saveAuthToken(data.token);
     return data;
   }),
@@ -121,7 +121,7 @@ export const loginAction = createAppAsyncThunk<
 >(
   'auth/login',
   createSafeThunkPayload(async (loginData, api) => {
-    const { data } = await api.post<UserInfo>(apiPaths.login, loginData);
+    const { data } = await api.post<UserInfo>(ApiPaths.Login, loginData);
     saveAuthToken(data.token);
     return data;
   }),
@@ -134,7 +134,7 @@ export const logoutAction = createAppAsyncThunk<
 >(
   'auth/logout',
   createSafeThunkPayload(async (_, api) => {
-    await api.delete(apiPaths.logout);
+    await api.delete(ApiPaths.Logout);
     removeAuthToken();
   }),
 );

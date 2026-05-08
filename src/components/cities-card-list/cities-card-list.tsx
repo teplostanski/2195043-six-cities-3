@@ -17,7 +17,7 @@ const CitiesCardListComponent = ({
         key={card.id}
         offer={card}
         onActive={onActiveCardChange}
-        variant={'cities'}
+        variant={'Cities'}
       />
     ))}
   </div>

@@ -7,7 +7,7 @@ import { LoginPage } from './pages/login/login';
 import { MainPage } from './pages/main/main';
 import { NotFoundPage } from './pages/not-found/not-found';
 import { OfferPage } from './pages/offer/offer';
-import { routes } from './shared/constants';
+import { AppRoutes } from './shared/constants';
 import { useAppDispatch, useAppSelector } from './shared/hooks/redux';
 import {
   checkAuthAction,
@@ -35,19 +35,18 @@ const App = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path={routes.root} element={<MainPage />} />
-        <Route path={routes.login} element={<LoginPage />} />
-        <Route path={routes.notFound} element={<NotFoundPage />} />
+        <Route path={AppRoutes.Root} element={<MainPage />} />
+        <Route path={AppRoutes.Login} element={<LoginPage />} />
         <Route
-          path={routes.favorites}
+          path={AppRoutes.Favorites}
           element={
             <PrivateRoute>
               <FavoritesPage />
             </PrivateRoute>
           }
         />
-        <Route path={routes.offer} element={<OfferPage />} />
-        <Route path={routes.catchAll} element={<NotFoundPage />} />
+        <Route path={AppRoutes.Offer} element={<OfferPage />} />
+        <Route path={AppRoutes.CatchAll} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

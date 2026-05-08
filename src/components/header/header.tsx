@@ -1,13 +1,13 @@
 import cn from 'classnames';
 import { Link, useLocation } from 'react-router-dom';
-import { routes } from '../../shared/constants';
+import { AppRoutes } from '../../shared/constants';
 import { HeaderUserNav } from '../header-user-nav/header-user-nav';
 
 const Header = () => {
   const { pathname } = useLocation();
 
-  const isMainPage = pathname === routes.root;
-  const isLoginPage = pathname === routes.login;
+  const isMainPage = pathname === AppRoutes.Root;
+  const isLoginPage = pathname === AppRoutes.Login;
 
   return (
     <header className="header">
@@ -15,7 +15,7 @@ const Header = () => {
         <div className="header__wrapper">
           <div className="header__left">
             <Link
-              to={routes.root}
+              to={AppRoutes.Root}
               className={cn('header__logo-link', {
                 'header__logo-link--active': isMainPage,
               })}

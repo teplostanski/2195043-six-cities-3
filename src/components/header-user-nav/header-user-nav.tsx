@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { authStatus, routes } from '../../shared/constants';
+import { AuthStatus, AppRoutes } from '../../shared/constants';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import { logoutAction } from '../../store/async-actions';
 import {
@@ -21,8 +21,8 @@ const HeaderUserNav = () => {
     void dispatch(logoutAction());
   };
 
-  const isGuest = authorizationStatus === authStatus.noAuth;
-  const isUnknown = authorizationStatus === authStatus.unknown;
+  const isGuest = authorizationStatus === AuthStatus.NoAuth;
+  const isUnknown = authorizationStatus === AuthStatus.Unknown;
   const shouldShowSignIn = isUnknown || isGuest;
 
   return (
@@ -32,7 +32,7 @@ const HeaderUserNav = () => {
           <li className="header__nav-item user">
             <Link
               className="header__nav-link header__nav-link--profile"
-              to={routes.login}
+              to={AppRoutes.Login}
             >
               <div className="header__avatar-wrapper user__avatar-wrapper"></div>
               <span className="header__login">Sign in</span>
@@ -44,7 +44,7 @@ const HeaderUserNav = () => {
             <li className="header__nav-item user">
               <Link
                 className="header__nav-link header__nav-link--profile"
-                to={routes.favorites}
+                to={AppRoutes.Favorites}
               >
                 <div className="header__avatar-wrapper user__avatar-wrapper">
                   {userInfo?.avatarUrl ? (
@@ -64,7 +64,7 @@ const HeaderUserNav = () => {
               </Link>
             </li>
             <li className="header__nav-item">
-              <Link className="header__nav-link" to={routes.root}>
+              <Link className="header__nav-link" to={AppRoutes.Root}>
                 <span className="header__signout" onClick={handleLogout}>
                   Sign out
                 </span>

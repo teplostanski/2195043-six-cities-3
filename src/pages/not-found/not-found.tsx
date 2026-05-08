@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { routes } from '../../shared/constants';
+import { AppRoutes } from '../../shared/constants';
 import styles from './not-found.module.css';
 
 const NotFoundPage = () => {
@@ -14,7 +14,7 @@ const NotFoundPage = () => {
           <p className={styles.message}>
             {message ?? 'Error 404. Page Not Found.'}
           </p>
-          <Link to={routes.root} className={styles.link}>
+          <Link to={AppRoutes.Root} className={styles.link}>
             Go Home
           </Link>
         </div>

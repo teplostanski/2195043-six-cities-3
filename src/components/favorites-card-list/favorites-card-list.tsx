@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { routes } from '../../shared/constants';
+import { AppRoutes } from '../../shared/constants';
 import type { CityName, OfferPreview } from '../../shared/types';
 import { PlaceCard } from '../place-card/place-card';
 
@@ -32,14 +32,14 @@ const FavoritesCardList = ({ favorites }: FavoritesCardListProps) => {
         <li key={group.city} className="favorites__locations-items">
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
-              <Link to={routes.empty} className="locations__item-link">
+              <Link to={AppRoutes.Empty} className="locations__item-link">
                 <span>{group.city}</span>
               </Link>
             </div>
           </div>
           <div className="favorites__places">
             {group.offers.map((offer) => (
-              <PlaceCard key={offer.id} offer={offer} variant="favorites" />
+              <PlaceCard key={offer.id} offer={offer} variant={'Favorites'} />
             ))}
           </div>
         </li>

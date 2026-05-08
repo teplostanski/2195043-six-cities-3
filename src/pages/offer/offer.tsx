@@ -8,7 +8,7 @@ import { OfferReview } from '../../components/offer-review/offer-review';
 import { Header } from '../../components/header/header';
 import { PremiumMark } from '../../components/premium-mark/premium-mark';
 import { Spinner } from '../../components/spinner/spinner';
-import { routes } from '../../shared/constants';
+import { AppRoutes } from '../../shared/constants';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import { getRatingStarsWidth } from '../../shared/utils';
 import {
@@ -50,11 +50,11 @@ const OfferPage = () => {
   }, [dispatch, params.id]);
 
   if (!params.id) {
-    return <Navigate to={routes.notFound} replace />;
+    return <Navigate to={AppRoutes.NotFound} replace />;
   }
 
   if (!isOfferLoading && isOfferNotFound) {
-    return <Navigate to={routes.notFound} replace state={{ message: offerError?.message }} />;
+    return <Navigate to={AppRoutes.NotFound} replace state={{ message: offerError?.message }} />;
   }
 
   return (
@@ -74,13 +74,13 @@ const OfferPage = () => {
             </div>
             <div className="offer__container container">
               <div className="offer__wrapper">
-                <PremiumMark show={offer.isPremium} variant={'offer'} />
+                <PremiumMark show={offer.isPremium} variant={'Offer'} />
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">{offer.title}</h1>
                   <FavoriteButton
                     isFavorite={offer.isFavorite}
                     activeOfferId={offer.id}
-                    variant={'offer'}
+                    variant={'Offer'}
                   />
                 </div>
                 <div className="offer__rating rating">
