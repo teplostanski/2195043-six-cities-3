@@ -4,6 +4,7 @@ import type { HttpError } from '../shared/http-error';
 import type {
   Comment,
   CommentSendData,
+  FavoriteChangeData,
   LoginData,
   OfferFull,
   OfferPreview,
@@ -71,6 +72,32 @@ export const sendCommentAction = createAppAsyncThunk<
   createSafeThunkPayload(async (data, api) => {
     const { id, comment, rating } = data;
     await api.post<void>(apiPaths.comments(id), { comment, rating });
+  }),
+);
+
+export const fetchFavoritesAction = createAppAsyncThunk<
+  OfferPreview[],
+  void,
+  HttpErrorRejectConfig
+>(
+  'favorites/fetchFavorites',
+  createSafeThunkPayload(async (_, api) => {
+    const { data } = await api.get<OfferPreview[]>(apiPaths.favorite);
+    return data;
+  }),
+);
+
+export const changeFavoriteAction = createAppAsyncThunk<
+  OfferFull,
+  FavoriteChangeData,
+  HttpErrorRejectConfig
+>(
+  'favorites/changeFavorite',
+  createSafeThunkPayload(async ({ id, status }, api) => {
+    const { data } = await api.post<OfferFull>(
+      apiPaths.setFavoriteStatus(id, status),
+    );
+    return data;
   }),
 );
 

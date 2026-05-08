@@ -9,16 +9,28 @@ import { MainPage } from './pages/main/main';
 import { NotFoundPage } from './pages/not-found/not-found';
 import { OfferPage } from './pages/offer/offer';
 import { routes } from './shared/constants';
-import { useAppDispatch } from './shared/hooks/redux';
-import { checkAuthAction, fetchOffersListAction } from './store/async-actions';
+import { useAppDispatch, useAppSelector } from './shared/hooks/redux';
+import {
+  checkAuthAction,
+  fetchFavoritesAction,
+  fetchOffersListAction,
+} from './store/async-actions';
+import { selectIsAuthenticated } from './store/reducers/authSlice';
 
 const App = () => {
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(checkAuthAction());
     dispatch(fetchOffersListAction());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(fetchFavoritesAction());
+    }
+  }, [dispatch, isAuthenticated]);
 
   return (
     <BrowserRouter>

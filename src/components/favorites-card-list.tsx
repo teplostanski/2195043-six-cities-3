@@ -1,11 +1,10 @@
-import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { routes } from '../shared/constants';
 import type { CityName, OfferPreview } from '../shared/types';
 import { PlaceCard } from './place-card';
 
 type FavoritesCardListProps = {
-  offers: OfferPreview[];
+  favorites: OfferPreview[];
 };
 
 type OffersByCity = {
@@ -13,17 +12,8 @@ type OffersByCity = {
   offers: OfferPreview[];
 };
 
-const FavoritesCardList = ({ offers }: FavoritesCardListProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_activeCardId, setActiveCardId] = useState<string | null>(null);
-
-  const handleToggleActiveCard = useCallback((id: string | null) => {
-    setActiveCardId(id);
-  }, []);
-
-  const favoriteOffers = offers.filter((item) => item.isFavorite);
-
-  const groupedFavoritesByCity = favoriteOffers.reduce((acc, current) => {
+const FavoritesCardList = ({ favorites }: FavoritesCardListProps) => {
+  const groupedFavoritesByCity = favorites.reduce((acc, current) => {
     const cityName = current.city.name;
     const existingGroup = acc.find((group) => group.city === cityName);
 
@@ -35,10 +25,6 @@ const FavoritesCardList = ({ offers }: FavoritesCardListProps) => {
 
     return acc;
   }, [] as OffersByCity[]);
-
-  /**
-   * groupedFavoritesByCity.length > 0 &&
-   */
 
   return (
     <ul className="favorites__list">
@@ -53,12 +39,7 @@ const FavoritesCardList = ({ offers }: FavoritesCardListProps) => {
           </div>
           <div className="favorites__places">
             {group.offers.map((offer) => (
-              <PlaceCard
-                key={offer.id}
-                offer={offer}
-                variant="favorites"
-                onActive={handleToggleActiveCard}
-              />
+              <PlaceCard key={offer.id} offer={offer} variant="favorites" />
             ))}
           </div>
         </li>

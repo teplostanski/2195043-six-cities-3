@@ -1,12 +1,19 @@
 import { Link } from 'react-router-dom';
-import { routes } from '../shared/constants';
+import { authStatus, routes } from '../shared/constants';
 import { useAppDispatch, useAppSelector } from '../shared/hooks/redux';
 import { logoutAction } from '../store/async-actions';
+import {
+  selectIsAuthenticated,
+  selectUserInfo,
+  selectAuthorizationStatus
+} from '../store/reducers/authSlice';
+import { selectFavoritesCount } from '../store/reducers/favoritesSlice';
 
 const HeaderUserNav = () => {
-  const { userInfo, isAuthenticated } = useAppSelector(
-    (state) => state.authReducer,
-  );
+  const userInfo = useAppSelector(selectUserInfo);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const favoritesCount = useAppSelector(selectFavoritesCount);
 
   const dispatch = useAppDispatch();
 
@@ -14,12 +21,14 @@ const HeaderUserNav = () => {
     void dispatch(logoutAction());
   };
 
-  const isGuest = !isAuthenticated;
+  const isGuest = authorizationStatus === authStatus.noAuth;
+  const isUnknown = authorizationStatus === authStatus.unknown;
+  const shouldShowSignIn = isUnknown || isGuest;
 
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
-        {isGuest && (
+        {shouldShowSignIn && (
           <li className="header__nav-item user">
             <Link
               className="header__nav-link header__nav-link--profile"
@@ -51,7 +60,7 @@ const HeaderUserNav = () => {
                 <span className="header__user-name user__name">
                   {userInfo?.email}
                 </span>
-                <span className="header__favorite-count">{}</span>
+                <span className="header__favorite-count">{favoritesCount}</span>
               </Link>
             </li>
             <li className="header__nav-item">

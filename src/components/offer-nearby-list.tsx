@@ -6,14 +6,12 @@ type OfferNearbyListProps = {
   nearby: OfferFull[] | null;
   isLoading: boolean;
   error?: string;
-  onActive: (offerId: string | null) => void;
 };
 
 const OfferNearbyList = ({
   nearby,
   isLoading,
   error,
-  onActive,
 }: OfferNearbyListProps) => {
   if (isLoading) {
     return (
@@ -49,7 +47,6 @@ const OfferNearbyList = ({
               key={nearbyOffer.id}
               offer={nearbyOffer}
               variant="near"
-              onActive={onActive}
             />
           ))}
         </div>

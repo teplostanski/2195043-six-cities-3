@@ -2,7 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { StatusCodes } from 'http-status-codes';
 import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
 import type { OfferFull } from '../../shared/types';
-import { fetchNearbyOfferAction, fetchOfferAction } from '../async-actions';
+import {
+  changeFavoriteAction,
+  fetchNearbyOfferAction,
+  fetchOfferAction,
+} from '../async-actions';
 import type { RootState } from '../store';
 
 type OfferState = {
@@ -45,6 +49,9 @@ const offerSlice = createSlice({
         state.isOfferNotFound =
           action.payload?.status === StatusCodes.NOT_FOUND;
         state.offerError = action.payload ?? UNKNOWN_HTTP_ERROR;
+      })
+      .addCase(changeFavoriteAction.fulfilled, (state, action) => {
+        state.offer = action.payload;
       });
     builder
       .addCase(fetchNearbyOfferAction.pending, (state) => {

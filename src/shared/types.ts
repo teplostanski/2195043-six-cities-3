@@ -8,6 +8,13 @@ export type CityName = (typeof cities)[keyof typeof cities];
 
 type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 
+export type FavoriteStatus = 0 | 1
+
+export type FavoriteChangeData = {
+  id: string;
+  status: FavoriteStatus;
+}
+
 export type OfferPreview = {
   id: string;
   title: string;

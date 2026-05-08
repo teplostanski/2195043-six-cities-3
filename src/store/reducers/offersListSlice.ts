@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { CityName, OfferPreview } from '../../shared/types';
-import { fetchOffersListAction } from '../async-actions';
+import { changeFavoriteAction, fetchOffersListAction } from '../async-actions';
 import { cities } from '../../shared/constants';
 import { type HttpError, UNKNOWN_HTTP_ERROR } from '../../shared/http-error';
 import type { RootState } from '../store';
@@ -41,6 +41,12 @@ const offersListSlice = createSlice({
       .addCase(fetchOffersListAction.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload ?? UNKNOWN_HTTP_ERROR;
+      })
+      .addCase(changeFavoriteAction.fulfilled, (state, action) => {
+        const idx = state.offers.findIndex((o) => o.id === action.payload.id);
+        if (idx !== -1) {
+          state.offers[idx] = action.payload;
+        }
       });
   },
 });

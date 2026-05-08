@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import OfferGallery from '../../components/offer-gallery';
 import { OfferNearbyList } from '../../components/offer-nearby-list';
@@ -24,6 +24,7 @@ import {
   selectOfferError,
 } from '../../store/reducers/offerSlice';
 import styles from './offer.module.css';
+import { FavoriteButton } from '../../components/favorite-button/favorite-button';
 
 const OfferPage = () => {
   const params = useParams();
@@ -37,10 +38,6 @@ const OfferPage = () => {
   const nearbyError = useAppSelector(selectNearbyError);
   const dispatch = useAppDispatch();
 
-  const [activeNearbyOfferId, setActiveNearbyOfferId] = useState<string | null>(
-    null,
-  );
-
   const nearbyOffers = nearby?.slice(0, 3) ?? null;
 
   useEffect(() => {
@@ -51,14 +48,12 @@ const OfferPage = () => {
     dispatch(fetchNearbyOfferAction(params.id));
   }, [dispatch, params.id]);
 
+  if (!params.id) {
+    return <Navigate to={routes.notFound} replace />;
+  }
+
   if (!isOfferLoading && isOfferNotFound) {
-    return (
-      <Navigate
-        to={routes.notFound}
-        replace
-        state={{ message: offerError?.message }}
-      />
-    );
+    return <Navigate to={routes.notFound} replace state={{ message: offerError?.message }} />;
   }
 
   return (
@@ -80,19 +75,11 @@ const OfferPage = () => {
                 <PremiumMark show={offer.isPremium} />
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">{offer.title}</h1>
-                  <button
-                    className="offer__bookmark-button button"
-                    type="button"
-                  >
-                    <svg
-                      className="offer__bookmark-icon"
-                      width="31"
-                      height="33"
-                    >
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  <FavoriteButton
+                    isFavorite={offer.isFavorite}
+                    activeOfferId={offer.id}
+                    variant={'offer'}
+                  />
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
@@ -161,22 +148,20 @@ const OfferPage = () => {
                     <p className="offer__text">{offer.description}</p>
                   </div>
                 </div>
-                {params.id && <OfferReview offerId={params.id} />}
+                <OfferReview offerId={params.id} />
               </div>
             </div>
             <OfferNearbyMap
               city={offer.city}
-              nearby={nearbyOffers}
+              nearby={nearbyOffers ? [offer, ...nearbyOffers] : [offer]}
               isLoading={isNearbyLoading}
               error={nearbyError?.message}
-              activeOfferId={activeNearbyOfferId}
             />
           </section>
           <OfferNearbyList
             nearby={nearbyOffers}
             isLoading={isNearbyLoading}
             error={nearbyError?.message}
-            onActive={setActiveNearbyOfferId}
           />
         </main>
       )}

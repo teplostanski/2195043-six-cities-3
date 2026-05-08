@@ -1,33 +1,40 @@
-import { Link } from 'react-router-dom';
 import { FavoritesCardList } from '../../components/favorites-card-list';
-import { routes } from '../../shared/constants';
+import { Spinner } from '../../components/spinner';
 import { useAppSelector } from '../../shared/hooks/redux';
-import { selectOffers } from '../../store/reducers/offersListSlice';
+import {
+  selectFavorites,
+  selectFavoritesIsLoading,
+  selectFavoritesFetchError,
+} from '../../store/reducers/favoritesSlice';
+import { FavoritesEmptyPage } from './favorites-empty';
+import { FavoritesFooter } from './favorites-footer';
 
 const FavoritesPage = () => {
-  const offers = useAppSelector(selectOffers);
+  const favorites = useAppSelector(selectFavorites);
+  const isLoading = useAppSelector(selectFavoritesIsLoading);
+  const fetchError = useAppSelector(selectFavoritesFetchError);
+
+  const hasFavorites = favorites.length > 0;
+
+  if (!isLoading && !fetchError && !hasFavorites) {
+    return <FavoritesEmptyPage />;
+  }
 
   return (
     <div className="page">
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <FavoritesCardList offers={offers} />
-          </section>
+          {isLoading && <Spinner />}
+          {!isLoading && fetchError && <p>{fetchError.message}</p>}
+          {!isLoading && !fetchError && (
+            <section className="favorites">
+              <h1 className="favorites__title">Saved listing</h1>
+              <FavoritesCardList favorites={favorites} />
+            </section>
+          )}
         </div>
       </main>
-      <footer className="footer container">
-        <Link className="footer__logo-link" to={routes.root}>
-          <img
-            className="footer__logo"
-            src="img/logo.svg"
-            alt="6 cities logo"
-            width="64"
-            height="33"
-          />
-        </Link>
-      </footer>
+      <FavoritesFooter />
     </div>
   );
 };
