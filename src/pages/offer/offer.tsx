@@ -1,35 +1,42 @@
 import cn from 'classnames';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import OfferGallery from '../../components/offer-gallery';
-import { OfferNearbyList } from '../../components/offer-nearby-list';
-import { OfferNearbyMap } from '../../components/offer-nearby-map';
-import { OfferReview } from '../../components/offer-review';
-import PremiumMark from '../../components/premium-mark';
-import { Spinner } from '../../components/spinner';
-import { routes } from '../../shared/constants';
+import { OfferGallery } from '../../components/offer-gallery/offer-gallery';
+import { OfferNearbyList } from '../../components/offer-nearby-list/offer-nearby-list';
+import { OfferNearbyMap } from '../../components/offer-nearby-map/offer-nearby-map';
+import { OfferReview } from '../../components/offer-review/offer-review';
+import { Header } from '../../components/header/header';
+import { PremiumMark } from '../../components/premium-mark/premium-mark';
+import { Spinner } from '../../components/spinner/spinner';
+import { AppRoutes } from '../../shared/constants';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import { getRatingStarsWidth } from '../../shared/utils';
 import {
   fetchNearbyOfferAction,
   fetchOfferAction,
 } from '../../store/async-actions';
+import {
+  selectIsNearbyLoading,
+  selectIsOfferLoading,
+  selectIsOfferNotFound,
+  selectNearbyError,
+  selectNearbyOffers,
+  selectOffer,
+  selectOfferError,
+} from '../../store/reducers/offer-slice';
 import styles from './offer.module.css';
+import { FavoriteButton } from '../../components/favorite-button/favorite-button';
 
 const OfferPage = () => {
   const params = useParams();
-  const {
-    offer,
-    isOfferLoading,
-    isOfferNotFound,
-    offerError,
-    nearby,
-    isNearbyLoading,
-    nearbyError,
-  } = useAppSelector((state) => state.offerReducer);
-  const [activeNearbyOfferId, setActiveNearbyOfferId] = useState<string | null>(
-    null,
-  );
+
+  const offer = useAppSelector(selectOffer);
+  const isOfferLoading = useAppSelector(selectIsOfferLoading);
+  const isOfferNotFound = useAppSelector(selectIsOfferNotFound);
+  const offerError = useAppSelector(selectOfferError);
+  const nearby = useAppSelector(selectNearbyOffers);
+  const isNearbyLoading = useAppSelector(selectIsNearbyLoading);
+  const nearbyError = useAppSelector(selectNearbyError);
   const dispatch = useAppDispatch();
 
   const nearbyOffers = nearby?.slice(0, 3) ?? null;
@@ -42,14 +49,12 @@ const OfferPage = () => {
     dispatch(fetchNearbyOfferAction(params.id));
   }, [dispatch, params.id]);
 
+  if (!params.id) {
+    return <Navigate to={AppRoutes.NotFound} replace />;
+  }
+
   if (!isOfferLoading && isOfferNotFound) {
-    return (
-      <Navigate
-        to={routes.notFound}
-        replace
-        state={{ message: offerError?.message }}
-      />
-    );
+    return <Navigate to={AppRoutes.NotFound} replace state={{ message: offerError?.message }} />;
   }
 
   return (
@@ -58,6 +63,7 @@ const OfferPage = () => {
         [styles.loadingContainer]: isOfferLoading,
       })}
     >
+      <Header />
       {isOfferLoading && <Spinner />}
       {!isOfferLoading && offerError && <p>{offerError.message}</p>}
       {!isOfferLoading && !offerError && offer && (
@@ -68,22 +74,14 @@ const OfferPage = () => {
             </div>
             <div className="offer__container container">
               <div className="offer__wrapper">
-                <PremiumMark show={offer.isPremium} />
+                <PremiumMark show={offer.isPremium} variant={'Offer'} />
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">{offer.title}</h1>
-                  <button
-                    className="offer__bookmark-button button"
-                    type="button"
-                  >
-                    <svg
-                      className="offer__bookmark-icon"
-                      width="31"
-                      height="33"
-                    >
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  <FavoriteButton
+                    isFavorite={offer.isFavorite}
+                    activeOfferId={offer.id}
+                    variant={'Offer'}
+                  />
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
@@ -152,22 +150,21 @@ const OfferPage = () => {
                     <p className="offer__text">{offer.description}</p>
                   </div>
                 </div>
-                {params.id && <OfferReview offerId={params.id} />}
+                <OfferReview offerId={params.id} />
               </div>
             </div>
             <OfferNearbyMap
+              activeOfferId={offer.id}
               city={offer.city}
-              nearby={nearbyOffers}
+              nearby={nearbyOffers ? [offer, ...nearbyOffers] : [offer]}
               isLoading={isNearbyLoading}
               error={nearbyError?.message}
-              activeOfferId={activeNearbyOfferId}
             />
           </section>
           <OfferNearbyList
             nearby={nearbyOffers}
             isLoading={isNearbyLoading}
             error={nearbyError?.message}
-            onActive={setActiveNearbyOfferId}
           />
         </main>
       )}

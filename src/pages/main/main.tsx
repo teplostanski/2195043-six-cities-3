@@ -1,26 +1,33 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { CitiesCardList } from '../../components/cities-card-list';
-import { CitiesTabs } from '../../components/cities-tabs';
-import Map from '../../components/map';
-import { SortSection } from '../../components/sort-section';
-import { Spinner } from '../../components/spinner';
+import { useCallback, useMemo, useState } from 'react';
+import { CitiesCardList } from '../../components/cities-card-list/cities-card-list';
+import { CitiesTabs } from '../../components/cities-tabs/cities-tabs';
+import { Header } from '../../components/header/header';
+import Map from '../../components/map/map';
+import { SortSection } from '../../components/sort-section/sort-section';
+import { Spinner } from '../../components/spinner/spinner';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import type { CityName, OfferSortType } from '../../shared/types';
-import { setCurrentCity } from '../../store/reducers/offersListSlice';
+import {
+  selectCurrentCity,
+  selectOffers,
+  selectOffersListError,
+  selectOffersListIsLoading,
+  setCurrentCity,
+} from '../../store/reducers/offers-list-slice';
 import { selectOffersByCity, sortOffers } from '../../store/utils';
-import { offerSortOptions } from '../../shared/constants';
+import { OfferSortOptions } from '../../shared/constants';
+import { MainEmptyPage } from './main-empty';
 
 const MainPage = () => {
-  const {
-    offers: rawOffers,
-    currentCity,
-    isLoading,
-    error,
-  } = useAppSelector((state) => state.offersListReducer);
-  const defaultSortType = offerSortOptions[0].value;
+  const rawOffers = useAppSelector(selectOffers);
+  const currentCity = useAppSelector(selectCurrentCity);
+  const isLoading = useAppSelector(selectOffersListIsLoading);
+  const error = useAppSelector(selectOffersListError);
+  const dispatch = useAppDispatch();
+
+  const defaultSortType = OfferSortOptions[0].value;
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const [sortType, setSortType] = useState<OfferSortType>(defaultSortType);
-  const dispatch = useAppDispatch();
 
   const filteredOffers = useMemo(
     () => selectOffersByCity(rawOffers, currentCity),
@@ -31,10 +38,6 @@ const MainPage = () => {
     () => sortOffers(filteredOffers, sortType),
     [filteredOffers, sortType],
   );
-
-  useEffect(() => {
-    setSortType(defaultSortType);
-  }, [currentCity, defaultSortType]);
 
   const hasOffers = offers.length > 0;
 
@@ -49,8 +52,18 @@ const MainPage = () => {
     setActiveOfferId(id);
   }, []);
 
+  if (!isLoading && !error && !hasOffers) {
+    return (
+      <MainEmptyPage
+        currentCity={currentCity}
+        onCityChange={handleCityChange}
+      />
+    );
+  }
+
   return (
     <div className="page page--gray page--main">
+      <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -76,22 +89,17 @@ const MainPage = () => {
                     activeSort={sortType}
                     onSortChange={setSortType}
                   />
-                  {hasOffers && (
-                    <CitiesCardList
-                      offers={filteredOffers}
-                      onActiveCardChange={handleActiveCardChange}
-                    />
-                  )}
-                  {!hasOffers && <p>No places to stay available</p>}
+                  <CitiesCardList
+                    offers={offers}
+                    onActiveCardChange={handleActiveCardChange}
+                  />
                 </section>
                 <div className="cities__right-section">
-                  {hasOffers && (
-                    <Map
-                      city={offers[0].city}
-                      offers={offers}
-                      activeOfferId={activeOfferId}
-                    />
-                  )}
+                  <Map
+                    city={offers[0].city}
+                    offers={offers}
+                    activeOfferId={activeOfferId}
+                  />
                 </div>
               </>
             )}
