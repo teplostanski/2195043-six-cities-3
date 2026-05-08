@@ -4,7 +4,7 @@ import { useAppSelector } from '../../shared/hooks/redux';
 import {
   selectAuthorizationStatus,
   selectIsAuthenticated,
-} from '../../store/reducers/authSlice';
+} from '../../store/reducers/auth-slice';
 import { Spinner } from '../spinner/spinner';
 
 type AuthGateProps = {

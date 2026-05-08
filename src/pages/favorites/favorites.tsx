@@ -6,7 +6,7 @@ import {
   selectFavorites,
   selectFavoritesIsLoading,
   selectFavoritesFetchError,
-} from '../../store/reducers/favoritesSlice';
+} from '../../store/reducers/favorites-slice';
 import { FavoritesEmptyPage } from './favorites-empty';
 import { FavoritesFooter } from './favorites-footer';
 

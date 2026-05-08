@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
-import { selectIsAuthenticated } from '../../store/reducers/authSlice';
+import { selectIsAuthenticated } from '../../store/reducers/auth-slice';
 import { useNavigate } from 'react-router-dom';
 import { FavoriteButtonConfig, AppRoutes } from '../../shared/constants';
 import {

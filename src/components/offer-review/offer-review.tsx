@@ -10,8 +10,8 @@ import {
   selectCommentsIsLoading,
   selectCommentsIsSubmitting,
   selectCommentsSubmitError,
-} from '../../store/reducers/commentsSlice';
-import { selectIsAuthenticated } from '../../store/reducers/authSlice';
+} from '../../store/reducers/comments-slice';
+import { selectIsAuthenticated } from '../../store/reducers/auth-slice';
 import { sortComments } from '../../store/utils';
 import type { CommentData } from '../../shared/types';
 

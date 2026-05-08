@@ -6,8 +6,8 @@ import {
   selectIsAuthenticated,
   selectUserInfo,
   selectAuthorizationStatus
-} from '../../store/reducers/authSlice';
-import { selectFavoritesCount } from '../../store/reducers/favoritesSlice';
+} from '../../store/reducers/auth-slice';
+import { selectFavoritesCount } from '../../store/reducers/favorites-slice';
 
 const HeaderUserNav = () => {
   const userInfo = useAppSelector(selectUserInfo);

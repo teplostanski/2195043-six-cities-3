@@ -23,7 +23,7 @@ import {
   selectNearbyOffers,
   selectOffer,
   selectOfferError,
-} from '../../store/reducers/offerSlice';
+} from '../../store/reducers/offer-slice';
 import styles from './offer.module.css';
 import { FavoriteButton } from '../../components/favorite-button/favorite-button';
 

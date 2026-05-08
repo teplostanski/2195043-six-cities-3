@@ -14,7 +14,7 @@ import {
   fetchFavoritesAction,
   fetchOffersListAction,
 } from './store/async-actions';
-import { selectIsAuthenticated } from './store/reducers/authSlice';
+import { selectIsAuthenticated } from './store/reducers/auth-slice';
 
 const App = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);

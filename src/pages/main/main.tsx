@@ -13,7 +13,7 @@ import {
   selectOffersListError,
   selectOffersListIsLoading,
   setCurrentCity,
-} from '../../store/reducers/offersListSlice';
+} from '../../store/reducers/offers-list-slice';
 import { selectOffersByCity, sortOffers } from '../../store/utils';
 import { OfferSortOptions } from '../../shared/constants';
 import { MainEmptyPage } from './main-empty';
