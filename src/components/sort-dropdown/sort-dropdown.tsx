@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useState } from 'react';
-import type { OfferSortOption } from '../shared/types';
+import type { OfferSortOption } from '../../shared/types';
 
 type SortDropdownProps<T> = {
   options: readonly T[];

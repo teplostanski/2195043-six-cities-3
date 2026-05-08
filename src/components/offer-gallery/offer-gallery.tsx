@@ -21,7 +21,7 @@ type OfferGalleryProps = {
   imagesPath: string[];
 };
 
-function OfferGallery({ imagesPath }: OfferGalleryProps) {
+const OfferGallery = ({ imagesPath }: OfferGalleryProps) => {
   return (
     <div className="offer__gallery">
       {buildGalleryImages(imagesPath).map(({ path, key }) => (
@@ -31,6 +31,6 @@ function OfferGallery({ imagesPath }: OfferGalleryProps) {
       ))}
     </div>
   );
-}
+};
 
-export default OfferGallery;
+export { OfferGallery };

@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import type { OfferPreview } from '../shared/types';
-import { PlaceCard } from './place-card';
+import type { OfferPreview } from '../../shared/types';
+import { PlaceCard } from '../place-card/place-card';
 
 type CitiesCardListProps = {
   offers: OfferPreview[];

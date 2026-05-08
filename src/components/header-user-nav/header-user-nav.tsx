@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
-import { authStatus, routes } from '../shared/constants';
-import { useAppDispatch, useAppSelector } from '../shared/hooks/redux';
-import { logoutAction } from '../store/async-actions';
+import { authStatus, routes } from '../../shared/constants';
+import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
+import { logoutAction } from '../../store/async-actions';
 import {
   selectIsAuthenticated,
   selectUserInfo,
   selectAuthorizationStatus
-} from '../store/reducers/authSlice';
-import { selectFavoritesCount } from '../store/reducers/favoritesSlice';
+} from '../../store/reducers/authSlice';
+import { selectFavoritesCount } from '../../store/reducers/favoritesSlice';
 
 const HeaderUserNav = () => {
   const userInfo = useAppSelector(selectUserInfo);

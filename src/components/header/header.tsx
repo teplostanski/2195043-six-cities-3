@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Link, useLocation } from 'react-router-dom';
-import { routes } from '../shared/constants';
-import { HeaderUserNav } from './header-user-nav';
+import { routes } from '../../shared/constants';
+import { HeaderUserNav } from '../header-user-nav/header-user-nav';
 
 const Header = () => {
   const { pathname } = useLocation();

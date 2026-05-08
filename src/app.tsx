@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Layout } from './components/layout';
-import { PrivateRoute } from './components/private-route';
-import { ScrollToTop } from './components/scroll-to-top';
+import { Layout } from './components/layout/layout';
+import { PrivateRoute } from './components/private-route/private-route';
+import { ScrollToTop } from './components/scroll-to-top/scroll-to-top';
 import { FavoritesPage } from './pages/favorites/favorites';
 import { LoginPage } from './pages/login/login';
 import { MainPage } from './pages/main/main';

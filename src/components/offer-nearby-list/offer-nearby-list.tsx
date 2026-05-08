@@ -1,9 +1,9 @@
-import { PlaceCard } from './place-card';
-import { Spinner } from './spinner';
-import type { OfferFull } from '../shared/types';
+import { PlaceCard } from '../place-card/place-card';
+import { Spinner } from '../spinner/spinner';
+import type { OfferFull } from '../../shared/types';
 
 type OfferNearbyListProps = {
-  nearby: OfferFull[] | null;
+  nearby: OfferFull[];
   isLoading: boolean;
   error?: string;
 };

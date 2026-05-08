@@ -1,6 +1,6 @@
 import { type ChangeEvent, type FormEvent, Fragment, useState } from 'react';
-import type { CommentData, Rating } from '../shared/types';
-import { Spinner } from './spinner';
+import type { CommentData, Rating } from '../../shared/types';
+import { Spinner } from '../spinner/spinner';
 
 type FormData = {
   rating: Rating | null;

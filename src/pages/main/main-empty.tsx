@@ -1,4 +1,4 @@
-import { CitiesTabs } from '../../components/cities-tabs';
+import { CitiesTabs } from '../../components/cities-tabs/cities-tabs';
 import type { CityName } from '../../shared/types';
 
 type MainEmptyPageProps = {

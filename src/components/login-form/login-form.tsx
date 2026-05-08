@@ -1,6 +1,6 @@
 import { type ChangeEvent, type FormEvent, useState } from 'react';
-import { loginPasswordPattern } from '../shared/constants';
-import { LoginData } from '../shared/types';
+import { loginPasswordPattern } from '../../shared/constants';
+import type { LoginData } from '../../shared/types';
 
 type FormData = {
   email: string;

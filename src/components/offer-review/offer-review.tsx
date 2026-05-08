@@ -1,19 +1,19 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from '../shared/hooks/redux';
-import { Spinner } from './spinner';
-import { OfferReviewForm } from './offer-review-form';
-import { OfferReviewList } from './offer-review-list';
-import { fetchCommentsAction, sendCommentAction } from '../store/async-actions';
+import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
+import { Spinner } from '../spinner/spinner';
+import { OfferReviewForm } from '../offer-review-form/offer-review-form';
+import { OfferReviewList } from '../offer-review-list/offer-review-list';
+import { fetchCommentsAction, sendCommentAction } from '../../store/async-actions';
 import {
   selectComments,
   selectCommentsFetchError,
   selectCommentsIsLoading,
   selectCommentsIsSubmitting,
   selectCommentsSubmitError,
-} from '../store/reducers/commentsSlice';
-import { selectIsAuthenticated } from '../store/reducers/authSlice';
-import { sortComments } from '../store/utils';
-import type { CommentData } from '../shared/types';
+} from '../../store/reducers/commentsSlice';
+import { selectIsAuthenticated } from '../../store/reducers/authSlice';
+import { sortComments } from '../../store/utils';
+import type { CommentData } from '../../shared/types';
 
 type OfferReviewProps = {
   offerId: string;

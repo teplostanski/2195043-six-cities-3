@@ -1,6 +1,6 @@
-import { offerSortOptions } from '../shared/constants';
-import type { OfferSortOption, OfferSortType } from '../shared/types';
-import { SortDropdown } from './sort-dropdown';
+import { offerSortOptions } from '../../shared/constants';
+import type { OfferSortOption, OfferSortType } from '../../shared/types';
+import { SortDropdown } from '../sort-dropdown/sort-dropdown';
 
 type SortSectionProps = {
   activeSort: OfferSortType;

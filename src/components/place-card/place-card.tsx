@@ -1,11 +1,11 @@
 import cn from 'classnames';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { placeCardConfig, routes } from '../shared/constants';
-import type { OfferPreview } from '../shared/types';
-import { getRatingStarsWidth } from '../shared/utils';
-import PremiumMark from './premium-mark';
-import { FavoriteButton } from './favorite-button/favorite-button';
+import { placeCardConfig, routes } from '../../shared/constants';
+import type { OfferPreview } from '../../shared/types';
+import { getRatingStarsWidth } from '../../shared/utils';
+import { PremiumMark } from '../premium-mark/premium-mark';
+import { FavoriteButton } from '../favorite-button/favorite-button';
 
 type PlaceCardProps = {
   offer: OfferPreview;

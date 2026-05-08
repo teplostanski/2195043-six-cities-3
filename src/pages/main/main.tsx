@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
-import { CitiesCardList } from '../../components/cities-card-list';
-import { CitiesTabs } from '../../components/cities-tabs';
-import Map from '../../components/map';
-import { SortSection } from '../../components/sort-section';
-import { Spinner } from '../../components/spinner';
+import { CitiesCardList } from '../../components/cities-card-list/cities-card-list';
+import { CitiesTabs } from '../../components/cities-tabs/cities-tabs';
+import Map from '../../components/map/map';
+import { SortSection } from '../../components/sort-section/sort-section';
+import { Spinner } from '../../components/spinner/spinner';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import type { CityName, OfferSortType } from '../../shared/types';
 import {

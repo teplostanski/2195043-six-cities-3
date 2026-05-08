@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { AuthGate } from '../../components/auth-gate';
-import { Header } from '../../components/header';
+import { AuthGate } from '../../components/auth-gate/auth-gate';
+import { Header } from '../../components/header/header';
 import { routes } from '../../shared/constants';
 import { useAppDispatch } from '../../shared/hooks/redux';
 import { loginAction } from '../../store/async-actions';
 import { LoginData } from '../../shared/types';
-import { LoginForm } from '../../components/login-form';
+import { LoginForm } from '../../components/login-form/login-form';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();

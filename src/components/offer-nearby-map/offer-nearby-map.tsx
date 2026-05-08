@@ -1,10 +1,10 @@
-import Map from './map';
-import { Spinner } from './spinner';
-import type { OfferFull } from '../shared/types';
+import Map from '../map/map';
+import { Spinner } from '../spinner/spinner';
+import type { OfferFull } from '../../shared/types';
 
 type OfferNearbyMapProps = {
   city: OfferFull['city'];
-  nearby: OfferFull[] | null;
+  nearby: OfferFull[];
   isLoading: boolean;
   error?: string;
   activeOfferId?: string | null;
@@ -29,7 +29,7 @@ const OfferNearbyMap = ({
     return <p>{error}</p>;
   }
 
-  if (!nearby || nearby.length <= 1) {
+  if (nearby.length <= 1) {
     return null;
   }
 

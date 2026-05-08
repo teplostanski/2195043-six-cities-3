@@ -1,5 +1,5 @@
-import { routes } from '../shared/constants';
-import { AuthGate } from './auth-gate';
+import { routes } from '../../shared/constants';
+import { AuthGate } from '../auth-gate/auth-gate';
 
 type PrivateRouteProps = {
   children: JSX.Element;

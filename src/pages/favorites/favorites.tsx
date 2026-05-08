@@ -1,5 +1,5 @@
-import { FavoritesCardList } from '../../components/favorites-card-list';
-import { Spinner } from '../../components/spinner';
+import { FavoritesCardList } from '../../components/favorites-card-list/favorites-card-list';
+import { Spinner } from '../../components/spinner/spinner';
 import { useAppSelector } from '../../shared/hooks/redux';
 import {
   selectFavorites,

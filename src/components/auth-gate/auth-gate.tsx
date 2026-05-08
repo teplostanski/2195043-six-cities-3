@@ -1,11 +1,11 @@
 import { Navigate } from 'react-router-dom';
-import { authStatus } from '../shared/constants';
-import { useAppSelector } from '../shared/hooks/redux';
+import { authStatus } from '../../shared/constants';
+import { useAppSelector } from '../../shared/hooks/redux';
 import {
   selectAuthorizationStatus,
   selectIsAuthenticated,
-} from '../store/reducers/authSlice';
-import { Spinner } from './spinner';
+} from '../../store/reducers/authSlice';
+import { Spinner } from '../spinner/spinner';
 
 type AuthGateProps = {
   children: JSX.Element;

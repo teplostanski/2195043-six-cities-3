@@ -6,7 +6,7 @@ import {
   TileLayer,
 } from 'leaflet';
 import { useEffect, useRef } from 'react';
-import type { OfferPreview } from '../shared/types';
+import type { OfferPreview } from '../../shared/types';
 
 type MapProps = {
   city: OfferPreview['city'];

@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { ratingStars } from '../shared/constants';
-import type { Comment } from '../shared/types';
-import { formatDate } from '../shared/utils';
+import { ratingStars } from '../../shared/constants';
+import type { Comment } from '../../shared/types';
+import { formatDate } from '../../shared/utils';
 
 type OfferReviewListProps = {
   comments: Comment[];
@@ -9,7 +9,7 @@ type OfferReviewListProps = {
 
 const OfferReviewListComponent = ({ comments }: OfferReviewListProps) => (
   <ul className="reviews__list">
-    {comments?.map((comment) => (
+    {comments.map((comment) => (
       <li key={comment.id} className="reviews__item">
         <div className="reviews__user user">
           <div className="reviews__avatar-wrapper user__avatar-wrapper">

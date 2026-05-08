@@ -1,12 +1,12 @@
 import cn from 'classnames';
 import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import OfferGallery from '../../components/offer-gallery';
-import { OfferNearbyList } from '../../components/offer-nearby-list';
-import { OfferNearbyMap } from '../../components/offer-nearby-map';
-import { OfferReview } from '../../components/offer-review';
-import PremiumMark from '../../components/premium-mark';
-import { Spinner } from '../../components/spinner';
+import { OfferGallery } from '../../components/offer-gallery/offer-gallery';
+import { OfferNearbyList } from '../../components/offer-nearby-list/offer-nearby-list';
+import { OfferNearbyMap } from '../../components/offer-nearby-map/offer-nearby-map';
+import { OfferReview } from '../../components/offer-review/offer-review';
+import { PremiumMark } from '../../components/premium-mark/premium-mark';
+import { Spinner } from '../../components/spinner/spinner';
 import { routes } from '../../shared/constants';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux';
 import { getRatingStarsWidth } from '../../shared/utils';

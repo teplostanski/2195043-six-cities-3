@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { routes } from '../shared/constants';
-import type { CityName, OfferPreview } from '../shared/types';
-import { PlaceCard } from './place-card';
+import { routes } from '../../shared/constants';
+import type { CityName, OfferPreview } from '../../shared/types';
+import { PlaceCard } from '../place-card/place-card';
 
 type FavoritesCardListProps = {
   favorites: OfferPreview[];
